@@ -19,9 +19,9 @@ const SLIDES = ["메인 비주얼 1", "메인 비주얼 2", "메인 비주얼 3"
 const THUMBS = [
   { title: "시력교정", desc: "스마일 · 라식 · 라섹,\n내 눈에 맞는 수술을 찾습니다.", href: "/vision/pre-care" },
   { title: "백내장", desc: "흐려진 시야, 미루지 마세요.\n정밀 검사로 시작합니다.", href: "/cataract/center" },
-  { title: "망막클리닉 보임", desc: "실명을 막는 망막 치료,\n전문의가 함께합니다.", href: "/retina/boim" },
+  { title: "망막클리닉 보임", desc: "치료 시기가 중요한 망막 질환,\n망막 전문 클리닉에서 진료합니다.", href: "/retina/boim" },
   { title: "의료진", desc: "분야별 전문 의료진이\n진료합니다.", href: "/about/doctors" },
-]
+];
 
 /** 메인 비주얼 슬라이더: 페이드 배경 + 썸네일 탭 + 이전/정지/다음 컨트롤 */
 export default function ClinicSection() {
@@ -82,7 +82,7 @@ export default function ClinicSection() {
               {SITE.nameEn}
             </h2>
             <p className={styles.subtitle} suppressHydrationWarning data-aos="fade-left" data-aos-duration="1500">
-              <strong>망막과 백내장에 집중하는 {SITE.name}</strong>은
+              <strong>{SITE.since}년부터 전주에서, {SITE.name}</strong>는
               <br />
               정확한 진단과 책임 있는 치료로 환자의 눈을 지킵니다.
             </p>

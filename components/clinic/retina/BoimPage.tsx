@@ -6,6 +6,7 @@ import ImgTxtBox from "@/components/diseases/common/ImgTxtBox";
 import SectionTitle from "@/components/diseases/common/SectionTitle";
 import VerticalInfoBox from "@/components/diseases/common/VerticalInfoBox";
 import SectionHead from "./SectionHead";
+import { DOCTORS } from "@/lib/doctors";
 import styles from "./retina.module.css";
 
 // 연혁 (기존 홈페이지 C1000·C2000 기준)
@@ -23,13 +24,8 @@ const FOCUS = [
   { title: "황반변성", desc: "중심 시력을 담당하는 황반의 질환으로, 정밀 검사와 꾸준한 치료로 시력을 지켜갑니다.", href: "/retina/macular" },
 ];
 
-// 망막클리닉 의료진 (사진은 추후 교체)
-const DOCTORS = [
-  { name: "차동민", fields: "망막, 포도막, 백내장, 시력교정수술, 녹내장", reserved: true },
-  { name: "김한규", fields: "망막, 포도막, 백내장, 시력교정수술, 녹내장", reserved: true },
-  { name: "박영명", fields: "망막, 포도막, 백내장, 녹내장", reserved: false },
-  { name: "은준수", fields: "망막, 포도막, 백내장, 녹내장", reserved: false },
-];
+// 망막클리닉 의료진 (lib/doctors.ts 공통 데이터, 사진은 추후 교체)
+const RETINA_DOCTORS = DOCTORS.filter((d) => d.clinic === "retina");
 
 /** 망막클리닉 보임 소개 페이지 */
 export default function BoimPage() {
@@ -106,16 +102,16 @@ export default function BoimPage() {
       <ContentBlock>
         <SectionHead first title="망막클리닉 의료진" sub="망막 전문 의료진이 진단부터 수술, 경과 관찰까지 함께합니다." />
         <div className={`${styles.secBody} ${styles.doctorGrid}`}>
-          {DOCTORS.map((d, i) => (
-            <div key={d.name} className={styles.doctor} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 100} data-aos-duration="1500">
+          {RETINA_DOCTORS.map((d, i) => (
+            <div key={d.slug} className={styles.doctor} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 100} data-aos-duration="1500">
               <div className={styles.doctorPhoto}>
-                <Placeholder label={`${d.name} 원장`} aspectRatio="3 / 4" />
+                <Placeholder label={`${d.name} ${d.title}`} aspectRatio="3 / 4" />
               </div>
-              <p className={styles.doctorRole}>원장</p>
+              <p className={styles.doctorRole}>{d.title}</p>
               <p className={styles.doctorName}>{d.name}</p>
-              <p className={styles.doctorFields}>{d.fields}</p>
-              {d.reserved && <p className={styles.doctorNote}>예약 진료만 가능</p>}
-              <Link href="/about/doctors" className={styles.doctorLink}>
+              <p className={styles.doctorFields}>{d.specialties.join(", ")}</p>
+              {d.reservationOnly && <p className={styles.doctorNote}>예약 진료만 가능</p>}
+              <Link href={`/about/doctors#${d.slug}`} className={styles.doctorLink}>
                 자세히 보기
               </Link>
             </div>

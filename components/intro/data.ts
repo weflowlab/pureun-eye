@@ -1,35 +1,5 @@
 /** 병원소개 페이지 데이터 — 실제 정보로 교체 필요 */
 
-/** 의료진 */
-export const DOCTORS = [
-  {
-    name: "O O O",
-    position: "대표 원장",
-    careers: [
-      "OO대학교 의과대학 졸업",
-      "OO대학교병원 안과 전공의",
-      "OO대학교병원 안과 망막 전임의",
-      "OO대학교병원 안과 임상강사",
-      "해외 OO대학병원 망막 연수",
-    ],
-    affiliations: ["대한안과학회 정회원", "한국망막학회 정회원", "미국안과학회(AAO) 회원"],
-  },
-  {
-    name: "O O O",
-    position: "원장",
-    careers: [
-      "OO대학교 의과대학 졸업",
-      "OO대학교병원 안과 전공의",
-      "OO대학교병원 안과 망막 전임의",
-      "전) OO병원 안과 과장",
-    ],
-    affiliations: ["대한안과학회 정회원", "한국망막학회 정회원", "백내장굴절수술학회 회원"],
-  },
-];
-
-/** 연구 논문 및 경력 슬라이드 수 */
-export const PAPER_SLIDE_COUNT = 10;
-
 /** 장비 목록은 공통 데이터 사용 (기존 홈페이지 장비 사진) */
 export { EQUIPMENTS, type Seg } from "@/lib/equipment";
 

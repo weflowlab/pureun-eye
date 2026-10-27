@@ -1,18 +1,17 @@
 import HeroSection from "@/components/home/HeroSection";
 import ClinicSection from "@/components/home/ClinicSection";
-import EquipmentShowcase from "@/components/home/EquipmentShowcase";
+import DepartmentShowcase from "@/components/home/DepartmentShowcase";
+import PreCareSection from "@/components/home/PreCareSection";
 import EquipmentCarousel from "@/components/home/EquipmentCarousel";
-import GuideSystemSection from "@/components/home/GuideSystemSection";
-import ClinicValues from "@/components/home/ClinicValues";
-import SurgerySystem from "@/components/home/SurgerySystem";
+import PhilosophySection from "@/components/home/PhilosophySection";
+import TreatmentSection from "@/components/home/TreatmentSection";
 import DoctorSection from "@/components/home/DoctorSection";
-import ReportSection from "@/components/home/ReportSection";
 import YoutubeSection from "@/components/home/YoutubeSection";
 import NewsSection from "@/components/home/NewsSection";
 import ClinicInfoSection from "@/components/home/ClinicInfoSection";
 import PopupModal from "@/components/home/PopupModal";
 
-/** 메인 페이지: 원본과 동일한 섹션 순서 */
+/** 메인 페이지: 비주얼 → 진료과목 → 검사·장비 → 진료이념 → 대표 치료 → 의료진 → 영상·소식 → 진료 안내 */
 export default function Home() {
   return (
     <>
@@ -20,13 +19,12 @@ export default function Home() {
       <PopupModal />
       <HeroSection />
       <ClinicSection />
-      <EquipmentShowcase />
+      <DepartmentShowcase />
+      <PreCareSection />
       <EquipmentCarousel />
-      <GuideSystemSection />
-      <ClinicValues />
-      <SurgerySystem />
+      <PhilosophySection />
+      <TreatmentSection />
       <DoctorSection />
-      <ReportSection />
       <YoutubeSection />
       <NewsSection />
       <ClinicInfoSection />

@@ -7,28 +7,8 @@ import { Navigation } from "swiper/modules";
 import type { NavigationOptions } from "swiper/types";
 import "swiper/css";
 import Placeholder from "@/components/common/Placeholder";
+import { CLINIC_LABEL, DOCTORS } from "@/lib/doctors";
 import styles from "./DoctorSection.module.css";
-
-const DOCTORS = [
-  {
-    name: "유태영",
-    title: "대표원장",
-    decoTxt: "Representative Director",
-    history: [
-      ["OO대학교 의과대학 졸업", "OO대학교병원 안과 전공의", "OO대학교병원 망막 전임의", "전 OO안과 원장"],
-      ["대한안과학회 정회원", "한국망막학회 정회원", "한국백내장굴절수술학회 정회원", "미국안과학회(AAO) 회원"],
-    ],
-  },
-  {
-    name: "원장 성명",
-    title: "원장",
-    decoTxt: "Ophthalmologist",
-    history: [
-      ["OO대학교 의과대학 졸업", "OO대학교병원 안과 전공의", "OO대학교병원 안과 임상강사"],
-      ["대한안과학회 정회원", "한국망막학회 정회원", "한국포도막학회 정회원"],
-    ],
-  },
-];
 
 // 원형 화살표 아이콘 (다음 버튼은 CSS로 180도 회전)
 const ArrowIcon = () => (
@@ -38,7 +18,7 @@ const ArrowIcon = () => (
   </svg>
 );
 
-/** 의료진 소개 슬라이더: 활성 슬라이드만 페이드업, 이름 영역 좌→우 등장 */
+/** 의료진 소개 슬라이더 (8인): 활성 슬라이드만 페이드업, 이름 영역 좌→우 등장 */
 export default function DoctorSection() {
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
@@ -60,36 +40,31 @@ export default function DoctorSection() {
         className={styles.swiper}
       >
         {DOCTORS.map((d) => (
-          <SwiperSlide key={d.name}>
+          <SwiperSlide key={d.slug}>
             <div className={styles.imgBox}>
               <Placeholder label={`${d.name} ${d.title} 사진`} aspectRatio="540 / 640" />
             </div>
             <div className={styles.infoBox}>
+              <p className={styles.clinic}>{CLINIC_LABEL[d.clinic]}</p>
               <div className={styles.nameWrap}>
                 <Placeholder label="심볼" width={48} height={48} className={styles.symbol} />
                 <h2>
                   <strong className={styles.name}>{d.name}</strong> <span className={styles.position}>{d.title}</span>
                 </h2>
-                <div className={styles.decoTxt}>{d.decoTxt}</div>
+                <div className={styles.decoTxt}>{d.nameEn}</div>
               </div>
               <div className={styles.sloganWrap}>
-                <p className={styles.slogan}>
-                  환자의 눈높이에서 <strong>정성으로 진료합니다.</strong>
-                </p>
+                <p className={styles.slogan}>{d.motto}</p>
               </div>
               <div className={styles.historyBox}>
-                <h3>학력 및 약력</h3>
-                <div className={styles.history}>
-                  {d.history.map((col, i) => (
-                    <ul key={i}>
-                      {col.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
+                <h3>진료 분야</h3>
+                <ul className={styles.fields}>
+                  {d.specialties.map((f) => (
+                    <li key={f}>{f}</li>
                   ))}
-                </div>
+                </ul>
               </div>
-              <Link href="/about/doctors" className={styles.moreBtn}>
+              <Link href={`/about/doctors#${d.slug}`} className={styles.moreBtn}>
                 View more +
               </Link>
             </div>

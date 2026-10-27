@@ -48,6 +48,7 @@
 }
 .lay {
   display: flex;
+  width: 100%;
 }
 .tit {
   margin-right: 45px;
@@ -58,13 +59,16 @@
   white-space: nowrap;
 }
 
-/* 메뉴 목록: 6열 + 열마다 좌측 세로선 */
+/* 메뉴 목록: 6열 균등 분할 + 열마다 좌측 세로선 */
 .dep {
   display: flex;
+  flex: 1;
+  min-width: 0;
 }
 .dep > li {
-  min-width: 170px;
-  padding: 0 40px 0 30px;
+  flex: 1;
+  min-width: 0;
+  padding: 0 16px 0 22px;
   border-left: 1px solid #ffffff80;
   letter-spacing: -0.02em;
 }
@@ -106,8 +110,8 @@
   display: block;
   padding: 7px 0;
   color: #ffffffb3;
-  font-size: 16px;
-  white-space: nowrap;
+  font-size: 15px;
+  line-height: 1.4;
   transition: color 0.3s;
 }
 .sub a:hover {

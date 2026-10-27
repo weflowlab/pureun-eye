@@ -3,25 +3,32 @@ import Placeholder from "@/components/common/Placeholder";
 import { SITE } from "@/lib/site";
 import styles from "./Footer.module.css";
 
-/** 공통 푸터: 나눔진료 안내 밴드 + 병원 정보 */
+/** 공통 푸터: 사회환원·봉사활동 밴드 + 병원 정보 */
 export default function Footer() {
   return (
     <>
-      {/* 나눔진료 안내 밴드 */}
+      {/* 사회환원·봉사활동 밴드 (기존 홈페이지 문구) */}
       <div className={styles.subFooter}>
-        <Placeholder label="나눔진료 배경" dark className={styles.subFooterBg} />
+        <Placeholder label="봉사활동 배경" dark className={styles.subFooterBg} />
         <p className={styles.sharingDesc} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
           <span className={styles.sharingDescBold}>
-            나눔 진료 시간에는
-            <br className="mo_block" /> 의료진이 직접 진료합니다.
+            꾸준한 봉사활동,
+            <br className="mo_block" /> 이것이 {SITE.name}가 지향하는 바입니다.
             <br className="pc_block" />
           </span>
-          나눔 진료비는 전액
-          <br className="mo_block" /> 지역 이웃을 위해 사용됩니다.
+          의료를 통한 봉사로 지역사회와
+          <br className="mo_block" /> 아픔을 함께 나누겠습니다.
         </p>
-        <p className={styles.sharingTime} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200">
-          나눔진료 시간은 병원에 문의해 주세요
-        </p>
+        <Link
+          href="/community/volunteer"
+          className={styles.sharingTime}
+          suppressHydrationWarning
+          data-aos="fade-up"
+          data-aos-duration="1500"
+          data-aos-delay="200"
+        >
+          사회환원 및 봉사활동 보기 →
+        </Link>
       </div>
 
       {/* 하단 정보 */}

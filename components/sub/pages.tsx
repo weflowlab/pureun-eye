@@ -1,10 +1,7 @@
 import type { ComponentType } from "react";
 import SubLayout from "./SubLayout";
-import DoctorSection from "@/components/intro/DoctorSection";
-import PaperSection from "@/components/intro/PaperSection";
 import EquipSection from "@/components/intro/EquipSection";
 import HoursSection from "@/components/intro/HoursSection";
-import ClinicInfoSection from "@/components/home/ClinicInfoSection";
 import NoticeBoard from "@/components/news/NoticeBoard";
 import CataractPage from "@/components/diseases/cataract/CataractPage";
 import DiabeticPage from "@/components/diseases/diabetic/DiabeticPage";
@@ -14,19 +11,11 @@ import GrowthPage from "@/components/diseases/growth/GrowthPage";
 import { VISION_PAGES } from "@/components/clinic/vision";
 import { CATARACT_PAGES } from "@/components/clinic/cataract";
 import { RETINA_PAGES } from "@/components/clinic/retina";
+import DoctorsPage from "@/components/clinic/about/DoctorsPage";
+import LocationPage from "@/components/clinic/about/LocationPage";
 
 export type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 export type SubPageProps = { path: string; searchParams: SearchParams };
-
-// 병원소개 — 의료진 + 연구/경력
-function DoctorsPage({ path }: SubPageProps) {
-  return (
-    <SubLayout path={path}>
-      <DoctorSection />
-      <PaperSection />
-    </SubLayout>
-  );
-}
 
 // 병원소개 — 첨단의료장비
 function EquipmentPage({ path }: SubPageProps) {
@@ -42,15 +31,6 @@ function HoursPage({ path }: SubPageProps) {
   return (
     <SubLayout path={path}>
       <HoursSection />
-    </SubLayout>
-  );
-}
-
-// 병원소개 — 오시는 길 (연락처·지도)
-function LocationPage({ path }: SubPageProps) {
-  return (
-    <SubLayout path={path}>
-      <ClinicInfoSection />
     </SubLayout>
   );
 }

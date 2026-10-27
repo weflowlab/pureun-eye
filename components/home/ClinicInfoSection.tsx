@@ -1,19 +1,10 @@
+import Link from "next/link";
 import Placeholder from "@/components/common/Placeholder";
-import { SITE } from "@/lib/site";
+import { HOURS, SITE } from "@/lib/site";
 import styles from "./ClinicInfoSection.module.css";
 
-const HOURS = [
-  {
-    label: "진료시간",
-    rows: [
-      ["평 일", "오전 09:00 ~ 오후 18:00"],
-      ["토 요 일", "오전 09:00 ~ 오후 13:00"],
-      ["점심시간", "오후 13:00 ~ 오후 14:00"],
-    ],
-  },
-  { label: "야간진료", rows: [["오 후", "18:00 ~ 19:00"]] },
-  { label: "휴 진", rows: [["일요일", "일요일 · 공휴일 휴진"]] },
-];
+// 진료시간표: lib/site HOURS 기준 (오전/오후는 " / " 기준으로 줄바꿈)
+const TIME_ROWS = [HOURS.weekday, HOURS.saturday].map((h) => ({ label: h.label, lines: h.time.split(" / ") }));
 
 /** 진료시간·연락처·오시는 길 안내 (좌: 전화/진료안내, 우: 지도) */
 export default function ClinicInfoSection() {
@@ -53,23 +44,23 @@ export default function ClinicInfoSection() {
                   <p className={styles.phoneBlockTitleMain}>진료 안내</p>
                 </div>
               </div>
-              <div className={styles.noticeTexts}>
-                <p className={styles.noticeText}>※ 수술 일정에 따라 외래 진료가 지연될 수 있으니 전화로 확인 부탁드립니다.</p>
-                <p className={styles.noticeText}>※ 접수 마감 시간은 진료 상황에 따라 달라질 수 있습니다.</p>
-              </div>
               <div className={styles.timeGrid}>
-                {HOURS.map((h) => (
+                {TIME_ROWS.map((h) => (
                   <div key={h.label} className={styles.timeItem}>
-                    <div>{h.label}</div>
+                    <div className={styles.timeContItemTit}>{h.label}</div>
                     <div>
-                      {h.rows.map(([tit, cont]) => (
-                        <div key={tit} className={styles.timeContItem}>
-                          <div className={styles.timeContItemTit}>{tit}</div>
-                          <div>{cont}</div>
-                        </div>
+                      {h.lines.map((line) => (
+                        <div key={line}>{line}</div>
                       ))}
                     </div>
                   </div>
+                ))}
+              </div>
+              <div className={styles.noticeTexts}>
+                {HOURS.notes.map((note) => (
+                  <p key={note} className={styles.noticeText}>
+                    ※ {note}
+                  </p>
                 ))}
               </div>
             </div>
@@ -83,7 +74,7 @@ export default function ClinicInfoSection() {
             <p className={styles.mapTxt}>
               <span className={styles.mapTxtLabel}>찾아오시는 길</span>
               <span className={styles.mapTxtAddr}>
-                {SITE.address} {SITE.name}
+                {SITE.address}
               </span>
             </p>
             <div className={styles.mapBtns}>
@@ -96,6 +87,9 @@ export default function ClinicInfoSection() {
                 카카오지도보기
               </a>
             </div>
+            <Link href="/about/location" className={styles.locationLink}>
+              오시는 길 자세히 보기 +
+            </Link>
           </div>
         </div>
       </div>

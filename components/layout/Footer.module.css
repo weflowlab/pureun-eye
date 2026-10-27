@@ -1,4 +1,4 @@
-/* 나눔진료 안내 밴드 */
+/* 사회환원·봉사활동 밴드 */
 .subFooter {
   position: relative;
   display: flex;
@@ -30,10 +30,17 @@
 .sharingDescBold {
   font-weight: 700;
 }
+/* 봉사활동 페이지 링크 */
 .sharingTime {
   margin-top: 20px;
+  padding-bottom: 2px;
   font-size: 16px;
   line-height: 26px;
+  border-bottom: 1px solid #ffffff80;
+  transition: border-color 0.3s;
+}
+.sharingTime:hover {
+  border-color: #fff;
 }
 
 /* 푸터 본체 */

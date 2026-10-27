@@ -1,3 +1,6 @@
+/* 섹션: 화면 밖 슬라이드가 페이지 폭을 늘리지 않도록 가로만 잘라냄 */
+.section { overflow-x: clip; }
+
 /* 슬라이더 래퍼: 110% 폭, 가운데 정렬 */
 .equipBS {
   position: relative;

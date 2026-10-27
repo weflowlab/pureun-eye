@@ -70,7 +70,7 @@
   font-weight: 300;
   line-height: 130%;
 }
-.noticeText:first-child { padding-bottom: 12px; }
+.noticeText:not(:last-child) { padding-bottom: 12px; }
 
 /* 시간표 */
 .timeGrid {
@@ -88,12 +88,9 @@
   gap: 30px;
   padding-bottom: 12px;
 }
-.timeContItem {
-  display: flex;
-  gap: 21px;
-}
 /* 균등 배분 정렬된 항목명 */
 .timeContItemTit {
+  flex-shrink: 0;
   width: 68px;
   height: 28px;
   text-align: justify;
@@ -173,6 +170,17 @@
 .naverBtn { background: #2db400; }
 .kakaoBtn { color: #000 !important; background: #fed500; }
 
+/* 오시는 길 페이지 바로가기 */
+.locationLink {
+  display: block;
+  width: fit-content;
+  margin: 20px 0 0 auto;
+  color: #222;
+  font-size: 16px;
+  line-height: 1.5;
+  border-bottom: 1px solid #222;
+}
+
 @media screen and (max-width: 1210px) {
   .inner { width: 90%; padding: 50px 0; }
   .title { font-size: 30px; line-height: 35px; }
@@ -187,7 +195,8 @@
   .phone { font-size: 30px; line-height: 35px; }
   .noticeTexts { margin-top: 10px; font-size: 15px; line-height: 1.5; }
   .timeGrid { margin: 0; padding-bottom: 36px; font-size: 16px; letter-spacing: 0.8px; }
-  .timeItem { flex-direction: column; gap: 20px; }
+  .timeItem { gap: 20px; }
+  .locationLink { margin: 16px auto 0; }
   .timeContItemTit { width: 60px; height: 26px; }
   .mapBox { width: 100%; height: auto; margin-top: 30px; }
   .map { height: auto !important; aspect-ratio: 16 / 9; }

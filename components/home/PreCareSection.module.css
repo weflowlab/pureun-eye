@@ -1,4 +1,4 @@
-/* 수술 가이드 시스템 섹션 (원본 배경 이미지 대신 연한 그라데이션) */
+/* 수술 전 검사 섹션 (배경 이미지 대신 연한 그라데이션) */
 .section {
   height: 100vh;
   padding-top: 136px;
@@ -30,9 +30,10 @@
   border: 1px solid #000;
   border-radius: 100px;
 }
+/* 검사 수 + 문구 (기준선 정렬) */
 .logo {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: min(0.8vw, 16px);
 }
 .logoText {
@@ -43,14 +44,6 @@
   font-size: clamp(30px, 3.6vw, 70px);
   font-weight: 700;
   line-height: 1.2;
-}
-/* 로고 뒤 세로 구분선 */
-.logoText::after {
-  content: "";
-  display: block;
-  width: 2px;
-  height: 24px;
-  background: var(--color-primary);
 }
 .logoSub {
   color: #272727;
@@ -79,6 +72,28 @@
   letter-spacing: -0.72px;
 }
 .txt b { font-weight: 600; }
+/* 대표 검사명 */
+.sample {
+  margin-top: 12px;
+  color: #6b6b6b;
+  text-align: right;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: -0.36px;
+}
+
+/* 상세 페이지 바로가기 */
+.moreBtn {
+  display: inline-block;
+  margin-top: 24px;
+  color: #222;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.72px;
+  border-bottom: 1px solid #222;
+}
 
 /* PC 가로 트랙 (GSAP translateX) */
 .desktopSlider {
@@ -117,9 +132,11 @@
   .imgWrap,
   .slideWrap { width: 100%; }
   .titLabel { margin: 0 auto 8px; padding: 4px 20px; }
-  .logo { flex-direction: column; gap: 0; }
-  .logoText::after { content: none; }
+  .logo { flex-direction: column; align-items: center; gap: 0; }
+  .tit { text-align: center; }
   .txt { font-size: 16px; }
+  .sample { font-size: 14px; }
+  .moreBtn { margin-top: 12px; font-size: 15px; }
   .cover { margin-bottom: 12px; }
   .desktopSlide { padding-right: 0; }
 }

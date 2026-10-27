@@ -1,4 +1,4 @@
-/* 맞춤 수술 시스템 섹션 */
+/* 진료과목별 대표 치료 섹션 */
 .section {
   padding: 150px 0;
   overflow: hidden;
@@ -92,6 +92,12 @@
   margin-bottom: 30px;
   overflow: hidden;
 }
+.cover > * { transition: transform 0.45s; }
+/* 호버: 이미지 확대 + 제목 반전 */
+@media (hover: hover) {
+  .slide a:hover .cover > * { transform: scale(1.05); }
+  .slide a:hover .slideTitle { color: #fff; background: var(--color-primary); border-color: var(--color-primary); }
+}
 .slideTitle {
   width: fit-content;
   margin-bottom: 20px;
@@ -103,6 +109,7 @@
   letter-spacing: -0.66px;
   border: 1px solid #000;
   border-radius: 100px;
+  transition: var(--transition-base);
 }
 .slideDesc {
   color: #1c1c1c;

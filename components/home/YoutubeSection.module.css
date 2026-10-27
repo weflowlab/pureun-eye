@@ -66,6 +66,15 @@
   transition: var(--transition-base);
 }
 .moreBtn:hover { opacity: 0.85; }
+/* 영상도우미 게시판 바로가기 */
+.subBtn {
+  display: inline-block;
+  margin-left: 20px;
+  color: #222;
+  font-size: 15px;
+  line-height: 1.5;
+  border-bottom: 1px solid #222;
+}
 /* 재생 삼각형 아이콘 */
 .ytIcon {
   width: 0;
@@ -98,6 +107,7 @@
   .desc p { padding-top: 20px; text-align: center; font-size: 18px; line-height: 150%; letter-spacing: -0.9px; }
   .textBox > div { display: flex; flex-direction: column; align-items: center; }
   .moreBtn { margin-top: 20px; }
+  .subBtn { margin: 16px 0 0; }
 }
 
 @media screen and (max-width: 768px) {

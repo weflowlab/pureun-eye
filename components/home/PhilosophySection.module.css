@@ -1,4 +1,4 @@
-/* 병원 가치 섹션 */
+/* 진료이념 섹션 */
 .section {
   position: relative;
   width: 100%;
@@ -20,7 +20,28 @@
   font-weight: 700;
   line-height: 38px;
 }
-.quoteBold { font-weight: 700; }
+/* 슬로건 아래 안내 문구 */
+.lead {
+  margin-top: 24px;
+  color: #555;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: -0.4px;
+}
+.lead b {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+.moreBtn {
+  margin-top: 24px;
+  color: #222;
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: -0.72px;
+  border-bottom: 1px solid #222;
+}
 .clinicImg {
   position: relative;
   z-index: 1;
@@ -52,8 +73,16 @@
   color: #f2f2f2;
   text-align: center;
 }
+/* 진료이념 번호 (아이콘 대체) */
+.valueNum {
+  color: #8ea4dd;
+  font-family: "Poppins", var(--font-sans);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1;
+}
 .valueTitle {
-  margin-top: 50px;
+  margin-top: 30px;
   color: #f2f2f2;
   font-size: 20px;
   font-weight: 700;
@@ -78,8 +107,11 @@
     padding-bottom: 100px;
   }
   .valueCard { margin: 20px; }
-  .valueIcon { width: 80px !important; height: 80px !important; }
-  .valueTitle { margin-top: 20px; }
+  .lead { font-size: 16px; }
+  .lead br { display: none; }
+  .moreBtn { font-size: 15px; }
+  .valueNum { font-size: 34px; }
+  .valueTitle { margin-top: 16px; }
 }
 
 @media screen and (max-width: 768px) {

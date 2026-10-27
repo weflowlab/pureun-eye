@@ -5,16 +5,20 @@ import { Swiper, SwiperSlide } from "@/components/common/Swiper";
 import { Autoplay, Navigation } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
+import Link from "next/link";
 import Placeholder from "@/components/common/Placeholder";
 import { SITE } from "@/lib/site";
-import styles from "./SurgerySystem.module.css";
+import styles from "./TreatmentSection.module.css";
 
+// 진료과목별 대표 치료 (각 페이지 원고 기준)
 const SLIDES = [
-  { title: "망막·백내장 수술 장비 구비", desc: "질환과 상태에 맞춰 선택할 수 있는 수술 장비를 갖추고 있습니다." },
-  { title: "영상 기반 정밀 분석", desc: "다양한 영상 검사로 눈의 구조를 층별로 확인한 뒤 계획을 세웁니다." },
-  { title: "눈 구조에 맞춘 수술 설계", desc: "여러 진단 지표를 종합해 환자에게 맞는 수술 방법을 선택합니다." },
-  { title: "수술 결과 예측", desc: "수술 전 기대 시력과 회복 과정을 충분히 설명해 드립니다." },
-  { title: "전문의 직접 검토", desc: "모든 검사 결과는 전문의가 직접 확인하고 방향을 제안합니다." },
+  { title: "Smile 4 me", desc: "각막 절편 없이 작은 절개창으로 교정하는 시력교정수술입니다.", href: "/vision/smile" },
+  { title: "LASIK / LASEK", desc: "정밀 검사로 각막 상태를 확인해 알맞은 수술 방법을 선택합니다.", href: "/vision/lasik" },
+  { title: "프리미엄 백내장 수술", desc: "다초점 인공수정체로 굴절이상과 노안 개선까지 함께 고려합니다.", href: "/cataract/premium" },
+  { title: "레이저 백내장 수술", desc: "3D OCT 안구 분석으로 수술의 주요 단계를 미리 계획합니다.", href: "/cataract/laser" },
+  { title: "망막박리", desc: "망막이 떨어지는 질환으로, 빠른 진단과 수술이 중요합니다.", href: "/retina/detachment" },
+  { title: "당뇨망막병증", desc: "당뇨로 인한 망막 혈관 손상을 단계별로 치료합니다.", href: "/retina/diabetic" },
+  { title: "황반변성", desc: "정밀 검사와 꾸준한 치료로 중심 시력을 지켜갑니다.", href: "/retina/macular" },
 ];
 
 // 원형 화살표 아이콘 (다음 버튼은 CSS로 180도 회전)
@@ -25,8 +29,8 @@ const ArrowIcon = () => (
   </svg>
 );
 
-/** 맞춤 수술 시스템: 좌측 텍스트·화살표 + 우측으로 넘쳐 보이는 자동 루프 슬라이더 */
-export default function SurgerySystem() {
+/** 진료과목별 대표 치료: 좌측 텍스트·화살표 + 우측으로 넘쳐 보이는 자동 루프 슬라이더 */
+export default function TreatmentSection() {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
@@ -38,20 +42,20 @@ export default function SurgerySystem() {
               눈은 모두 <b>다릅니다.</b>
             </span>
             <h3 className={styles.title}>
-              눈의 모양과 구조를 고려한
+              검사 결과에 맞춘
               <br />
-              1:1 맞춤 수술
+              진료과목별 치료
             </h3>
             <div className={styles.dt}>
               <p>
-                {SITE.name}는 환자마다 다른 눈 구조를 정밀하게 분석하고
+                {SITE.name}는 정해진 수술에 환자를 맞추지 않습니다.
                 <br />
-                그에 맞춰 검진·설계·수술을 진행합니다.
+                정밀 검사로 눈 상태를 먼저 확인합니다.
               </p>
               <p>
-                정해진 수술에 환자를 맞추지 않고,
+                그 결과를 바탕으로
                 <br />
-                <b>환자의 눈에 필요한 수술을 선택</b>합니다.
+                <b>내 눈에 필요한 치료를 함께 정합니다.</b>
               </p>
             </div>
             <div className={styles.navWrap}>
@@ -80,15 +84,17 @@ export default function SurgerySystem() {
             breakpoints={{ 0: { spaceBetween: 16 }, 768: { spaceBetween: 24 }, 1025: { spaceBetween: 36 } }}
             className={styles.swiper}
           >
-            {SLIDES.map((s, i) => (
+            {SLIDES.map((s) => (
               <SwiperSlide key={s.title} className={styles.slide}>
-                <div className={styles.cover}>
-                  <Placeholder label={`맞춤 수술 ${i + 1}`} aspectRatio="540 / 405" />
-                </div>
-                <dl>
-                  <dt className={styles.slideTitle}>{s.title}</dt>
-                  <dd className={styles.slideDesc}>{s.desc}</dd>
-                </dl>
+                <Link href={s.href}>
+                  <div className={styles.cover}>
+                    <Placeholder label={s.title} aspectRatio="540 / 405" />
+                  </div>
+                  <dl>
+                    <dt className={styles.slideTitle}>{s.title}</dt>
+                    <dd className={styles.slideDesc}>{s.desc}</dd>
+                  </dl>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>

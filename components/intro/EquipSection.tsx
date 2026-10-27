@@ -45,7 +45,7 @@ export default function EquipSection() {
   }, []);
 
   return (
-    <section className={`${s.contB} ${s.bwhite}`}>
+    <section className={`${s.contB} ${s.bwhite} ${styles.section}`}>
       <div className={s.contInner} id="equip">
         <p className={s.contTitTxt} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
           장비안내
