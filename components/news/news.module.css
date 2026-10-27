@@ -12,6 +12,17 @@
   font-weight: 700;
 }
 
+/* 제목 아래 안내 문구 (고객후기 등) */
+.notice {
+  margin: -10px 0 25px;
+  padding: 16px 20px;
+  color: var(--color-light-grey);
+  font-size: 15px;
+  line-height: 24px;
+  background: var(--color-bg-gray);
+  border-radius: 10px;
+}
+
 /* 게시판 테이블 */
 .table {
   width: 100%;

@@ -6,10 +6,12 @@ type Props = {
   posts: NewsPost[];
   /** 첫 행의 게시글 번호 (전체 개수 기준 역순) */
   startNumber: number;
+  /** 게시판 경로 (예: "/community/notice") — 상세 링크 = basePath/id */
+  basePath: string;
 };
 
-/** 공지사항 게시판 테이블 (번호/제목/등록일/조회수) */
-export default function NewsTable({ posts, startNumber }: Props) {
+/** 게시판 테이블 (번호/제목/등록일/조회수) — 공지사항·고객후기 공용 */
+export default function NewsTable({ posts, startNumber, basePath }: Props) {
   return (
     <table className={styles.table}>
       <thead>
@@ -32,7 +34,7 @@ export default function NewsTable({ posts, startNumber }: Props) {
             <tr key={post.id} className={styles.row}>
               <td className={styles.tdNum}>{startNumber - i}</td>
               <td className={styles.tdTitle}>
-                <Link href={`/community/notice/${post.id}`}>{post.title}</Link>
+                <Link href={`${basePath}/${post.id}`}>{post.title}</Link>
               </td>
               <td className={styles.tdDate}>{post.date}</td>
               <td className={styles.tdViews}>{post.views}</td>

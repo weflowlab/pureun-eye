@@ -20,14 +20,14 @@ export default function Footer() {
           <br className="mo_block" /> 아픔을 함께 나누겠습니다.
         </p>
         <Link
-          href="/community/volunteer"
+          href="/about/philosophy"
           className={styles.sharingTime}
           suppressHydrationWarning
           data-aos="fade-up"
           data-aos-duration="1500"
           data-aos-delay="200"
         >
-          사회환원 및 봉사활동 보기 →
+          진료이념 보기 →
         </Link>
       </div>
 

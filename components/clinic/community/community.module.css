@@ -1,0 +1,72 @@
+/* FAQ 분류 */
+.faqList { margin-top: 40px; border-top: 2px solid var(--color-primary); }
+
+/* 질문 한 줄 (펼치기) */
+.faqItem { border-bottom: 1px solid var(--color-border); }
+.faqQ {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px 50px 24px 10px;
+  color: var(--color-deep-grey);
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 28px;
+  list-style: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.faqQ::-webkit-details-marker { display: none; }
+.faqQ:hover { color: var(--color-primary); }
+/* 우측 +/- 표시 */
+.faqQ::after {
+  content: "+";
+  position: absolute;
+  right: 14px;
+  color: var(--color-primary);
+  font-size: 26px;
+  font-weight: 300;
+}
+.faqItem[open] .faqQ::after { content: "−"; }
+.faqItem[open] .faqQ { color: var(--color-primary); }
+
+/* 답변 */
+.faqA {
+  display: flex;
+  gap: 18px;
+  padding: 22px 30px 28px 10px;
+  color: var(--color-light-grey);
+  font-size: 17px;
+  line-height: 28px;
+  background: var(--color-bg-gray);
+}
+.faqA .faqMark { background: var(--color-accent); }
+.faqMark {
+  display: inline-flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+.faqLink {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--color-primary);
+  font-size: 15px;
+  font-weight: 500;
+}
+.faqLink:hover { text-decoration: underline; }
+
+@media screen and (max-width: 768px) {
+  .faqList { margin-top: 25px; }
+  .faqQ { gap: 12px; padding: 18px 40px 18px 4px; font-size: 16px; line-height: 24px; }
+  .faqA { gap: 12px; padding: 18px 16px 22px 4px; font-size: 15px; line-height: 24px; }
+  .faqMark { width: 26px; height: 26px; font-size: 13px; }
+}

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Placeholder from "@/components/common/Placeholder";
 import { SITE } from "@/lib/site";
 import styles from "./YoutubeSection.module.css";
@@ -32,9 +31,6 @@ export default function YoutubeSection() {
               <span className={styles.ytIcon} aria-hidden="true" />
               유튜브 바로가기
             </a>
-            <Link href="/community/videos" className={styles.subBtn}>
-              영상도우미 전체보기 +
-            </Link>
           </div>
         </div>
       </div>

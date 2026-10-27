@@ -1,0 +1,33 @@
+/* 파일 형식별 카드 3열 */
+.files { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; margin-top: 60px; }
+.files li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 45px 20px;
+  border: 2px solid var(--color-primary);
+  border-radius: 30px;
+}
+.format { color: var(--color-primary); font-size: 34px; font-weight: 700; letter-spacing: 0.05em; }
+.desc { margin-top: 8px; color: var(--color-light-grey); font-size: 16px; }
+
+/* 다운로드 버튼 */
+.btn {
+  margin-top: 25px;
+  padding: 12px 34px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  background: var(--color-primary);
+  border-radius: 30px;
+  transition: opacity 0.2s;
+}
+.btn:hover { opacity: 0.85; }
+.disabled { background: #b8bfcf; cursor: default; }
+.disabled:hover { opacity: 1; }
+
+@media screen and (max-width: 768px) {
+  .files { grid-template-columns: minmax(0, 1fr); gap: 15px; margin-top: 35px; }
+  .files li { padding: 30px 20px; border-radius: 20px; }
+  .format { font-size: 28px; }
+}

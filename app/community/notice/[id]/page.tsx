@@ -35,5 +35,5 @@ async function NewsDetailContent({ params }: Props) {
   const post = getNewsPost(Number((await params).id));
   if (!post) notFound();
 
-  return <NewsDetail post={post} />;
+  return <NewsDetail post={post} basePath="/community/notice" />;
 }

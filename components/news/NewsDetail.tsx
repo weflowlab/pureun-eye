@@ -3,8 +3,8 @@ import Placeholder from "@/components/common/Placeholder";
 import type { NewsPost } from "@/lib/news";
 import styles from "./detail.module.css";
 
-/** 공지사항 상세 (제목/등록일·조회수/대표이미지/본문/목록 버튼) */
-export default function NewsDetail({ post }: { post: NewsPost }) {
+/** 게시글 상세 (제목/등록일·조회수/대표이미지/본문/목록 버튼) — 공지사항·고객후기 공용 */
+export default function NewsDetail({ post, basePath }: { post: NewsPost; basePath: string }) {
   return (
     <div className={styles.wrap}>
       {/* 제목·메타 */}
@@ -36,7 +36,7 @@ export default function NewsDetail({ post }: { post: NewsPost }) {
 
       {/* 목록으로 */}
       <div className={styles.nav}>
-        <Link href="/community/notice" className={styles.backBtn}>
+        <Link href={basePath} className={styles.backBtn}>
           목록으로
         </Link>
       </div>

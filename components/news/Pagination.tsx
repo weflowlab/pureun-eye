@@ -4,13 +4,15 @@ import styles from "./news.module.css";
 type Props = {
   current: number;
   total: number;
+  /** 게시판 경로 */
+  basePath: string;
 };
 
 /** 목록 페이지 이동 버튼 (처음/이전/번호/다음/마지막) — ?page=n 링크 */
-export default function Pagination({ current, total }: Props) {
+export default function Pagination({ current, total, basePath }: Props) {
   if (total <= 1) return null;
 
-  const href = (page: number) => (page === 1 ? "/community/notice" : `/community/notice?page=${page}`);
+  const href = (page: number) => (page === 1 ? basePath : `${basePath}?page=${page}`);
   const pages = Array.from({ length: total }, (_, i) => i + 1);
 
   // 이동 불가 버튼은 비활성 스타일의 span으로 렌더
