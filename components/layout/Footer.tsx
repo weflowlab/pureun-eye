@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Placeholder from "@/components/common/Placeholder";
 import { SITE } from "@/lib/site";
@@ -36,7 +37,7 @@ export default function Footer() {
         <div className={styles.inner}>
           <div className={styles.footerBox}>
             <Link href="/" className={styles.logoWrap} aria-label={SITE.name}>
-              <Placeholder label="푸터 로고" width={180} height={50} />
+              <Image src="/images/logo/logo-footer.webp" alt={SITE.name} width={134} height={42} />
             </Link>
 
             <div className={styles.infoBox}>

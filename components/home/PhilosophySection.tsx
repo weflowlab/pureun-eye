@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Placeholder from "@/components/common/Placeholder";
 import { SITE } from "@/lib/site";
@@ -16,7 +17,7 @@ export default function PhilosophySection() {
     <section className={styles.section}>
       <div className={styles.inner}>
         <div className={styles.logoWrap} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
-          <Placeholder label={`${SITE.name} 로고`} aspectRatio="270 / 80" />
+          <Image src="/images/logo/logo.webp" alt={SITE.name} width={188} height={60} className={styles.logoImg} />
         </div>
         <p className={styles.quote} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
           “See more, Do more”

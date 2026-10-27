@@ -13,6 +13,7 @@
   padding: 150px 0 560px;
 }
 .logoWrap { width: 270px; }
+.logoImg { width: 100%; height: auto; }
 .quote {
   margin-top: 20px;
   color: #393939;

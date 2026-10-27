@@ -33,6 +33,12 @@
   transform: translateY(-50%);
 }
 
+/* 로고 이미지: 박스 높이에 맞춤 */
+.logoImg {
+  width: auto;
+  height: 100%;
+}
+
 /* PC 메뉴 */
 .headerList {
   display: flex;

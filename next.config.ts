@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
       { source: "/retina/referral", destination: "/community/referral", permanent: true },
     ];
   },
+  // 이미지 최적화 끔: public/images 를 미리 WebP(가로 1600px 이하, 품질 82)로 압축해 두어
+  // Vercel 이미지 최적화(/_next/image, 월 한도 있는 유료 항목)를 거칠 필요가 없다.
+  // 대신 원본 파일이 그대로 전송되므로, 새 이미지를 넣을 때도 반드시 WebP로 가볍게 만들어 둘 것.
+  images: {
+    unoptimized: true,
+  },
   experimental: {
     agentFeedback: true,
   },

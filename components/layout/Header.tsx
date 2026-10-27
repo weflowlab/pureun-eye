@@ -1,9 +1,9 @@
 "use client";
 
 import { Suspense, useState, useSyncExternalStore } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Placeholder from "@/components/common/Placeholder";
 import { MENU, SITE, groupHref, pageHref } from "@/lib/site";
 import GnbMenu from "./GnbMenu";
 import styles from "./Header.module.css";
@@ -35,7 +35,7 @@ function HeaderView({ pathname }: { pathname: string | null }) {
         <div className={styles.cont}>
           {/* 로고 */}
           <Link href="/" className={styles.logo} aria-label={SITE.name}>
-            <Placeholder label="로고" width={160} height="100%" />
+            <Image src="/images/logo/logo.webp" alt={SITE.name} width={188} height={60} priority className={styles.logoImg} />
           </Link>
 
           {/* PC 메뉴 (1210px 이하 숨김): 대메뉴 아래 하위메뉴 드롭다운 */}

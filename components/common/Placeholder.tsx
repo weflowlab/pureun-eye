@@ -1,4 +1,6 @@
 import type { CSSProperties } from "react";
+import Image from "next/image";
+import { stockFor } from "@/lib/stock";
 import styles from "./Placeholder.module.css";
 
 type Props = {
@@ -8,14 +10,31 @@ type Props = {
   width?: number | string;
   height?: number | string;
   aspectRatio?: string;
-  /** 어두운 배경 위에 놓일 때 */
+  /** 어두운 배경 위에 놓일 때 (스톡 사진이면 어둡게 덮음) */
   dark?: boolean;
+  /** false면 스톡 사진 없이 플레이스홀더 유지 (원장 사진·병원 시설 등) */
+  stock?: boolean;
   className?: string;
   style?: CSSProperties;
 };
 
-/** 이미지 자리 표시용 플레이스홀더. 실제 이미지로 교체 시 next/image로 바꾸면 된다. */
-export default function Placeholder({ label, width, height, aspectRatio, dark, className, style }: Props) {
+/** 이미지 자리. lib/stock.ts 규칙에 맞는 라벨이면 임시 스톡 사진, 아니면 사선 패턴 플레이스홀더 */
+export default function Placeholder({ label, width, height, aspectRatio, dark, stock = true, className, style }: Props) {
+  const src = stock ? stockFor(label) : null;
+
+  // 임시 스톡 사진
+  if (src) {
+    return (
+      <div
+        className={`${styles.stock} ${dark ? styles.stockDark : ""} ${className ?? ""}`}
+        style={{ width, height, aspectRatio, ...style }}
+        data-stock={label}
+      >
+        <Image src={src} alt="" fill sizes="(max-width: 768px) 100vw, 60vw" />
+      </div>
+    );
+  }
+
   return (
     <div
       role="img"

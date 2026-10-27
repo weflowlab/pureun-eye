@@ -6,7 +6,7 @@ import SectionHead from "@/components/clinic/retina/SectionHead";
 import { SITE } from "@/lib/site";
 import styles from "./tour.module.css";
 
-// 공간 사진 목록 — 사진은 병원에서 새로 받아 교체 (라벨은 예상 공간)
+// 공간 사진 목록 — 실제 시설 사진만 사용 (스톡 금지), 병원에서 받아 교체
 const SPACES = [
   { name: "병원 외관", desc: "백제대로에 위치한 푸른안과" },
   { name: "접수 · 로비", desc: "" },
@@ -28,14 +28,14 @@ export default function TourPage({ path }: SubPageProps) {
 
         {/* 대표 사진 */}
         <div className={styles.hero} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
-          <Placeholder label="병원 전경 대표 사진" />
+          <Placeholder label="병원 전경 대표 사진" stock={false} />
         </div>
 
         {/* 공간별 사진 */}
         <ul className={styles.grid}>
           {SPACES.map((s, i) => (
             <li key={s.name} suppressHydrationWarning data-aos="fade-up" data-aos-delay={(i % 3) * 100} data-aos-duration="1500">
-              <Placeholder label={s.name} aspectRatio="4 / 3" />
+              <Placeholder label={s.name} aspectRatio="4 / 3" stock={false} />
               <p className={styles.name}>{s.name}</p>
               {s.desc && <p className={styles.desc}>{s.desc}</p>}
             </li>
