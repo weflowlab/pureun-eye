@@ -32,7 +32,7 @@ export default function NewsTable({ posts, startNumber }: Props) {
             <tr key={post.id} className={styles.row}>
               <td className={styles.tdNum}>{startNumber - i}</td>
               <td className={styles.tdTitle}>
-                <Link href={`/news/${post.id}`}>{post.title}</Link>
+                <Link href={`/community/notice/${post.id}`}>{post.title}</Link>
               </td>
               <td className={styles.tdDate}>{post.date}</td>
               <td className={styles.tdViews}>{post.views}</td>

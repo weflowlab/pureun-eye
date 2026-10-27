@@ -1,5 +1,5 @@
 import ContentBlock from "../common/ContentBlock";
-import DiseaseLayout from "../common/DiseaseLayout";
+import SubLayout from "@/components/sub/SubLayout";
 import ImgTxtBox from "../common/ImgTxtBox";
 import InfoBox from "../common/InfoBox";
 import SectionTitle from "../common/SectionTitle";
@@ -9,8 +9,8 @@ import DiabeticSlider from "./DiabeticSlider";
 /** 당뇨망막증 페이지 */
 export default function DiabeticPage() {
   return (
-    <DiseaseLayout
-      title="망막센터"
+    <SubLayout
+      path="/retina/diabetic"
       description={
         <>
           시력의 중심이 되는 망막을 <br className="pc_block" />
@@ -96,6 +96,6 @@ export default function DiabeticPage() {
           상태에 맞춰 시행합니다.
         </InfoBox>
       </ContentBlock>
-    </DiseaseLayout>
+    </SubLayout>
   );
 }

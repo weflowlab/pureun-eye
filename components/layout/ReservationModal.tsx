@@ -4,14 +4,13 @@ import { useState, type ChangeEvent } from "react";
 import { SITE } from "@/lib/site";
 import styles from "./ReservationModal.module.css";
 
-// 진료 분야 선택지 (예시)
+// 진료 분야 선택지 (진료과목 3개 + 기타)
 const SUBJECTS = [
-  { id: "subject1", value: "황반변성 · 황반 질환" },
-  { id: "subject2", value: "당뇨망막증 · 망막혈관 질환" },
-  { id: "subject3", value: "비문증 · 유리체 질환" },
-  { id: "subject4", value: "백내장 · 노안" },
-  { id: "subject5", value: "기타 (안구건조증 등)" },
-];
+  { id: "subject1", value: "시력교정 (스마일·라식·라섹)" },
+  { id: "subject2", value: "백내장 · 노안" },
+  { id: "subject3", value: "망막 질환 (망막클리닉 보임)" },
+  { id: "subject4", value: "기타 문의" },
+]
 
 type CheckboxProps = {
   id: string;

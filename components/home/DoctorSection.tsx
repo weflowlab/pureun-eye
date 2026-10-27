@@ -7,12 +7,11 @@ import { Navigation } from "swiper/modules";
 import type { NavigationOptions } from "swiper/types";
 import "swiper/css";
 import Placeholder from "@/components/common/Placeholder";
-import { SITE } from "@/lib/site";
 import styles from "./DoctorSection.module.css";
 
 const DOCTORS = [
   {
-    name: SITE.ceo,
+    name: "유태영",
     title: "대표원장",
     decoTxt: "Representative Director",
     history: [
@@ -90,7 +89,7 @@ export default function DoctorSection() {
                   ))}
                 </div>
               </div>
-              <Link href="/intro" className={styles.moreBtn}>
+              <Link href="/about/doctors" className={styles.moreBtn}>
                 View more +
               </Link>
             </div>

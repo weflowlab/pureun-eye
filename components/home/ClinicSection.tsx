@@ -15,12 +15,13 @@ import styles from "./ClinicSection.module.css";
 
 const SLIDES = ["메인 비주얼 1", "메인 비주얼 2", "메인 비주얼 3", "메인 비주얼 4"];
 
+// 메인 비주얼 썸네일: 진료과목 3개 + 의료진
 const THUMBS = [
-  { title: "망막", desc: "조기 발견이 시력을 지킵니다.\n정기 검진을 권해드립니다.", href: "/diseases/diabetic" },
-  { title: "백내장", desc: "흐려진 시야, 미루지 마세요.\n정밀 검사로 시작합니다.", href: "/diseases/cataract" },
-  { title: "소아근시억제", desc: "성장기 아이의 눈,\n지금 관리가 중요합니다.", href: "/diseases/child" },
-  { title: "안구건조증", desc: "뻑뻑하고 시린 눈,\n원인부터 살펴봅니다.", href: "/diseases/xerophthalmia" },
-];
+  { title: "시력교정", desc: "스마일 · 라식 · 라섹,\n내 눈에 맞는 수술을 찾습니다.", href: "/vision/pre-care" },
+  { title: "백내장", desc: "흐려진 시야, 미루지 마세요.\n정밀 검사로 시작합니다.", href: "/cataract/center" },
+  { title: "망막클리닉 보임", desc: "실명을 막는 망막 치료,\n전문의가 함께합니다.", href: "/retina/boim" },
+  { title: "의료진", desc: "분야별 전문 의료진이\n진료합니다.", href: "/about/doctors" },
+]
 
 /** 메인 비주얼 슬라이더: 페이드 배경 + 썸네일 탭 + 이전/정지/다음 컨트롤 */
 export default function ClinicSection() {

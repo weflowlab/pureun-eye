@@ -26,7 +26,7 @@ function ClockIcon() {
 
 /** 진료시간 안내: 어두운 배경 위 전화번호(좌) + 진료시간 표(우) */
 export default function HoursSection() {
-  const tels = [SITE.tel, SITE.mobile];
+  const tels = [SITE.tel, SITE.lasikTel];
   return (
     <section className={`${s.contB} ${styles.wrap}`}>
       {/* 배경 이미지 자리 + 어둡게 */}

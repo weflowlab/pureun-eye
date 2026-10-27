@@ -2,7 +2,7 @@ import Placeholder from "@/components/common/Placeholder";
 import { BadgeBox, BadgeItem } from "../common/BadgeBox";
 import ContentBlock from "../common/ContentBlock";
 import DiagnosisBox from "../common/DiagnosisBox";
-import DiseaseLayout from "../common/DiseaseLayout";
+import SubLayout from "@/components/sub/SubLayout";
 import ImgTxtBox from "../common/ImgTxtBox";
 import PhotoGrid from "../common/PhotoGrid";
 import SectionTitle from "../common/SectionTitle";
@@ -21,8 +21,8 @@ const SYMPTOMS = [
 /** 황반변성 페이지 */
 export default function MacularPage() {
   return (
-    <DiseaseLayout
-      title="황반변성"
+    <SubLayout
+      path="/retina/macular"
       description={
         <>
           시세포가 모여 있어 중심 시력을 <br className="pc_block" />
@@ -115,7 +115,7 @@ export default function MacularPage() {
       <ContentBlock>
         <PhotoGrid items={["혈압 관리", "혈당 관리", "체중 관리", "균형 잡힌 식단", "콜레스테롤 관리", "금연"]} />
       </ContentBlock>
-    </DiseaseLayout>
+    </SubLayout>
   );
 }
 

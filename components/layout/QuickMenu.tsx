@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useSyncExternalStore, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import { SITE } from "@/lib/site";
 import { getLenis } from "./Providers";
 import ReservationModal from "./ReservationModal";
@@ -39,22 +40,25 @@ const ICONS = {
   call: <Icon><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z" /></Icon>,
   map: <Icon><path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z" /><circle cx="12" cy="10" r="2.2" /></Icon>,
   blog: <Icon><path d="M4 5h16v11H8l-4 4z" /><path d="M8 9h8M8 12h5" /></Icon>,
+  instagram: <Icon><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" /></Icon>,
 };
 
 /** 우측 고정 퀵메뉴 + 맨 위로 버튼 */
 export default function QuickMenu() {
   const open = useSyncExternalStore(subscribe, readOpen, () => false);
   const [modalOpen, setModalOpen] = useState(false);
+  const router = useRouter();
 
   const toggle = () => writeOpen(!open);
 
-  // 메뉴 항목 정의
+  // 메뉴 항목: 고객 요청 문의 채널(전화·카카오채널·인스타그램·블로그) + 상담신청·오시는 길
   const items = [
-    { key: "kakao", label: "카톡상담", onClick: () => window.open(SITE.kakaoUrl) },
+    { key: "kakao", label: "카카오채널", onClick: () => window.open(SITE.kakaoUrl) },
     { key: "consult", label: "상담신청", onClick: () => setModalOpen(true) },
     { key: "call", label: "상담전화", onClick: () => (location.href = `tel:${SITE.tel}`) },
-    { key: "map", label: "오시는 길", onClick: () => window.open(SITE.naverMapUrl) },
-    { key: "blog", label: "웹블로그", onClick: () => window.open(SITE.blogUrl) },
+    { key: "instagram", label: "인스타그램", onClick: () => window.open(SITE.instagramUrl) },
+    { key: "blog", label: "블로그", onClick: () => window.open(SITE.blogUrl) },
+    { key: "map", label: "오시는 길", onClick: () => router.push("/about/location") },
   ] as const;
 
   // 맨 위로 (Lenis 사용 시 부드럽게)

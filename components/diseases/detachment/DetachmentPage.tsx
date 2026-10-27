@@ -1,5 +1,5 @@
 import ContentBlock from "../common/ContentBlock";
-import DiseaseLayout from "../common/DiseaseLayout";
+import SubLayout from "@/components/sub/SubLayout";
 import ImgTxtBox from "../common/ImgTxtBox";
 import SectionTitle from "../common/SectionTitle";
 import TitSelectBar from "../common/TitSelectBar";
@@ -9,8 +9,8 @@ import styles from "./detachment.module.css";
 /** 망막박리 페이지 */
 export default function DetachmentPage() {
   return (
-    <DiseaseLayout
-      title="망막박리"
+    <SubLayout
+      path="/retina/detachment"
       description={
         <>
           망막이 눈 안쪽 벽에서 <br className="pc_block" />
@@ -52,6 +52,6 @@ export default function DetachmentPage() {
         </p>
         <TitSelectBar items={["유리체 절제술", "망막박리 치료", "공막돌륭술"]} aos />
       </ContentBlock>
-    </DiseaseLayout>
+    </SubLayout>
   );
 }

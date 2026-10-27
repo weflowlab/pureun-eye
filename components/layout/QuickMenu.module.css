@@ -7,7 +7,7 @@
   transform: translateY(-50%);
 }
 
-/* 메뉴 박스: 접힘 30x58 → 펼침 80x527 */
+/* 메뉴 박스: 접힘 30x58 → 펼침 80x615 (항목 6개 + 닫기) */
 .menu {
   position: absolute;
   top: 50%;
@@ -24,7 +24,7 @@
 }
 .menu.on {
   width: 80px;
-  height: 527px;
+  height: 615px;
 }
 
 /* 펼친 메뉴 목록 */
@@ -173,7 +173,7 @@
 @media screen and (max-width: 1210px) {
   .menu.on {
     width: 58px;
-    height: 391px;
+    height: 456px;
   }
   .menu.on .label {
     padding-top: 10px;

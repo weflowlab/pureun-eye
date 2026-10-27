@@ -1,5 +1,5 @@
 import ContentBlock from "../common/ContentBlock";
-import DiseaseLayout from "../common/DiseaseLayout";
+import SubLayout from "@/components/sub/SubLayout";
 import ImgTxtBox from "../common/ImgTxtBox";
 import SectionTitle from "../common/SectionTitle";
 import VerticalInfoBox from "../common/VerticalInfoBox";
@@ -8,9 +8,8 @@ import styles from "./growth.module.css";
 /** 중심성장액망막병증 페이지 */
 export default function GrowthPage() {
   return (
-    <DiseaseLayout
-      title="중심성장액망막병증"
-      compactTitle
+    <SubLayout
+      path="/retina/csc"
       description={
         <>
           맥락막 혈류 이상으로 황반 아래에 <br className="pc_block" />
@@ -60,6 +59,6 @@ export default function GrowthPage() {
           </div>
         </div>
       </ContentBlock>
-    </DiseaseLayout>
+    </SubLayout>
   );
 }

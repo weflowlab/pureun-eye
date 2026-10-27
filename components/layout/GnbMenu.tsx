@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { NAV, SITE } from "@/lib/site";
+import { MENU, SITE, pageHref } from "@/lib/site";
 import { getLenis } from "./Providers";
 import styles from "./GnbMenu.module.css";
 
@@ -13,6 +13,9 @@ type Props = {
 
 /** 전체 메뉴: PC는 위에서 내려오는 풀스크린, 1210px 이하는 우측 슬라이드 */
 export default function GnbMenu({ open, onClose }: Props) {
+  // 모바일 아코디언: 펼친 대메뉴
+  const [expanded, setExpanded] = useState<string | null>(null);
+
   // 열림 동안 페이지 스크롤 잠금
   useEffect(() => {
     if (!open) return;
@@ -52,15 +55,34 @@ export default function GnbMenu({ open, onClose }: Props) {
               <br />
               {SITE.nameEn.split(" ").slice(-2).join(" ")}
             </h2>
-            {/* 메뉴 목록 */}
+            {/* 메뉴 목록: 대메뉴 + 하위메뉴 (모바일은 대메뉴 눌러 펼침) */}
             <ul className={styles.dep}>
-              {NAV.map((item) => (
-                <li key={item.href}>
+              {MENU.map((g) => (
+                <li key={g.slug} className={expanded === g.slug ? styles.expanded : ""}>
                   <h3>
-                    <Link href={item.href} onClick={onClose} tabIndex={open ? 0 : -1}>
-                      <span>{item.label}</span>
-                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => setExpanded(expanded === g.slug ? null : g.slug)}
+                      aria-expanded={expanded === g.slug}
+                      tabIndex={open ? 0 : -1}
+                    >
+                      <span>{g.label}</span>
+                    </button>
                   </h3>
+                  <ul className={styles.sub}>
+                    {g.pages.map((p) => (
+                      <li key={p.slug}>
+                        <Link
+                          href={pageHref(g, p)}
+                          target={p.external ? "_blank" : undefined}
+                          onClick={onClose}
+                          tabIndex={open ? 0 : -1}
+                        >
+                          {p.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </li>
               ))}
             </ul>

@@ -19,7 +19,7 @@ export default function NewsSection() {
         <div className={styles.newsList} suppressHydrationWarning data-aos="fade-right" data-aos-duration="1500">
           {NEWS.map((n) => (
             <div key={n.id} className={styles.newsItem}>
-              <Link href={`/news/${n.id}`} aria-label={n.title}>
+              <Link href={`/community/notice/${n.id}`} aria-label={n.title}>
                 <div className={styles.hoverBox}>
                   <p className={styles.hoverTxt}>View more +</p>
                 </div>

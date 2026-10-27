@@ -34,21 +34,27 @@ export default function Footer() {
 
             <div className={styles.infoBox}>
               <div className={styles.infoItem}>
+                <span>상호</span> {SITE.legalName}
+              </div>
+              <div className={styles.infoItem}>
                 <span>대표</span> {SITE.ceo}
               </div>
               <div className={styles.infoItem}>
-                <span>주소</span> {SITE.address}
+                <span>주소</span> ({SITE.zip}) {SITE.address}
               </div>
               <a className={styles.infoItem} href={`tel:${SITE.tel}`}>
                 <span>대표전화</span> {SITE.tel}
               </a>
               <div className={styles.infoItem}>
+                <span>팩스</span> {SITE.fax}
+              </div>
+              <div className={styles.infoItem}>
                 <span>사업자정보</span> {SITE.bizNo}
               </div>
               <a className={styles.infoItemFull} href={`tel:${SITE.tel}`}>
-                <span>개인정보처리관리자</span> {SITE.ceo} 원장 {SITE.tel}
+                <span>개인정보처리관리자</span> {SITE.privacyOfficer} 원장 {SITE.tel}
               </a>
-              <div className={styles.copyright}>© {SITE.nameEn}. All rights reserved.</div>
+              <div className={styles.copyright}>Copyright © {SITE.legalName}. All rights reserved.</div>
             </div>
 
             {/* 개인정보처리방침 페이지 이동 */}

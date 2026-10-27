@@ -36,7 +36,7 @@ export default function NewsDetail({ post }: { post: NewsPost }) {
 
       {/* 목록으로 */}
       <div className={styles.nav}>
-        <Link href="/news" className={styles.backBtn}>
+        <Link href="/community/notice" className={styles.backBtn}>
           목록으로
         </Link>
       </div>

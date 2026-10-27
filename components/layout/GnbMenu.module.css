@@ -58,41 +58,26 @@
   white-space: nowrap;
 }
 
-/* 메뉴 목록: 4열 그리드 + 좌측 세로선 */
+/* 메뉴 목록: 6열 + 열마다 좌측 세로선 */
 .dep {
-  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  margin-top: -85px;
-}
-.dep::before {
-  content: "";
-  position: absolute;
-  top: 85px;
-  left: 0;
-  width: 1px;
-  height: calc(100% - 85px);
-  background: #fff;
 }
 .dep > li {
-  width: calc(25% - 96px);
-  margin-top: 85px;
-  padding: 0 60px 0 35px;
-  border-left: 1px solid #fff;
+  min-width: 170px;
+  padding: 0 40px 0 30px;
+  border-left: 1px solid #ffffff80;
   letter-spacing: -0.02em;
-  cursor: pointer;
-}
-.dep > li:first-of-type,
-.dep > li:nth-of-type(5) {
-  border-left: 0;
 }
 .dep > li h3 {
   font-size: 1.25vw;
   font-weight: 700;
   white-space: nowrap;
 }
-.dep > li h3 a {
+.dep > li h3 button {
+  padding: 0;
   color: #fff;
+  font: inherit;
+  cursor: default;
 }
 /* hover 시 밑줄이 왼쪽에서 늘어남 */
 .dep > li h3 span {
@@ -111,6 +96,22 @@
 }
 .dep > li:hover h3 span::after {
   width: 100%;
+}
+
+/* 하위메뉴 */
+.sub {
+  margin-top: 30px;
+}
+.sub a {
+  display: block;
+  padding: 7px 0;
+  color: #ffffffb3;
+  font-size: 16px;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+.sub a:hover {
+  color: #fff;
 }
 
 /* 모바일: 우측 70vw 슬라이드 + 딤 */
@@ -160,23 +161,29 @@
   .dep {
     display: block;
     flex: 1;
-    margin-top: 0;
-  }
-  .dep::before {
-    display: none;
   }
   .dep > li {
-    width: auto;
-    height: 34px;
-    margin-top: 10px;
+    min-width: 0;
+    margin-top: 14px;
     padding: 0;
-    overflow: hidden;
     border-left: 0;
-    transition: all 0.4s;
   }
   .dep > li h3 {
-    position: relative;
-    font-size: 24px;
+    font-size: 22px;
+  }
+  .dep > li h3 button {
     cursor: pointer;
+  }
+  /* 아코디언: 펼친 대메뉴만 하위메뉴 노출 */
+  .sub {
+    display: none;
+    margin: 10px 0 6px;
+    padding-left: 4px;
+  }
+  .expanded .sub {
+    display: block;
+  }
+  .sub a {
+    font-size: 15px;
   }
 }

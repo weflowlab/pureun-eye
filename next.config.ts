@@ -1,7 +1,16 @@
 import type { NextConfig } from "next";
+import { MENU, groupHref } from "./lib/site";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // 대메뉴 주소(/about 등)는 첫 하위 페이지로, 이전 주소는 새 주소로 이동
+  async redirects() {
+    return [
+      ...MENU.map((g) => ({ source: `/${g.slug}`, destination: groupHref(g), permanent: false })),
+      { source: "/intro", destination: "/about/doctors", permanent: true },
+      { source: "/news", destination: "/community/notice", permanent: true },
+      { source: "/news/:id", destination: "/community/notice/:id", permanent: true },
+    ];
+  },
   experimental: {
     agentFeedback: true,
   },

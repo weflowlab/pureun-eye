@@ -32,15 +32,15 @@ export default function ClinicInfoSection() {
                 <Placeholder label="전화" width={50} height={50} />
                 <div className={styles.phoneBlockTitleTxt}>
                   <p className={styles.phoneBlockTitleMain}>전화 번호</p>
-                  <p className={styles.phoneBlockTitleSub}>상담시간 9AM ~ 6PM (주말, 공휴일 휴무)</p>
+                  <p className={styles.phoneBlockTitleSub}>대표전화 · 라식상담</p>
                 </div>
               </div>
               <div className={styles.phoneNumbers}>
                 <a href={`tel:${SITE.tel}`} className={styles.phone} title="전화 걸기">
                   {SITE.tel}
                 </a>
-                <a href={`tel:${SITE.mobile}`} className={styles.phone} title="전화 걸기">
-                  {SITE.mobile}
+                <a href={`tel:${SITE.lasikTel}`} className={styles.phone} title="전화 걸기">
+                  {SITE.lasikTel}
                 </a>
               </div>
             </div>

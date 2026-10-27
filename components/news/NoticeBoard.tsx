@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import ContentBlock from "@/components/news/ContentBlock";
 import Loading from "@/components/common/Loading";
@@ -6,16 +5,11 @@ import NewsTable from "@/components/news/NewsTable";
 import Pagination from "@/components/news/Pagination";
 import styles from "@/components/news/news.module.css";
 import { getNewsList, NEWS_PAGE_SIZE } from "@/lib/news";
-import { SITE } from "@/lib/site";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
-export const metadata: Metadata = {
-  title: `공지사항 | ${SITE.name}`,
-};
-
-/** 공지사항 목록 페이지 — searchParams(page)는 런타임 값이라 Suspense 내부에서 읽는다 */
-export default function NewsPage({ searchParams }: { searchParams: SearchParams }) {
+/** 공지사항 목록 — searchParams(page)는 런타임 값이라 Suspense 내부에서 읽는다 */
+export default function NoticeBoard({ searchParams }: { searchParams: SearchParams }) {
   return (
     <Suspense fallback={<Loading />}>
       <NewsBoard searchParams={searchParams} />

@@ -4,7 +4,7 @@ import { Suspense, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Placeholder from "@/components/common/Placeholder";
-import { NAV, SITE } from "@/lib/site";
+import { MENU, SITE, groupHref, pageHref } from "@/lib/site";
 import GnbMenu from "./GnbMenu";
 import styles from "./Header.module.css";
 
@@ -19,6 +19,8 @@ const getScrolledServer = () => false;
 /** 헤더 본체: 로고 / PC 메뉴 / 햄버거 + 모바일 GNB */
 function HeaderView({ pathname }: { pathname: string | null }) {
   const [gnbOpen, setGnbOpen] = useState(false);
+  // PC 드롭다운 (메뉴에 마우스 올리면 전체 하위메뉴 펼침)
+  const [dropOpen, setDropOpen] = useState(false);
   const scrolled = useSyncExternalStore(subscribeScroll, getScrolled, getScrolledServer);
   // 메인이 아닌 페이지는 항상 흰 배경
   const isHome = pathname === "/";
@@ -26,28 +28,49 @@ function HeaderView({ pathname }: { pathname: string | null }) {
 
   return (
     <>
-      <header className={`${styles.header} ${solid ? styles.headerScrolled : ""}`}>
+      <header
+        className={`${styles.header} ${solid ? styles.headerScrolled : ""} ${dropOpen ? styles.dropOpen : ""}`}
+        onMouseLeave={() => setDropOpen(false)}
+      >
         <div className={styles.cont}>
           {/* 로고 */}
           <Link href="/" className={styles.logo} aria-label={SITE.name}>
             <Placeholder label="로고" width={160} height="100%" />
           </Link>
 
-          {/* PC 메뉴 (1210px 이하 숨김) */}
-          <nav className={styles.headerList}>
-            {NAV.map((item) => {
-              const active = !!pathname && pathname.includes(item.href);
+          {/* PC 메뉴 (1210px 이하 숨김): 대메뉴 아래 하위메뉴 드롭다운 */}
+          <nav className={styles.headerList} onMouseEnter={() => setDropOpen(true)}>
+            {MENU.map((g) => {
+              const active = !!pathname && pathname.startsWith(`/${g.slug}/`);
               return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`${styles.headerListTit} ${active ? styles.headerListTitActive : ""}`}
-                >
-                  {item.label}
-                </Link>
+                <div key={g.slug} className={styles.gnbItem}>
+                  <Link
+                    href={groupHref(g)}
+                    className={`${styles.headerListTit} ${active ? styles.headerListTitActive : ""}`}
+                    onClick={() => setDropOpen(false)}
+                  >
+                    {g.label}
+                  </Link>
+                  <ul className={styles.subList}>
+                    {g.pages.map((p) => (
+                      <li key={p.slug}>
+                        <Link
+                          href={pageHref(g, p)}
+                          target={p.external ? "_blank" : undefined}
+                          className={pathname === pageHref(g, p) ? styles.subActive : ""}
+                          onClick={() => setDropOpen(false)}
+                        >
+                          {p.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               );
             })}
           </nav>
+          {/* 드롭다운 흰 배경 패널 */}
+          <div className={styles.dropBg} aria-hidden="true" />
 
           {/* 햄버거 버튼 */}
           <button type="button" className={styles.mGnb} onClick={() => setGnbOpen(true)} aria-label="메뉴 열기">

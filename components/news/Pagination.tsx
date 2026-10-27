@@ -10,7 +10,7 @@ type Props = {
 export default function Pagination({ current, total }: Props) {
   if (total <= 1) return null;
 
-  const href = (page: number) => (page === 1 ? "/news" : `/news?page=${page}`);
+  const href = (page: number) => (page === 1 ? "/community/notice" : `/community/notice?page=${page}`);
   const pages = Array.from({ length: total }, (_, i) => i + 1);
 
   // 이동 불가 버튼은 비활성 스타일의 span으로 렌더

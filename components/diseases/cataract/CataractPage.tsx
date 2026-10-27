@@ -1,6 +1,6 @@
 import { SITE } from "@/lib/site";
 import ContentBlock from "../common/ContentBlock";
-import DiseaseLayout from "../common/DiseaseLayout";
+import SubLayout from "@/components/sub/SubLayout";
 import InfoBox from "../common/InfoBox";
 import QnaCard, { QnaList } from "../common/QnaCard";
 import SectionTitle from "../common/SectionTitle";
@@ -29,8 +29,8 @@ const EQUIPMENT: [string, string[]][] = [
 /** 백내장 페이지 */
 export default function CataractPage() {
   return (
-    <DiseaseLayout
-      title="백내장"
+    <SubLayout
+      path="/cataract/about"
       description={
         <>
           환자와 눈을 맞추며 <br className="pc_block" />
@@ -80,6 +80,6 @@ export default function CataractPage() {
           ))}
         </QnaList>
       </ContentBlock>
-    </DiseaseLayout>
+    </SubLayout>
   );
 }

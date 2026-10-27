@@ -43,15 +43,78 @@
 .headerListTit {
   padding: 25px 10px;
   color: #161616;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 500;
   line-height: 27px;
+  white-space: nowrap;
   cursor: pointer;
   transition: all 0.3s;
 }
 .headerListTit:hover,
 .headerListTitActive {
   color: #152c6b;
+}
+
+/* 대메뉴 칸 (하위메뉴 기준점) */
+.gnbItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+/* 하위메뉴: 평소 숨김 → 드롭다운 열리면 표시 */
+.subList {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 2;
+  padding: 22px 0;
+  text-align: center;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.subList a {
+  display: block;
+  padding: 6px 4px;
+  color: #555;
+  font-size: 15px;
+  line-height: 22px;
+  transition: color 0.2s;
+}
+.subList a:hover,
+.subActive {
+  color: var(--color-primary) !important;
+  font-weight: 500;
+}
+
+/* 드롭다운 흰 배경 패널 (최대 하위메뉴 9개 높이) */
+.dropBg {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 360px;
+  background: #fff;
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 10px 12px #0000001a;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.dropOpen {
+  background: #fff;
+}
+.dropOpen .subList,
+.dropOpen .dropBg {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* 햄버거 버튼 (hover 시 회전) */
@@ -82,7 +145,7 @@
   }
   .headerListTit {
     padding: 25px 5px;
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 @media screen and (max-width: 1210px) {
@@ -92,7 +155,8 @@
   .logo {
     height: 35px;
   }
-  .headerList {
+  .headerList,
+  .dropBg {
     display: none;
   }
   .cont {

@@ -71,7 +71,7 @@ export default function PrivacyPage() {
 
           <h2>제5조 (개인정보 보호책임자)</h2>
           <p>
-            개인정보 보호책임자: {SITE.ceo} / 연락처: {SITE.tel}
+            개인정보 보호책임자: {SITE.privacyOfficer} / 연락처: {SITE.tel}
           </p>
 
           <h2>제6조 (개인정보처리방침의 변경)</h2>

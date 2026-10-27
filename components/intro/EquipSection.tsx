@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "@/components/common/Swiper";
 import { Autoplay, Navigation } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
-import Placeholder from "@/components/common/Placeholder";
+import Image from "next/image";
 import { SITE } from "@/lib/site";
 import { EQUIPMENTS, type Seg } from "./data";
 import s from "./Section.module.css";
@@ -70,16 +70,18 @@ export default function EquipSection() {
               swiperRef.current = sw;
             }}
           >
-            {EQUIPMENTS.map((eq, i) => (
-              <SwiperSlide key={i} className={styles.equipSlide}>
+            {EQUIPMENTS.map((eq) => (
+              <SwiperSlide key={eq.model} className={styles.equipSlide}>
                 <div className={styles.equipSlideInner}>
                   <div className={styles.equipImg}>
-                    <Placeholder label={`장비 ${i + 1} 사진`} />
+                    <Image src={eq.image} alt={`${eq.model} ${eq.category}`} width={536} height={428} />
                   </div>
                   <div className={styles.equipS2}>
                     <ul>
                       <li>{eq.maker}</li>
-                      <li>{eq.model}</li>
+                      <li>
+                        {eq.model} <small>{eq.category}</small>
+                      </li>
                       {eq.points.map((p, j) => (
                         <li key={j}>
                           <Line segs={p} />
