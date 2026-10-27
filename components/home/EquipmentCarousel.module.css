@@ -1,0 +1,154 @@
+/* 장비 캐러셀 섹션 */
+.section {
+  position: relative;
+  z-index: 1;
+  min-height: 800px;
+  background-color: #fff;
+}
+
+/* 좌측 텍스트 박스 */
+.textBx {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  background-color: #f2f4f5;
+}
+.textBx2 {
+  position: absolute;
+  left: 50%;
+  transform: translate(-44%);
+}
+.tit2 {
+  margin-top: 9px;
+  margin-bottom: 10px;
+  color: var(--color-primary);
+  font-size: 26px;
+}
+.bold { font-weight: 600; }
+.tit3 {
+  margin-bottom: 19px;
+  color: #272727;
+  font-size: 46px;
+  font-weight: 600;
+  line-height: 50px;
+  text-shadow: 0 3px 6px #00000029;
+}
+.tit4 {
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+/* View more 버튼: 호버 시 오른쪽으로 이동 */
+.viewBtnWrapPc { display: block; }
+.viewBtnWrapMobile { display: none; }
+.viewBtn {
+  position: absolute;
+  right: -30px;
+  bottom: -70px;
+  color: #676767;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+.viewBtn:hover { transform: translate(15px); }
+.viewImg {
+  position: absolute;
+  right: -45px;
+  bottom: -10px;
+  width: 200px;
+  height: 15px;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  transform: skew(45deg);
+  transition: all 0.4s;
+}
+.viewBtn:hover .viewImg { transform: translate(10px) skew(45deg); }
+
+/* 우측 캐러셀 */
+.swiAb {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 60%;
+  height: 630px;
+  overflow: hidden;
+  transform: translateY(-45%) scale(0.85);
+}
+.sec4Swi {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.slideLink { display: block; }
+.swiImg {
+  width: 100%;
+  height: 550px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 82px 0 0;
+  box-shadow: 3px 3px 20px #00000029;
+}
+.swiTxt { font-size: 24px; }
+.txtSubtit {
+  color: var(--color-primary);
+  font-size: 20px;
+  line-height: 40px;
+  letter-spacing: -1.5px;
+}
+.txtTit {
+  color: #303030;
+  font-weight: 600;
+  line-height: 40px;
+}
+
+@media screen and (max-width: 1800px) {
+  .viewBtn { right: 100px; }
+}
+
+@media screen and (max-width: 1400px) {
+  .section {
+    z-index: 2;
+    min-height: 940px;
+    padding-top: 200px;
+    background-color: #f2f4f5;
+  }
+  .viewBtnWrapMobile {
+    position: absolute;
+    right: 15%;
+    bottom: 5%;
+    z-index: 2;
+    display: block;
+  }
+  .viewBtnWrapPc { display: none; }
+  .textBx { justify-content: normal; width: 100%; height: auto; }
+  .textBx2 {
+    position: relative;
+    left: 0;
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 74px;
+    transform: translate(0);
+  }
+  .viewBtn { position: relative; right: auto; bottom: auto; font-size: 22px; }
+  .swiAb { top: auto; right: 0; bottom: 10%; width: 90%; height: 530px; transform: translateY(0); }
+  .tit2 { font-size: 22px; }
+  .tit3 { font-size: 28px; line-height: 28px; white-space: nowrap; }
+  .tit4 { font-size: 16px; line-height: 24px; }
+  .viewImg { bottom: -35px; width: 180px; }
+  .swiImg { height: 450px; }
+  .sec4Swi :global(.swiper-slide) { width: 80%; }
+}
+
+@media screen and (max-width: 1200px) {
+  .section { padding-top: 200px; }
+}
+
+@media screen and (max-width: 1025px) {
+  .section { padding-top: 0; }
+  .swiAb { bottom: 15%; }
+}

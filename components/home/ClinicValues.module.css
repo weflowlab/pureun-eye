@@ -1,0 +1,87 @@
+/* 병원 가치 섹션 */
+.section {
+  position: relative;
+  width: 100%;
+}
+.inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1210px;
+  margin: 0 auto;
+  padding: 150px 0 560px;
+}
+.logoWrap { width: 270px; }
+.quote {
+  margin-top: 20px;
+  color: #393939;
+  font-size: 35px;
+  font-weight: 700;
+  line-height: 38px;
+}
+.quoteBold { font-weight: 700; }
+.clinicImg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin-top: 80px;
+  overflow: hidden;
+  border-radius: 50px;
+}
+
+/* 하단 어두운 띠: 이미지 아래로 겹쳐 깔림 */
+.valueStrip {
+  position: absolute;
+  bottom: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 685px;
+  background: #393939;
+}
+.valueCard {
+  position: relative;
+  top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 55px;
+  color: #f2f2f2;
+  text-align: center;
+}
+.valueTitle {
+  margin-top: 50px;
+  color: #f2f2f2;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 25px;
+}
+.valueDesc {
+  font-size: 16px;
+  line-height: 25px;
+}
+
+@media screen and (max-width: 1210px) {
+  .inner { width: 90%; padding: 0; }
+  .quote { text-align: center; font-size: 25px; line-height: 35px; }
+  .logoWrap { width: 200px; }
+  .clinicImg { margin-top: 30px; }
+  .valueStrip {
+    position: relative;
+    flex-wrap: wrap;
+    height: auto;
+    margin-top: -50px;
+    padding-top: 20px;
+    padding-bottom: 100px;
+  }
+  .valueCard { margin: 20px; }
+  .valueIcon { width: 80px !important; height: 80px !important; }
+  .valueTitle { margin-top: 20px; }
+}
+
+@media screen and (max-width: 768px) {
+  .clinicImg { border-radius: 20px; }
+}

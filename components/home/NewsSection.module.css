@@ -1,0 +1,161 @@
+/* 블로그/소식 섹션 (원본 배경 이미지 대신 연한 그라데이션) */
+.section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 760px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #fff 0%, #f1f4f9 100%);
+}
+
+/* 배경 장식 텍스트 */
+.rlMTxt {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: inline-block;
+  color: #3e3e3e;
+  font-family: var(--font-playfair);
+  font-size: 105px;
+  white-space: nowrap;
+  opacity: 0.16;
+  transform: translateY(-50%);
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 1400px;
+  margin: 0 auto;
+}
+
+/* 썸네일 그리드: 3열 정사각 */
+.newsList {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  max-width: 848px;
+}
+.newsItem {
+  position: relative;
+  width: calc(33.3333% - 12px);
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.newsItem a {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 호버 오버레이 */
+.hoverBox {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: #000000a6;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.newsItem:hover .hoverBox { opacity: 1; }
+.hoverTxt {
+  display: inline-flex;
+  padding: 3px 10px;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: -0.72px;
+  background: #ffffff1a;
+  border: 1px solid #fff;
+  border-radius: 8px;
+}
+
+/* 우측 타이틀 */
+.titBox {
+  position: relative;
+  z-index: 1;
+  text-align: right;
+}
+.titBox p:first-child {
+  font-size: 26px;
+  line-height: 36px;
+}
+.cb {
+  color: var(--color-primary);
+  font-weight: 800;
+}
+.blogTitle {
+  margin-top: 17px;
+  color: #191919;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 36px;
+}
+.newsBtn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 76px;
+}
+.newsBtnInner {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.newsBtn span {
+  position: relative;
+  left: 0;
+  color: #191919;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 36px;
+  transition: all 0.3s;
+}
+/* 호버 시 텍스트 오른쪽 이동 */
+.newsBtnInner:hover span { left: 10px; }
+.newsBtn svg { margin-left: 19px; }
+
+@media screen and (max-width: 1450px) {
+  .inner { justify-content: space-evenly; }
+}
+
+@media screen and (max-width: 1210px) {
+  .newsList { width: 60%; }
+  .titBox { width: 40%; max-width: 260px; }
+}
+
+@media screen and (max-width: 1025px) {
+  .section { height: auto; }
+  .inner { flex-direction: column-reverse; padding-bottom: 70px; }
+  .titBox { width: 90%; max-width: 500px; margin-top: 75px; margin-bottom: 23px; text-align: left; }
+  .titBox p:first-child { font-size: 16px; line-height: 23px; }
+  .blogTitle { margin-top: 10px; font-size: 28px; }
+  .rlMTxt { top: 18%; font-size: 57px; }
+  .newsBtn { margin: 0 0 40px; }
+  .newsBtn span { font-size: 16px; }
+  .newsBtn svg { margin-left: 16px; }
+}
+
+@media screen and (max-width: 980px) {
+  .newsList { width: 80%; }
+}
+
+@media screen and (max-width: 768px) {
+  .newsList { width: 90%; }
+  .newsItem { width: calc(50% - 12px); }
+  .hoverTxt { font-size: 14px; }
+}

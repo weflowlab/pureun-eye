@@ -1,0 +1,199 @@
+/* 진료시간·오시는 길 섹션 */
+.section {
+  position: relative;
+  width: 100%;
+  background: #fff;
+}
+.inner {
+  position: relative;
+  width: 1240px;
+  margin: 0 auto;
+  padding: 150px 0;
+}
+.title {
+  font-size: 35px;
+  font-weight: 700;
+  line-height: 38px;
+}
+.titleAccent { color: var(--color-primary); }
+
+/* 좌우 2단 */
+.ttmFbx {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 80px;
+}
+
+/* 블록 타이틀 (아이콘 + 텍스트) */
+.phoneBlockTitle {
+  display: flex;
+  align-items: center;
+}
+.phoneBlockTitleTxt {
+  display: flex;
+  align-items: flex-end;
+}
+.phoneBlockTitleMain {
+  margin-left: 20px;
+  color: var(--color-primary);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 25px;
+}
+.phoneBlockTitleSub {
+  margin-left: 15px;
+  color: #393939;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+/* 전화번호: 호버 시 브랜드 컬러 */
+.phoneNumbers { margin-left: 55px; }
+.phone {
+  display: block;
+  color: var(--color-light-grey);
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 80px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.phone:hover { color: var(--color-primary); }
+
+/* 진료 안내 */
+.clinicGuideBlock { margin-top: 60px; }
+.noticeTexts {
+  margin-top: 30px;
+  color: #000;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 130%;
+}
+.noticeText:first-child { padding-bottom: 12px; }
+
+/* 시간표 */
+.timeGrid {
+  display: block;
+  padding-top: 50px;
+  color: #000;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 140%;
+  letter-spacing: 0.9px;
+}
+.timeItem {
+  display: flex;
+  align-items: start;
+  gap: 30px;
+  padding-bottom: 12px;
+}
+.timeContItem {
+  display: flex;
+  gap: 21px;
+}
+/* 균등 배분 정렬된 항목명 */
+.timeContItemTit {
+  width: 68px;
+  height: 28px;
+  text-align: justify;
+}
+.timeContItemTit::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+
+/* 지도 */
+.mapBox {
+  width: 500px;
+  height: 400px;
+}
+.mapWrap {
+  position: relative;
+  width: 100%;
+}
+.map { border-radius: 8px; }
+.mapTxt {
+  display: flex;
+  align-items: baseline;
+  margin-top: 30px;
+  padding-bottom: 26px;
+  color: var(--color-primary);
+}
+.mapTxtLabel {
+  display: inline-block;
+  margin-top: 30px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 35px;
+  white-space: nowrap;
+}
+.mapTxtAddr {
+  display: inline-block;
+  margin-left: 20px;
+  color: var(--color-light-grey);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 25px;
+}
+
+/* 지도 앱 버튼 */
+.mapBtns {
+  display: flex;
+  gap: 10px;
+}
+.mapBtns a {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: 237px;
+  padding: 12px 25px;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 18px;
+  border-radius: 50px;
+}
+.mapIco {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: 13px;
+  font-weight: 900;
+  background: #ffffff40;
+  border-radius: 4px;
+}
+.naverBtn { background: #2db400; }
+.kakaoBtn { color: #000 !important; background: #fed500; }
+
+@media screen and (max-width: 1210px) {
+  .inner { width: 90%; padding: 50px 0; }
+  .title { font-size: 30px; line-height: 35px; }
+  .ttmFbx { flex-wrap: wrap; margin-top: 30px; }
+  .infoBox { width: 100%; }
+  .clinicGuideBlock { margin-top: 37px; }
+  .phoneBlockTitle { align-items: flex-start; }
+  .phoneBlockTitleTxt { flex-direction: column; align-items: flex-start; padding-left: 15px; }
+  .phoneBlockTitleMain { margin: 0; }
+  .phoneBlockTitleSub { margin: 10px 0 0; }
+  .phoneNumbers { margin-top: 20px; margin-left: 50px; }
+  .phone { font-size: 30px; line-height: 35px; }
+  .noticeTexts { margin-top: 10px; font-size: 15px; line-height: 1.5; }
+  .timeGrid { margin: 0; padding-bottom: 36px; font-size: 16px; letter-spacing: 0.8px; }
+  .timeItem { flex-direction: column; gap: 20px; }
+  .timeContItemTit { width: 60px; height: 26px; }
+  .mapBox { width: 100%; height: auto; margin-top: 30px; }
+  .map { height: auto !important; aspect-ratio: 16 / 9; }
+  .mapTxt { flex-flow: column wrap; align-items: baseline; margin-top: 0; }
+  .mapTxtLabel { margin-top: 10px; }
+  .mapTxtAddr { margin-left: 0; }
+  .mapBtns { justify-content: center; }
+  .mapBtns a { gap: 4px; font-size: 16px; }
+}

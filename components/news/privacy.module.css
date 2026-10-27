@@ -1,0 +1,67 @@
+/* 개인정보처리방침 래퍼 */
+.wrap {
+  padding-top: 120px;
+}
+
+.title {
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.subtitle {
+  text-align: center;
+  color: #999;
+  margin-top: -30px;
+  margin-bottom: 40px;
+  font-size: 14px;
+}
+
+/* 조항 본문 */
+.body {
+  color: var(--color-deep-grey);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.body h2 {
+  color: var(--color-primary);
+  margin: 30px 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.body p {
+  margin-bottom: 16px;
+}
+
+/* 항목 표 */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+
+.table th,
+.table td {
+  border: 1px solid var(--color-border);
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.table th {
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+/* 시행일 */
+.date {
+  color: #999;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 14px;
+}

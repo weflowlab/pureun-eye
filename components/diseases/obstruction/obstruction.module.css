@@ -1,0 +1,53 @@
+/* 시야 비교 3장 */
+.img3Fbx { display: flex; align-items: center; justify-content: center; margin-top: 55px; }
+.img3Bx { margin: 0 12px; }
+.img3 { width: 330px; }
+.img3Bx p { margin-top: 22px; color: var(--color-light-grey); font-size: 18px; line-height: 30px; }
+
+/* 고위험군 섹션 */
+.riskSection { margin-top: 190px; }
+.riskTitle {
+  margin-bottom: 22px;
+  color: var(--color-light-grey);
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 35px;
+  text-align: center;
+}
+.riskSubtext {
+  margin-bottom: 75px;
+  color: var(--color-light-grey);
+  font-size: 18px;
+  line-height: 30px;
+  text-align: center;
+}
+.riskCircles { position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; }
+.riskCircle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 285px;
+  height: 285px;
+  text-align: center;
+  background: #393939;
+  border-radius: 50%;
+}
+.riskCircle p { color: #f2f2f2; }
+.riskNum { font-size: 40px; font-weight: 700; }
+.riskText { margin-top: 25px; font-size: 45px; line-height: 1; }
+
+/* 태블릿·모바일 */
+@media screen and (max-width: 1210px) {
+  .img3Fbx { flex-direction: column; margin-top: 30px; }
+  .img3Bx { margin-bottom: 30px; }
+  .img3Bx:last-child { margin-bottom: 0; }
+  .img3 { width: 100%; max-width: 330px; }
+  .img3Bx p { margin-top: 10px; }
+  .riskSection { margin-top: 0; }
+  .riskTitle { line-height: 30px; }
+  .riskCircles { justify-content: space-evenly; }
+  .riskCircle { width: 220px; height: 220px; margin: 10px; }
+  .riskNum { font-size: 30px; }
+  .riskText { font-size: 25px; }
+}

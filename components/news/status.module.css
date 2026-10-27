@@ -1,0 +1,54 @@
+/* 404 / 오류 페이지 공통 레이아웃 */
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 125px 20px 40px;
+  text-align: center;
+}
+
+/* 상태 코드 (404는 크게, 오류는 작게) */
+.code {
+  color: var(--color-primary);
+  font-size: 120px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.codeSmall {
+  font-size: 48px;
+}
+
+.message {
+  color: var(--color-deep-grey);
+  margin-top: 16px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.desc {
+  color: #999;
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+/* 홈/재시도 버튼 */
+.btn {
+  display: inline-block;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: 0;
+  border-radius: 8px;
+  margin-top: 32px;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}

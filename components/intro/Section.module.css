@@ -1,0 +1,43 @@
+/* 병원소개 공통: 섹션 래퍼 / 타이틀 / 반응형 줄바꿈 */
+.p { display: block; }
+.m { display: none; }
+.fwb { font-weight: 700; }
+
+.contB { position: relative; width: 100%; }
+.bwhite { background: var(--color-white); }
+.bgray { background: var(--color-bg-gray); }
+
+.contInner {
+  position: relative;
+  width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--section-padding);
+  /* 고정 헤더 높이만큼 앵커 위치 보정 */
+  scroll-margin-top: var(--header-height);
+}
+.contInnerFull { width: 100%; }
+
+.contTitTxt {
+  color: var(--color-primary);
+  text-align: center;
+  font-size: 35px;
+  font-weight: 700;
+  line-height: 45px;
+}
+.contSubTxt {
+  color: var(--color-deep-grey);
+  text-align: center;
+  margin: 25px 0 100px;
+  font-size: 20px;
+  line-height: 32px;
+}
+
+/* 1210px 이하 */
+@media screen and (max-width: 1210px) {
+  .p { display: none; }
+  .m { display: block; }
+  .contInner { width: 90%; padding: var(--section-padding-mobile); scroll-margin-top: var(--header-height-mobile); }
+  .contInnerFull { width: 90%; overflow: hidden; }
+  .contTitTxt { text-align: left; font-size: 25px; line-height: 30px; }
+  .contSubTxt { text-align: left; margin: 15px 0 50px; font-size: 20px; line-height: 25px; }
+}

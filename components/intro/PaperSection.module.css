@@ -1,0 +1,48 @@
+/* 화면 전체 폭으로 확장된 슬라이더 */
+.swiperDocWrap { position: relative; width: 100vw; margin-top: 145px; margin-left: calc(50% - 50vw); }
+.swiperDoc { width: 100% !important; height: 100%; }
+
+/* 슬라이드: PC/모바일 이미지 자리 */
+.slide { display: flex; justify-content: center; align-items: center; }
+.pcImg { display: block; width: 1000px; max-width: 70vw; aspect-ratio: 16 / 7; margin: 0 auto; }
+.moImg { display: none; width: 100%; aspect-ratio: 4 / 5; }
+
+/* 좌우 원형 화살표 (44px) */
+.next,
+.prev {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-white)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cpath d='M19 14l8 8-8 8' fill='none' stroke='%23152c6b' stroke-width='2'/%3E%3C/svg%3E")
+    center / cover no-repeat;
+  box-shadow: 0 0 6px #0000001f;
+  transform: translateY(-50%);
+}
+.next { right: 14%; }
+.prev { left: 14%; transform: translateY(-50%) rotate(180deg); }
+
+@media (max-width: 1820px) {
+  .prev { left: 8%; }
+  .next { right: 8%; }
+}
+@media (max-width: 1520px) {
+  .prev { left: 3%; }
+  .next { right: 3%; }
+}
+@media (max-width: 1360px) {
+  .prev { left: 5%; }
+  .next { right: 5%; }
+}
+
+/* 1210px 이하: 모바일 이미지로 교체 */
+@media screen and (max-width: 1210px) {
+  .swiperDocWrap { margin-top: 50px; }
+  .pcImg { display: none; }
+  .moImg { display: block; }
+  .next { right: 20px; }
+  .prev { left: 20px; }
+}

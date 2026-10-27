@@ -1,0 +1,20 @@
+/* 인트로 영상 섹션 */
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 영상 영역: 헤더 위로 덮는 풀스크린 (원본 z-index 유지) */
+.videoPc,
+.videoMobile {
+  position: relative;
+  z-index: 1001;
+  width: 100vw;
+  height: 100vh;
+}
+.videoMobile { display: none; }
+
+@media screen and (max-width: 1210px) {
+  .videoPc { display: none; }
+  .videoMobile { display: block; height: 60vh; }
+}

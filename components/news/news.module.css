@@ -1,0 +1,146 @@
+/* 목록 헤더 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  color: var(--color-primary);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* 게시판 테이블 */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 2px solid var(--color-primary);
+}
+
+.table thead th {
+  color: var(--color-primary);
+  background: var(--color-bg-gray);
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+  padding: 14px 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.thNum { width: 80px; }
+.thTitle { text-align: left !important; }
+.thDate { width: 120px; }
+.thViews { width: 80px; }
+
+/* 행 hover 시 배경 강조 */
+.row {
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.15s;
+}
+
+.row:hover {
+  background: var(--color-bg-gray);
+}
+
+.tdNum {
+  text-align: center;
+  color: #666;
+  padding: 14px 10px;
+  font-size: 14px;
+}
+
+.tdTitle {
+  padding: 14px 10px;
+  font-size: 15px;
+}
+
+.tdTitle a {
+  color: var(--color-text, var(--color-black));
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.tdTitle a:hover {
+  color: var(--color-primary);
+}
+
+.tdDate,
+.tdViews {
+  text-align: center;
+  color: #888;
+  padding: 14px 10px;
+  font-size: 14px;
+}
+
+.empty {
+  text-align: center;
+  color: #999;
+  padding: 80px 0;
+  font-size: 16px;
+}
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-top: 40px;
+}
+
+.pageBtn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-white);
+  color: var(--color-text, var(--color-black));
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pageBtn:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+}
+
+.pageBtnActive {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+}
+
+.pageBtnDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* 모바일: 번호·조회수 컬럼 숨김 */
+@media screen and (max-width: 768px) {
+  .thNum,
+  .thViews,
+  .tdNum,
+  .tdViews {
+    display: none;
+  }
+
+  .thDate,
+  .tdDate {
+    width: 90px;
+    font-size: 13px;
+  }
+
+  .tdTitle {
+    font-size: 14px;
+  }
+}

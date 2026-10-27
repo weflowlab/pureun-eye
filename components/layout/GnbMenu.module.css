@@ -1,0 +1,182 @@
+/* 전체 메뉴 패널 (PC: 위에서 아래로 슬라이드) */
+.gnb {
+  position: fixed;
+  top: -100%;
+  left: 0;
+  z-index: 2147483647;
+  width: 100vw;
+  height: 100vh;
+  background: #404040;
+  transition: top 0.4s ease-in;
+}
+.gnb.open {
+  top: 0;
+  transition: top 0.4s ease-out;
+}
+
+/* 닫기 버튼 (hover 시 회전) */
+.xBtn {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  z-index: 99;
+  color: #fff;
+  font-size: 45px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.6s;
+}
+.xBtn:hover {
+  transform: rotate(90deg);
+}
+
+/* 배경 딤 (모바일 전용) */
+.backdrop {
+  display: none;
+}
+
+/* 레이아웃 */
+.wrap {
+  display: flex;
+  align-items: center;
+  width: 95%;
+  max-width: 1600px;
+  height: 100%;
+  margin: 0 auto;
+  color: #fff;
+}
+.lay {
+  display: flex;
+}
+.tit {
+  margin-right: 45px;
+  font-family: var(--font-playfair);
+  font-size: 2.60417vw;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* 메뉴 목록: 4열 그리드 + 좌측 세로선 */
+.dep {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -85px;
+}
+.dep::before {
+  content: "";
+  position: absolute;
+  top: 85px;
+  left: 0;
+  width: 1px;
+  height: calc(100% - 85px);
+  background: #fff;
+}
+.dep > li {
+  width: calc(25% - 96px);
+  margin-top: 85px;
+  padding: 0 60px 0 35px;
+  border-left: 1px solid #fff;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+}
+.dep > li:first-of-type,
+.dep > li:nth-of-type(5) {
+  border-left: 0;
+}
+.dep > li h3 {
+  font-size: 1.25vw;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.dep > li h3 a {
+  color: #fff;
+}
+/* hover 시 밑줄이 왼쪽에서 늘어남 */
+.dep > li h3 span {
+  position: relative;
+  padding-bottom: 2px;
+}
+.dep > li h3 span::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #fff;
+  transition: all 0.4s;
+}
+.dep > li:hover h3 span::after {
+  width: 100%;
+}
+
+/* 모바일: 우측 70vw 슬라이드 + 딤 */
+@media screen and (max-width: 1210px) {
+  .gnb {
+    top: 0 !important;
+    right: -100%;
+    bottom: auto;
+    left: auto;
+    width: 70vw;
+    height: 100vh;
+    transition: right 0.4s ease-in;
+  }
+  .gnb.open {
+    right: 0;
+    transition: right 0.4s ease-out;
+  }
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    display: block;
+    transform: translate(100%);
+    transition: background-color 0.4s;
+  }
+  .backdrop.open {
+    background-color: #00000065;
+    transform: translate(0);
+  }
+  .xBtn {
+    top: 2%;
+  }
+  .wrap {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding-top: 0;
+    overflow-y: auto;
+  }
+  .lay {
+    display: flex;
+    padding: 85px 5%;
+  }
+  .tit {
+    display: none;
+  }
+  .dep {
+    display: block;
+    flex: 1;
+    margin-top: 0;
+  }
+  .dep::before {
+    display: none;
+  }
+  .dep > li {
+    width: auto;
+    height: 34px;
+    margin-top: 10px;
+    padding: 0;
+    overflow: hidden;
+    border-left: 0;
+    transition: all 0.4s;
+  }
+  .dep > li h3 {
+    position: relative;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}

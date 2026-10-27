@@ -1,0 +1,132 @@
+/* 맞춤 수술 시스템 섹션 */
+.section {
+  padding: 150px 0;
+  overflow: hidden;
+}
+.w1280 {
+  display: flex;
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* 좌측 텍스트: 흰 배경으로 왼쪽으로 넘치는 슬라이드를 가림 */
+.txtWrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  width: 50%;
+  background: #fff;
+}
+.txtWrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 100%;
+  display: block;
+  width: 50vw;
+  height: 100%;
+  background: #fff;
+}
+.subtitle {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--color-primary);
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 26px;
+  letter-spacing: -0.52px;
+}
+.subtitle b { font-weight: 600; }
+.title {
+  margin-bottom: 40px;
+  color: #272727;
+  font-size: clamp(28px, 2.3vw, 46px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -1.84px;
+}
+.dt { margin-bottom: 40px; }
+.dt p {
+  margin-bottom: 12px;
+  color: #000;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+.dt p b {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* 화살표 버튼 */
+.navWrap {
+  display: flex;
+  gap: 20px;
+}
+.navPrev,
+.navNext {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.navNext { transform: rotate(180deg); }
+
+/* 우측 슬라이더 (오른쪽으로 넘쳐 보임) */
+.slideWrap {
+  position: relative;
+  z-index: 0;
+  width: 50%;
+  padding-left: 10px;
+}
+.swiper {
+  width: 100%;
+  overflow: visible !important;
+}
+.slide { width: 540px !important; }
+.cover {
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+.slideTitle {
+  width: fit-content;
+  margin-bottom: 20px;
+  padding: 14px 20px;
+  color: var(--color-primary);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.66px;
+  border: 1px solid #000;
+  border-radius: 100px;
+}
+.slideDesc {
+  color: #1c1c1c;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: -0.54px;
+}
+
+@media screen and (max-width: 1280px) {
+  .dt p br { display: none; }
+  .slide { width: 300px !important; }
+  .slideTitle { padding: 14px 20px; font-size: 16px; letter-spacing: -0.48px; }
+}
+
+@media screen and (max-width: 768px) {
+  .section { padding: 50px 0; }
+  .w1280 { flex-direction: column; gap: 40px; }
+  .txtWrap { width: 100%; }
+  .slideWrap { width: 100%; padding-left: 0; }
+  .swiper { overflow: hidden !important; }
+  .navWrap { display: none; }
+  .subtitle { font-size: 22px; letter-spacing: -0.44px; }
+  .title { margin-bottom: 20px; letter-spacing: -1.12px; }
+  .dt p { font-size: 18px; }
+  .slideDesc { font-size: 15px; letter-spacing: -0.45px; }
+}

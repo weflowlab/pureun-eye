@@ -1,0 +1,112 @@
+/* 유튜브 섹션 */
+.section {
+  width: 1280px;
+  margin: 0 auto;
+  padding: 103.5px 0;
+  background-color: #fff;
+}
+.inner {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+/* 영상 */
+.videoBox { width: 100%; }
+.videoWrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+/* 텍스트 */
+.textBox { width: 50%; }
+.titGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.smTit {
+  color: var(--color-primary);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 150%;
+}
+.bigTit {
+  color: #272727;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 120%;
+}
+.desc p {
+  padding-top: 50px;
+  color: #000;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 120%;
+  letter-spacing: -1px;
+}
+
+/* 채널 바로가기 버튼 (원본 이미지 버튼 대체) */
+.moreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  margin-top: 50px;
+  padding: 0 18px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  background: #e62117;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+.moreBtn:hover { opacity: 0.85; }
+/* 재생 삼각형 아이콘 */
+.ytIcon {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 10px solid #fff;
+}
+
+@media screen and (max-width: 1700px) {
+  .bigTit { font-size: 40px; }
+  .smTit { font-size: 20px; font-weight: 600; }
+  .desc { font-size: 18px; }
+}
+
+@media screen and (max-width: 1250px) {
+  .section { width: 90%; }
+  .inner { gap: 20px; }
+  .bigTit { font-size: 30px; }
+}
+
+@media screen and (max-width: 950px) {
+  .inner { flex-direction: column; gap: 30px; }
+  .textBox,
+  .videoBox { width: 100%; }
+  .titGroup { align-items: center; }
+  .smTit { text-align: center; font-size: 20px; font-weight: 700; line-height: 120%; }
+  .bigTit { text-align: center; }
+  .desc { text-align: center; }
+  .desc p { padding-top: 20px; text-align: center; font-size: 18px; line-height: 150%; letter-spacing: -0.9px; }
+  .textBox > div { display: flex; flex-direction: column; align-items: center; }
+  .moreBtn { margin-top: 20px; }
+}
+
+@media screen and (max-width: 768px) {
+  .section { padding: 65px 0; }
+  .smTit { font-size: 18px; }
+  .bigTit { font-size: 24px; }
+}
+
+@media screen and (max-width: 380px) {
+  .bigTit { font-size: 1.3rem; }
+  .desc { font-size: 1rem; }
+}

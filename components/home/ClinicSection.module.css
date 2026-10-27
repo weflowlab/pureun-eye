@@ -1,0 +1,199 @@
+/* 메인 비주얼 슬라이더 */
+.section {
+  position: relative;
+  height: calc(100vh - 100px);
+  overflow: hidden;
+}
+.bgSwiper {
+  position: absolute !important;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 텍스트 레이어 */
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
+.inner {
+  display: flex;
+  align-items: end;
+  max-width: 1480px;
+  height: 100%;
+  margin: 0 auto;
+  color: #fff;
+}
+.textBox {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 120px;
+}
+.title {
+  padding-bottom: 36px;
+  font-family: var(--font-sans);
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 38px;
+}
+.subtitle {
+  padding-bottom: 32px;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 140%;
+  letter-spacing: -0.48px;
+}
+.subtitle strong { font-weight: 700; }
+
+/* 썸네일 탭 */
+.pagination {
+  display: flex;
+  gap: 10px;
+  height: 80px;
+  padding-bottom: 35px;
+}
+.pagItem {
+  display: flex;
+  align-items: center;
+}
+.pagImgBox {
+  width: 80px;
+  max-width: 60px;
+  aspect-ratio: 1;
+  filter: grayscale(1);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.pagTxtBox {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: width 0.3s ease-in-out;
+}
+.pagTitWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.6s ease-in-out;
+}
+.pagThumbTit {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 150%;
+  white-space: nowrap;
+}
+.pagMore {
+  color: #bdbdbd;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: -0.64px;
+  white-space: nowrap;
+}
+.pagThumbTxt {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 130%;
+  letter-spacing: -0.48px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.6s ease-in-out 0.1s;
+}
+
+/* 활성 썸네일: 컬러 + 확대 + 텍스트 펼침 */
+.pagItem.active .pagImgBox {
+  max-width: 80px;
+  filter: grayscale(0);
+}
+.pagItem.active .pagTxtBox {
+  width: auto;
+  padding-left: 12px;
+  opacity: 1;
+  visibility: visible;
+}
+.pagItem.active .pagTitWrap,
+.pagItem.active .pagThumbTxt {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 컨트롤 그룹 */
+.btnGroup {
+  position: absolute;
+  bottom: 20%;
+  width: 100%;
+  max-width: 224px;
+  height: 35px;
+}
+.prevBtn,
+.nextBtn {
+  position: absolute;
+  top: 88%;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  width: 50px;
+  margin-top: -22px;
+  cursor: pointer;
+}
+.prevBtn { left: 0; }
+.nextBtn { right: 0; }
+.stopBtn {
+  position: absolute;
+  top: 50%;
+  right: 46px;
+  z-index: 9999;
+  display: flex;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.bulletPagination {
+  position: absolute !important;
+  top: 12px !important;
+  bottom: auto !important;
+  left: 50% !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: auto !important;
+  transform: translate(-66%) !important;
+}
+.bulletPagination :global(.swiper-pagination-bullet) {
+  width: 10px !important;
+  height: 10px !important;
+  margin: 0 !important;
+  background-color: #fff !important;
+}
+
+@media screen and (max-width: 1600px) {
+  .inner { width: 90%; }
+}
+
+@media screen and (max-width: 1210px) {
+  .section { height: clamp(635px, 70vw, 950px); }
+  .title { padding-bottom: 12px; font-size: 30px; line-height: 38px; }
+  .subtitle { padding-bottom: 20px; font-size: 16px; letter-spacing: -0.32px; }
+  .inner { width: 90%; }
+  .textBox { padding-bottom: 52px; }
+  .pagTitWrap { padding-bottom: 4px; }
+  .pagImgBox { max-width: 40px; }
+  .pagItem.active .pagImgBox { max-width: 50px; }
+  .pagThumbTit { font-size: 20px; }
+  .pagThumbTxt { font-size: 13px; }
+  .pagItem.active .pagTxtBox { padding-left: 10px; }
+}
+
+@media screen and (max-width: 768px) {
+  .inner { width: 100%; padding: 0 20px; }
+  .pagination { height: 100px; }
+  .pagTitWrap { flex-direction: column; align-items: start; gap: 0; padding-bottom: 4px; }
+  .pagThumbTxt p { display: none; }
+  .btnGroup { bottom: 17%; left: -16px; }
+}

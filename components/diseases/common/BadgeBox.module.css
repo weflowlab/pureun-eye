@@ -1,0 +1,43 @@
+/* 배지 박스 */
+.box {
+  color: var(--color-light-grey);
+  text-align: center;
+  border: 4px solid var(--color-primary);
+  border-radius: 95px;
+}
+.lg { margin-top: 180px; }
+.md { margin-top: 90px; }
+.heading { margin-top: 85px; font-size: 25px; font-weight: 700; line-height: 25px; }
+
+/* 항목 */
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 35px 0;
+}
+.badge {
+  display: inline-block;
+  margin-bottom: 35px;
+  padding: 15px 35px;
+  color: #f2f2f2;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 25px;
+  background: var(--color-primary);
+  border-radius: 50px;
+}
+.desc { color: var(--color-light-grey); font-size: 18px; line-height: 30px; }
+.descSpaced { margin-top: 40px; }
+
+/* 태블릿·모바일 */
+@media screen and (max-width: 1210px) {
+  .box { padding: 0 20px; border-radius: 20px; }
+  .lg { margin-top: 50px; }
+  .md { margin-top: 30px; }
+  .heading { margin-top: 30px; line-height: 30px; }
+  .item { padding: 30px 0; }
+  .badge { margin-bottom: 20px; padding: 10px 35px; font-size: 18px; line-height: 25px; }
+  .desc { text-align: justify; word-break: normal; }
+}

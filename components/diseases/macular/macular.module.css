@@ -1,0 +1,52 @@
+/* 증상 섹션 */
+.symptomSection { margin-top: 190px; }
+.symptomSection > p {
+  margin-bottom: 75px;
+  color: var(--color-light-grey);
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 25px;
+  text-align: center;
+}
+.symptomCircles { position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; }
+/* 원 뒤 가로 연결선 */
+.symptomLine {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  background: #393939;
+  transform: translateY(-50%);
+}
+.symptomCircle {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  height: 220px;
+  text-align: center;
+  background: #393939;
+  border-radius: 50%;
+}
+.symptomCircle p { color: #f2f2f2; }
+.symptomNum { font-size: 30px; font-weight: 700; }
+.symptomText { margin-top: 25px; font-size: 16px; line-height: 25px; }
+
+/* 치료 이미지 */
+.treatImg { width: 800px; max-width: 100%; }
+
+/* 태블릿·모바일 */
+@media screen and (max-width: 1210px) {
+  .symptomSection { margin-top: 50px; }
+  .symptomSection > p {
+    margin-bottom: 30px;
+    font-size: 20px;
+    line-height: 28px;
+    text-align: justify;
+    word-break: normal;
+  }
+  .symptomCircles { justify-content: space-evenly; }
+  .symptomCircle { margin: 10px; }
+}

@@ -1,0 +1,7 @@
+/* 이미지 슬라이더 */
+.swiperDiabetic { width: 330px; overflow: hidden; }
+
+/* 태블릿·모바일 */
+@media screen and (max-width: 1210px) {
+  .swiperDiabetic { width: 100%; max-width: 300px; }
+}
