@@ -11,6 +11,9 @@ import DiabeticPage from "@/components/diseases/diabetic/DiabeticPage";
 import MacularPage from "@/components/diseases/macular/MacularPage";
 import DetachmentPage from "@/components/diseases/detachment/DetachmentPage";
 import GrowthPage from "@/components/diseases/growth/GrowthPage";
+import { VISION_PAGES } from "@/components/clinic/vision";
+import { CATARACT_PAGES } from "@/components/clinic/cataract";
+import { RETINA_PAGES } from "@/components/clinic/retina";
 
 export type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 export type SubPageProps = { path: string; searchParams: SearchParams };
@@ -73,4 +76,8 @@ export const PAGES: Record<string, ComponentType<SubPageProps>> = {
   "/retina/detachment": DetachmentPage,
   "/retina/csc": GrowthPage,
   "/community/notice": NoticePage,
+  // 진료과목별 페이지 (기존 푸른안과 원고 기반)
+  ...VISION_PAGES,
+  ...CATARACT_PAGES,
+  ...RETINA_PAGES,
 };
