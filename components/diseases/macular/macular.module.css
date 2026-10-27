@@ -1,11 +1,15 @@
+/* 종류 카드: 2열 */
+.types { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; }
+.typeSub { font-size: 17px; font-weight: 500; }
+
 /* 증상 섹션 */
-.symptomSection { margin-top: 190px; }
+.symptomSection { margin: 150px 0 120px; }
 .symptomSection > p {
   margin-bottom: 75px;
-  color: var(--color-light-grey);
-  font-size: 25px;
+  color: var(--color-primary);
+  font-size: 30px;
   font-weight: 700;
-  line-height: 25px;
+  line-height: 40px;
   text-align: center;
 }
 .symptomCircles { position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; }
@@ -34,18 +38,15 @@
 .symptomNum { font-size: 30px; font-weight: 700; }
 .symptomText { margin-top: 25px; font-size: 16px; line-height: 25px; }
 
-/* 치료 이미지 */
-.treatImg { width: 800px; max-width: 100%; }
-
 /* 태블릿·모바일 */
 @media screen and (max-width: 1210px) {
-  .symptomSection { margin-top: 50px; }
+  .types { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .symptomSection { margin: 70px 0 50px; }
   .symptomSection > p {
     margin-bottom: 30px;
-    font-size: 20px;
-    line-height: 28px;
-    text-align: justify;
-    word-break: normal;
+    font-size: 24px;
+    line-height: 32px;
+    text-align: left;
   }
   .symptomCircles { justify-content: space-evenly; }
   .symptomCircle { margin: 10px; }

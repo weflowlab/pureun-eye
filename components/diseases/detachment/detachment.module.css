@@ -1,11 +1,2 @@
-/* 하단 안내 문구 */
-.bottomNote {
-  margin-bottom: 55px;
-  padding: 0 20px;
-  color: var(--color-primary);
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 25px;
-  text-align: center;
-  word-break: normal;
-}
+/* 수술 박스 안 장비 사진 */
+.treatImg { width: 420px; max-width: 100%; }
