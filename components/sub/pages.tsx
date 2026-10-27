@@ -16,7 +16,7 @@ import { RETINA_PAGES } from "@/components/clinic/retina";
 import DoctorsPage from "@/components/clinic/about/DoctorsPage";
 import LocationPage from "@/components/clinic/about/LocationPage";
 import TourPage from "@/components/clinic/about/TourPage";
-import ReferralPage from "@/components/clinic/retina/ReferralPage";
+import ReferralPage from "@/components/clinic/community/ReferralPage";
 import FaqPage from "@/components/clinic/community/FaqPage";
 import OnlinePage from "@/components/clinic/contact/OnlinePage";
 
@@ -71,10 +71,10 @@ export const PAGES: Record<string, ComponentType<SubPageProps>> = {
   "/retina/detachment": DetachmentPage,
   "/retina/csc": GrowthPage,
   "/about/tour": TourPage,
-  "/retina/referral": ReferralPage,
   "/community/notice": NoticePage,
   "/community/faq": FaqPage,
   "/community/reviews": ReviewsPage,
+  "/community/referral": ReferralPage,
   "/contact/online": OnlinePage,
   // 진료과목별 페이지 (기존 푸른안과 원고 기반)
   ...VISION_PAGES,

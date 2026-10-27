@@ -30,7 +30,7 @@ export const HOURS = {
 export type MenuPage = { slug: string; label: string; /** 외부 링크면 지정 */ external?: string };
 export type MenuGroup = { slug: string; label: string; labelEn: string; pages: MenuPage[] };
 
-/** 전체 메뉴 — 기존 홈페이지 구조 기준, 커뮤니티는 구글폼 요청(공지·FAQ·후기)대로. URL: /{group}/{page} */
+/** 전체 메뉴 — 기존 홈페이지 구조 기준, 커뮤니티는 구글폼 요청(공지·FAQ·후기) + 진료의뢰서. URL: /{group}/{page} */
 export const MENU: MenuGroup[] = [
   {
     slug: "about",
@@ -84,7 +84,6 @@ export const MENU: MenuGroup[] = [
       { slug: "detachment", label: "망막박리" },
       { slug: "csc", label: "중심성 망막증" },
       { slug: "floaters", label: "비문증" },
-      { slug: "referral", label: "진료의뢰서 다운로드" },
     ],
   },
   {
@@ -95,6 +94,7 @@ export const MENU: MenuGroup[] = [
       { slug: "notice", label: "공지사항" },
       { slug: "faq", label: "자주묻는질문" },
       { slug: "reviews", label: "고객후기" },
+      { slug: "referral", label: "진료의뢰서" },
     ],
   },
   {

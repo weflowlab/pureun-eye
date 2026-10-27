@@ -1,7 +1,7 @@
 import type { SubPageProps } from "@/components/sub/pages";
 import SubLayout from "@/components/sub/SubLayout";
 import ContentBlock from "@/components/diseases/common/ContentBlock";
-import SectionHead from "./SectionHead";
+import SectionHead from "@/components/clinic/retina/SectionHead";
 import { SITE } from "@/lib/site";
 import styles from "./referral.module.css";
 
@@ -21,7 +21,7 @@ export default function ReferralPage({ path }: SubPageProps) {
           title="진료의뢰서 다운로드"
           sub={
             <>
-              망막 질환 환자를 의뢰하실 때 아래 양식을 내려받아 작성해 주세요.
+              {SITE.name}로 환자를 의뢰하실 때 아래 양식을 내려받아 작성해 주세요.
               <br className="pc_block" /> 문의: 대표전화 {SITE.tel}
             </>
           }
