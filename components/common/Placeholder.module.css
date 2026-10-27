@@ -38,10 +38,10 @@
   background: #dfe4ee;
 }
 .stock img { object-fit: cover; }
-/* 어두운 배경용: 글자 가독성을 위해 남색으로 덮음 */
+/* 어두운 배경용: 글자 가독성을 위해 어둡게 덮음 (색이 탁해지지 않게 중립 톤) */
 .stockDark::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(15, 27, 58, 0.55);
+  background: rgba(10, 16, 30, 0.45);
 }

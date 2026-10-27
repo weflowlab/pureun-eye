@@ -4,14 +4,15 @@ import Placeholder from "@/components/common/Placeholder";
 import { SITE } from "@/lib/site";
 import styles from "./PhilosophySection.module.css";
 
-// 진료이념 3가지 (진료이념 페이지 원고 기준, 메인용 요약)
+// 진료이념 4가지 (진료이념 페이지 원고 기준, 메인용 요약)
 const VALUES = [
   { title: "환자 안전과 인본 진료", desc: "환자의 안전을 가장 먼저 생각하며\n사람을 존중하는 진료를 지향합니다." },
+  { title: "꼼꼼한 검사와 정확한 진단", desc: "꼭 필요한 검사를 빠뜨리지 않고\n결과를 신중하게 판단합니다." },
+  { title: "수술 후 관리까지 생각하는 진료", desc: "많은 수술보다, 수술 후 관리까지\n고려한 안전한 수술을 합니다." },
   { title: "전문 의료진과 끊임없는 연구", desc: "분야별 전문 의료진과 정밀 장비,\n꾸준한 연구로 진료의 질을 높입니다." },
-  { title: "지역사회와 함께하는 나눔", desc: "의료 봉사로 지역사회에 기여하고\n이웃과 아픔을 함께 나눕니다." },
 ];
 
-/** 진료이념 소개: 로고·슬로건·대표 이미지 + 하단 어두운 띠의 3가지 진료이념 */
+/** 진료이념 소개: 로고·슬로건·대표 이미지 + 하단 어두운 띠의 4가지 진료이념 */
 export default function PhilosophySection() {
   return (
     <section className={styles.section}>

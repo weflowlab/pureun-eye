@@ -24,9 +24,8 @@ export default function Banner({ title, subtitle, description, compact }: Props)
           <p className={styles.label}>{SITE.nameEn}</p>
           <h1 className={`${styles.title} ${compact ? styles.titleCustom : ""}`}>{title}</h1>
           <div className={styles.line} />
-          <p className={styles.subtitle}>
-            {SITE.name} {subtitle}
-          </p>
+          {/* 대메뉴명이 병원명과 같으면(푸른안과) 한 번만 표시 */}
+          <p className={styles.subtitle}>{subtitle === SITE.name ? SITE.name : `${SITE.name} ${subtitle}`}</p>
           {description && <p className={styles.description}>{description}</p>}
         </div>
       </div>

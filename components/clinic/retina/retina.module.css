@@ -238,8 +238,8 @@ a.card:hover .cardMore { color: #f2f2f2; }
 }
 .statNum small { margin-left: 4px; color: #f2f2f2; font-size: 20px; }
 
-/* 진료이념 3가지 */
-.values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; }
+/* 진료이념 4가지 (2×2) */
+.values { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; }
 .value {
   padding: 50px 35px;
   background: #fff;

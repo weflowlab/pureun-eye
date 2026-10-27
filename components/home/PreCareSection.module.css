@@ -1,142 +1,86 @@
-/* 수술 전 검사 섹션 (배경 이미지 대신 연한 그라데이션) */
+/* 섹션 (PC는 스크롤 동안 화면에 고정) */
 .section {
-  height: 100vh;
-  padding-top: 136px;
-  background: linear-gradient(120deg, #f4f6fb 0%, #e6ebf5 100%);
-}
-.container {
-  display: flex;
-  width: 90%;
-  max-width: 1280px;
-  margin: 0 auto;
-}
-.imgWrap {
-  width: 45%;
-  max-width: 630px;
-}
-.slideWrap { width: 55%; }
-
-/* 타이틀 */
-.tit { margin-bottom: 24px; }
-.titLabel {
-  width: fit-content;
-  margin-bottom: 32px;
-  padding: 12px 20px;
-  color: #272727;
-  font-size: clamp(16px, 1.2vw, 24px);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.48px;
-  border: 1px solid #000;
-  border-radius: 100px;
-}
-/* 검사 수 + 문구 (기준선 정렬) */
-.logo {
-  display: flex;
-  align-items: baseline;
-  gap: min(0.8vw, 16px);
-}
-.logoText {
   display: flex;
   align-items: center;
-  gap: min(0.8vw, 16px);
-  color: var(--color-primary);
-  font-size: clamp(30px, 3.6vw, 70px);
+  min-height: 100vh;
+  padding: 120px 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f3f6fb 0%, #fff 100%);
+}
+.inner {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 60px;
+  width: 100%;
+  padding-left: max(5%, calc((100% - var(--max-width)) / 2));
+}
+
+/* 좌측 패널 */
+.panel { align-self: center; }
+.label { color: var(--color-accent); font-size: 14px; font-weight: 700; letter-spacing: 0.2em; }
+.title {
+  margin-top: 16px;
+  color: var(--color-deep-grey);
+  font-size: 32px;
   font-weight: 700;
-  line-height: 1.2;
-}
-.logoSub {
-  color: #272727;
-  font-size: clamp(24px, 1.7vw, 34px);
-  font-weight: 300;
   line-height: 1.4;
-  letter-spacing: -0.34px;
+  letter-spacing: -0.02em;
 }
+.total { margin-top: 30px; color: var(--color-deep-grey); font-size: 20px; }
+.total b { margin-right: 6px; color: var(--color-primary); font-size: 64px; font-weight: 700; line-height: 1; letter-spacing: -0.03em; }
+.desc { margin-top: 18px; color: var(--color-light-grey); font-size: 16px; line-height: 1.7; }
+.more {
+  display: inline-flex;
+  gap: 10px;
+  margin-top: 34px;
+  padding: 13px 26px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  background: var(--color-primary);
+  border-radius: 40px;
+  transition: opacity 0.3s;
+}
+.more:hover { opacity: 0.85; }
 
-/* 슬라이드 */
-.swiperContainer {
-  max-width: 580px;
-  margin-left: auto;
+/* 우측 카드 영역: 양 끝은 흐리게 사라짐 (카드가 잘린 듯 보이지 않게) */
+.viewport {
   overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent 0, #000 40px, #000 85%, transparent 100%);
 }
-.cover {
-  margin-bottom: 24px;
-  overflow: hidden;
-}
-.txt {
-  color: #272727;
-  text-align: right;
-  font-size: 24px;
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -0.72px;
-}
-.txt b { font-weight: 600; }
-/* 대표 검사명 */
-.sample {
-  margin-top: 12px;
-  color: #6b6b6b;
-  text-align: right;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.4;
-  letter-spacing: -0.36px;
-}
+.track { display: flex; gap: 28px; width: max-content; padding: 0 5vw 0 40px; }
 
-/* 상세 페이지 바로가기 */
-.moreBtn {
-  display: inline-block;
-  margin-top: 24px;
-  color: #222;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: -0.72px;
-  border-bottom: 1px solid #222;
-}
-
-/* PC 가로 트랙 (GSAP translateX) */
-.desktopSlider {
-  max-width: 580px;
-  margin-left: auto;
-  overflow: hidden;
-}
-.desktopSliderTrack {
-  display: flex;
-  will-change: transform;
-}
-.desktopSlide {
+/* 카드 */
+.card {
   flex-shrink: 0;
-  width: 580px;
-  padding-right: 20px;
+  width: 360px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px #152c6b14;
+}
+.cover { aspect-ratio: 4 / 3; }
+.cardBody { padding: 26px 28px 30px; }
+.cardNum { color: var(--color-accent); font-size: 14px; font-weight: 700; }
+.cardTitle { margin-top: 8px; color: var(--color-primary); font-size: 22px; font-weight: 700; }
+.cardTitle span { margin-left: 4px; color: var(--color-light-grey); font-size: 16px; font-weight: 500; }
+.sample { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.sample li {
+  padding: 6px 12px;
+  color: var(--color-deep-grey);
+  font-size: 14px;
+  background: #f1f4f9;
+  border-radius: 20px;
 }
 
-@media screen and (max-width: 1440px) {
-  .section { padding-bottom: 20px; }
-}
-
+/* 태블릿·모바일: 세로로 쌓고 카드는 손가락 가로 스크롤 */
 @media screen and (max-width: 1024px) {
-  .container { align-items: flex-end; }
-  .imgWrap { width: 40%; }
-  .slideWrap { width: 60%; }
-}
-
-@media screen and (max-width: 768px) {
-  .section {
-    height: unset;
-    margin-bottom: 20px;
-    padding-top: 50px;
-    padding-bottom: 0;
-  }
-  .container { flex-direction: column-reverse; gap: 45px; }
-  .imgWrap,
-  .slideWrap { width: 100%; }
-  .titLabel { margin: 0 auto 8px; padding: 4px 20px; }
-  .logo { flex-direction: column; align-items: center; gap: 0; }
-  .tit { text-align: center; }
-  .txt { font-size: 16px; }
-  .sample { font-size: 14px; }
-  .moreBtn { margin-top: 12px; font-size: 15px; }
-  .cover { margin-bottom: 12px; }
-  .desktopSlide { padding-right: 0; }
+  .section { display: block; min-height: 0; padding: 70px 0; }
+  .inner { grid-template-columns: minmax(0, 1fr); gap: 35px; padding-left: 5%; }
+  .panel { padding-right: 5%; }
+  .title { font-size: 26px; }
+  .total b { font-size: 52px; }
+  .viewport { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; mask-image: none; }
+  .viewport::-webkit-scrollbar { display: none; }
+  .card { width: 78vw; max-width: 340px; scroll-snap-align: start; }
 }

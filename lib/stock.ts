@@ -43,8 +43,6 @@ const BANNER_BY_GROUP: Record<string, StockKey> = {
 
 // 플레이스홀더 라벨 → 사진 (위에서부터 먼저 맞는 규칙 적용)
 const RULES: [RegExp, StockKey][] = [
-  // 메인 인트로 영상 자리 (영상 받기 전 임시 정지 이미지)
-  [/^메인 인트로 영상/, "blue-abstract"],
   // 메인 비주얼 슬라이드 (썸네일 순서: 시력교정 · 백내장 · 망막 · 의료진)
   [/^메인 비주얼 1$/, "eye-green"],
   [/^메인 비주얼 2$/, "senior-couple-2"],
@@ -60,7 +58,7 @@ const RULES: [RegExp, StockKey][] = [
   [/^황반변성$/, "senior-couple"],
   // 띠 배경
   [/^진료시간 배경$/, "corridor"],
-  [/^봉사활동 배경$/, "senior-couple-2"],
+  [/^상담 안내 배경$/, "consult"],
   [/(진료이념|진료 철학) 배경$/, "blue-abstract"],
   [/백내장.*배경$/, "senior-reading"],
   [/(망막|BOIM|황반변성|당뇨|비문증|중심성|박리).*배경$/, "eye-warm"],
@@ -73,11 +71,12 @@ const RULES: [RegExp, StockKey][] = [
   [/^푸른 백내장 노안센터 대표 이미지/, "senior-couple-2"],
   [/^망막클리닉 보임 대표 이미지/, "exam-slitlamp"],
   // 검사·진료 장면
+  // (메인 33가지 검사 카드 4장은 서로 다른 사진)
   [/^수술 전 정밀 검사/, "exam-phoropter"],
   [/^시력 · 굴절 검사$/, "exam-phoropter"],
   [/^각막 검사$/, "eye-green"],
-  [/^안구 구조 · 기능 검사$/, "eye-amber"],
-  [/^망막 · 시신경 검사$/, "exam-slitlamp"],
+  [/^안구 구조 · 기능 검사$/, "exam-slitlamp"],
+  [/^망막 · 시신경 검사$/, "eye-macro"],
   [/^(망막 검사|비문증 안저검사)$/, "exam-slitlamp"],
   [/^수술 후 정기 검진$/, "consult"],
   [/^FACT CHECK 대표 이미지$/, "man-laptop"],

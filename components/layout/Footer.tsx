@@ -1,35 +1,36 @@
 import Image from "next/image";
 import Link from "next/link";
 import Placeholder from "@/components/common/Placeholder";
+import ConsultButton from "@/components/clinic/contact/ConsultButton";
 import { SITE } from "@/lib/site";
 import styles from "./Footer.module.css";
 
-/** 공통 푸터: 사회환원·봉사활동 밴드 + 병원 정보 */
+/** 공통 푸터: 상담 유도 밴드 + 병원 정보 */
 export default function Footer() {
   return (
     <>
-      {/* 사회환원·봉사활동 밴드 (기존 홈페이지 문구) */}
+      {/* 상담 유도 밴드: 상담 신청 · 전화 · 카카오톡 */}
       <div className={styles.subFooter}>
-        <Placeholder label="봉사활동 배경" dark className={styles.subFooterBg} />
-        <p className={styles.sharingDesc} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
-          <span className={styles.sharingDescBold}>
-            꾸준한 봉사활동,
-            <br className="mo_block" /> 이것이 {SITE.name}가 지향하는 바입니다.
-            <br className="pc_block" />
-          </span>
-          의료를 통한 봉사로 지역사회와
-          <br className="mo_block" /> 아픔을 함께 나누겠습니다.
+        <Placeholder label="상담 안내 배경" dark className={styles.subFooterBg} />
+        <p className={styles.ctaLabel} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
+          CONSULTATION
         </p>
-        <Link
-          href="/about/philosophy"
-          className={styles.sharingTime}
-          suppressHydrationWarning
-          data-aos="fade-up"
-          data-aos-duration="1500"
-          data-aos-delay="200"
-        >
-          진료이념 보기 →
-        </Link>
+        <p className={styles.ctaTitle} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
+          <span className={styles.ctaTitleBold}>궁금한 점이 있으신가요?</span>
+          <br className="mo_block" /> {SITE.name}가 친절히 안내해 드립니다.
+        </p>
+        <p className={styles.ctaDesc} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
+          진료 분야와 연락처를 남겨주시면 확인 후 연락드립니다.
+        </p>
+        <div className={styles.ctaBtns} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200">
+          <ConsultButton className={`${styles.ctaBtn} ${styles.ctaPrimary}`}>상담 신청하기</ConsultButton>
+          <a href={`tel:${SITE.tel}`} className={styles.ctaBtn}>
+            전화 {SITE.tel}
+          </a>
+          <a href={SITE.kakaoUrl} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>
+            카카오톡 상담
+          </a>
+        </div>
       </div>
 
       {/* 하단 정보 */}
