@@ -1,4 +1,4 @@
-/* 유튜브 섹션 */
+/* 블로그 섹션 */
 .section {
   width: 1280px;
   margin: 0 auto;
@@ -60,20 +60,12 @@
   color: #fff;
   font-size: 15px;
   font-weight: 700;
-  background: #e62117;
+  background: var(--color-primary);
   border-radius: 40px;
   cursor: pointer;
   transition: var(--transition-base);
 }
 .moreBtn:hover { opacity: 0.85; }
-/* 재생 삼각형 아이콘 */
-.ytIcon {
-  width: 0;
-  height: 0;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-left: 10px solid #fff;
-}
 
 @media screen and (max-width: 1700px) {
   .bigTit { font-size: 40px; }

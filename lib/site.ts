@@ -7,6 +7,8 @@ export const SITE = {
   privacyOfficer: "유태영",
   zip: "54921",
   address: "전북특별자치도 전주시 덕진구 백제대로 660 푸른안과",
+  /** 지도 검색·좌표 변환용 도로명 주소 */
+  roadAddress: "전북특별자치도 전주시 덕진구 백제대로 660",
   tel: "063-278-2121",
   lasikTel: "063-278-2072",
   fax: "063-278-2030",
@@ -15,9 +17,9 @@ export const SITE = {
   kakaoUrl: "#",
   instagramUrl: "#",
   blogUrl: "#",
-  youtubeUrl: "#",
-  naverMapUrl: "#",
-  kakaoMapUrl: "#",
+  // 지도 앱 링크: 현재는 검색 링크 — 병원에서 정확한 장소 링크를 받으면 교체
+  naverMapUrl: "https://map.naver.com/p/search/%EC%A0%84%EC%A3%BC%20%ED%91%B8%EB%A5%B8%EC%95%88%EA%B3%BC%EC%9D%98%EC%9B%90",
+  kakaoMapUrl: "https://map.kakao.com/link/search/%EC%A0%84%EC%A3%BC%20%ED%91%B8%EB%A5%B8%EC%95%88%EA%B3%BC%EC%9D%98%EC%9B%90",
 };
 
 /** 진료시간 (기존 홈페이지 기준) */

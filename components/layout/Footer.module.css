@@ -43,21 +43,24 @@
   line-height: 26px;
 }
 
-/* 버튼 3개: 상담 신청(강조) · 전화 · 카카오톡 */
+/* 버튼 2개 가로 배치: 전화하기 · 상담 신청하기(강조), 앞에 아이콘 */
 .ctaBtns {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
   margin-top: 36px;
 }
 .ctaBtn {
-  min-width: 190px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 200px;
   padding: 15px 28px;
   color: #fff;
   font-family: inherit;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 700;
   border: 1px solid #ffffffb3;
   border-radius: 40px;
   transition: background 0.3s, color 0.3s, border-color 0.3s;
@@ -71,7 +74,6 @@
   color: var(--color-primary);
   background: #fff;
   border-color: #fff;
-  font-weight: 700;
 }
 .ctaPrimary:hover {
   color: #fff;
@@ -79,82 +81,86 @@
   border-color: var(--color-primary);
 }
 
-/* 푸터 본체 */
+/* 푸터 본체: 밝은 톤 (위 상담 띠와 구분) */
 .footer {
   position: relative;
-  bottom: 0;
-  left: 0;
   z-index: 1000;
   width: 100%;
-  height: 190px;
-  color: #272727;
-  font-size: 16px;
-  line-height: 25px;
-  background: #f2f2f2;
+  color: #5f6673;
+  font-size: 15px;
+  line-height: 1.7;
+  background: #f5f7fb;
+  border-top: 1px solid #e3e8f0;
 }
 .inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-.footerBox {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.logoWrap {
-  margin-right: 25px;
-  cursor: pointer;
+  width: var(--max-width);
+  margin: 0 auto;
 }
 
-/* 병원 정보 (항목 사이 세로 구분선) */
-.infoBox {
-  max-width: 550px;
-}
-.infoBox span {
-  font-weight: 700;
-}
-.infoItem {
-  display: inline;
-}
-.infoItem::after {
-  content: "";
-  display: inline-block;
-  width: 1px;
-  height: 12px;
-  margin: 0 5px;
-  vertical-align: middle;
-  background: #272727;
-}
-.infoItemFull {
-  display: block;
-}
-.copyright {
-  color: #707070;
+/* 위쪽 3단: 브랜드 · 진료시간 · 병원 정보 */
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr) minmax(0, 1.5fr);
+  gap: 60px;
+  padding: 70px 0 56px;
 }
 
-/* 개인정보처리방침 버튼 */
-.privacyBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 170px;
-  height: 40px;
-  margin: 5px;
-  color: inherit;
-  font-family: inherit;
-  font-size: 16px;
+/* 브랜드 */
+.logoWrap { display: inline-block; }
+.logo { width: 150px; height: auto; }
+.tagline { margin-top: 20px; color: #4a5160; font-size: 15px; line-height: 1.7; }
+.quickLinks { display: flex; gap: 8px; margin-top: 24px; }
+.quickLinks a {
+  padding: 8px 18px;
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 500;
+  background: #fff;
+  border: 1px solid #cfd8ea;
+  border-radius: 30px;
+  transition: background 0.3s, border-color 0.3s;
+}
+.quickLinks a:hover { color: #fff; background: var(--color-primary); border-color: var(--color-primary); }
+
+/* 단 제목 */
+.colTitle {
+  margin-bottom: 18px;
+  color: var(--color-primary);
+  font-size: 14px;
   font-weight: 700;
-  line-height: 25px;
-  border: 1px solid #707070;
-  cursor: pointer;
-  transition: all 0.3s;
+  letter-spacing: 0.08em;
 }
-.privacyBtn:hover {
-  color: #152c6b;
-  border: 1px solid #152c6b;
+
+/* 진료시간 */
+.hours div { display: flex; gap: 14px; }
+.hours div + div { margin-top: 6px; }
+.hours dt { flex-shrink: 0; width: 46px; color: #272727; font-weight: 500; }
+.hours dd span { display: block; }
+.note { margin-top: 10px; font-size: 13px; color: #8a909c; }
+
+/* 병원 정보: 한 줄에 하나씩 */
+.info li { display: flex; flex-wrap: wrap; align-items: baseline; }
+.info span { flex-shrink: 0; width: 82px; color: #272727; font-weight: 500; }
+.info a { color: #5f6673; transition: color 0.2s; }
+.info a:hover { color: var(--color-primary); }
+/* 같은 줄 두 번째 항목 (팩스) */
+.info .subLabel { width: auto; margin: 0 8px 0 24px; }
+
+/* 하단 바 */
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0 28px;
+  border-top: 1px solid #e3e8f0;
+  font-size: 13px;
 }
+.copyright { color: #8a909c; }
+.bottomLinks { display: flex; gap: 22px; }
+.bottomLinks a { color: #5f6673; transition: color 0.2s; }
+.bottomLinks a:hover { color: var(--color-primary); }
+/* 개인정보처리방침은 강조 (법적 고지) */
+.bottomLinks .privacy { color: #272727; font-weight: 700; }
 
 /* 반응형 */
 @media screen and (max-width: 1210px) {
@@ -168,33 +174,20 @@
   .ctaDesc {
     font-size: 15px;
   }
+  /* 모바일도 가로 2개, 폭을 반씩 나눔 */
   .ctaBtns {
-    flex-direction: column;
     width: 100%;
-    max-width: 320px;
+    max-width: 360px;
+    gap: 8px;
     margin-top: 28px;
   }
-  .footer {
-    height: auto;
+  .ctaBtn {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 10px;
+    font-size: 15px;
   }
-  .logoWrap {
-    margin: 0;
-  }
-  .inner {
-    flex-direction: column;
-    align-items: center;
-    padding: 30px 0;
-  }
-  .footerBox {
-    flex-direction: column;
-    align-items: center;
-  }
-  .privacyBtn {
-    width: 140px;
-  }
-  .infoBox {
-    width: 90%;
-    padding: 20px 0;
-    text-align: left;
-  }
+  .inner { width: 90%; }
+  .top { grid-template-columns: minmax(0, 1fr); gap: 36px; padding: 50px 0 40px; }
+  .bottom { flex-direction: column-reverse; align-items: flex-start; gap: 10px; }
 }

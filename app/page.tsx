@@ -6,7 +6,7 @@ import EquipmentCarousel from "@/components/home/EquipmentCarousel";
 import PhilosophySection from "@/components/home/PhilosophySection";
 import TreatmentSection from "@/components/home/TreatmentSection";
 import DoctorSection from "@/components/home/DoctorSection";
-import YoutubeSection from "@/components/home/YoutubeSection";
+import BlogSection from "@/components/home/BlogSection";
 import NewsSection from "@/components/home/NewsSection";
 import ClinicInfoSection from "@/components/home/ClinicInfoSection";
 import PopupModal from "@/components/home/PopupModal";
@@ -25,7 +25,7 @@ export default function Home() {
       <PhilosophySection />
       <TreatmentSection />
       <DoctorSection />
-      <YoutubeSection />
+      <BlogSection />
       <NewsSection />
       <ClinicInfoSection />
     </>

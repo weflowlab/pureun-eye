@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Placeholder from "@/components/common/Placeholder";
+import MapEmbed from "@/components/common/MapEmbed";
 import type { SubPageProps } from "@/components/sub/pages";
 import SubLayout from "@/components/sub/SubLayout";
 import ContentBlock from "@/components/diseases/common/ContentBlock";
@@ -108,7 +108,7 @@ export default function LocationPage({ path }: SubPageProps) {
         <SectionHead first title="오시는 길" sub="해마다 십만 명이 넘는 고객이 푸른안과를 다녀가셨습니다." />
         <div className={styles.locWrap}>
           <div className={styles.locMap} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
-            <Placeholder label="푸른안과 약도 (지도)" aspectRatio="4 / 3" />
+            <MapEmbed aspectRatio="4 / 3" />
             <div className={styles.mapBtns}>
               <MapLink href={SITE.naverMapUrl}>네이버 지도</MapLink>
               <MapLink href={SITE.kakaoMapUrl}>카카오맵</MapLink>

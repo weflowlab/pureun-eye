@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Placeholder from "@/components/common/Placeholder";
+import MapEmbed from "@/components/common/MapEmbed";
 import { HOURS, SITE } from "@/lib/site";
 import styles from "./ClinicInfoSection.module.css";
 
@@ -69,7 +70,7 @@ export default function ClinicInfoSection() {
           {/* 지도 + 주소 + 지도 앱 버튼 */}
           <div className={styles.mapBox} suppressHydrationWarning data-aos="fade-left" data-aos-duration="1500">
             <div className={styles.mapWrap}>
-              <Placeholder label="카카오 지도" height={400} className={styles.map} />
+              <MapEmbed height={400} className={styles.map} />
             </div>
             <p className={styles.mapTxt}>
               <span className={styles.mapTxtLabel}>찾아오시는 길</span>

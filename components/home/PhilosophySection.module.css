@@ -64,34 +64,63 @@
   height: 685px;
   background: #393939;
 }
-.valueCard {
+/* 진료이념 박스 4개: 위 병원 전경 이미지와 같은 폭(1210px), 같은 높이 */
+.valueGrid {
   position: relative;
   top: 60px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  width: 1210px;
+}
+.valueCard {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 36px;
+  padding: 42px 14px 40px;
   color: #f2f2f2;
   text-align: center;
+  background: #ffffff0d;
+  border: 1px solid #ffffff26;
+  border-radius: 20px;
+  transition: transform 0.3s, background 0.3s, border-color 0.3s;
 }
-/* 진료이념 번호 (아이콘 대체) */
-.valueNum {
+.valueCard:hover {
+  transform: translateY(-6px);
+  background: #ffffff17;
+  border-color: #8ea4dd;
+}
+/* 진료이념 아이콘: 연한 파란 원 안의 선 아이콘 (박스 hover 시 원이 진해짐) */
+.valueIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  height: 72px;
   color: #8ea4dd;
-  font-family: "Poppins", var(--font-sans);
-  font-size: 48px;
-  font-weight: 600;
-  line-height: 1;
+  background: #8ea4dd1f;
+  border-radius: 50%;
+  transition: background 0.3s, color 0.3s;
 }
+.valueCard:hover .valueIcon {
+  color: #fff;
+  background: #8ea4dd59;
+}
+/* 제목은 모두 한 줄 → 박스마다 제목·설명 시작선이 같음 */
 .valueTitle {
-  margin-top: 30px;
+  margin-top: 26px;
   color: #f2f2f2;
   font-size: 20px;
   font-weight: 700;
   line-height: 25px;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
 }
 .valueDesc {
-  font-size: 16px;
-  line-height: 25px;
+  margin-top: 12px;
+  color: #ffffffbf;
+  font-size: 15px;
+  line-height: 24px;
 }
 
 @media screen and (max-width: 1210px) {
@@ -107,14 +136,16 @@
     padding-top: 20px;
     padding-bottom: 100px;
   }
-  .valueCard { margin: 20px; }
+  .valueGrid { top: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 90%; }
   .lead { font-size: 16px; }
   .lead br { display: none; }
   .moreBtn { font-size: 15px; }
-  .valueNum { font-size: 34px; }
+  .valueIcon { width: 60px; height: 60px; }
   .valueTitle { margin-top: 16px; }
 }
 
 @media screen and (max-width: 768px) {
   .clinicImg { border-radius: 20px; }
+  .valueGrid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .valueCard { padding: 32px 20px; }
 }
