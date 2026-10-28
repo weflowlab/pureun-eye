@@ -5,8 +5,8 @@
   flex-direction: column;
   align-items: center;
   padding: 45px 20px;
-  border: 2px solid var(--color-primary);
-  border-radius: 30px;
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
 }
 .format { color: var(--color-primary); font-size: 34px; font-weight: 700; letter-spacing: 0.05em; }
 .desc { margin-top: 8px; color: var(--color-light-grey); font-size: 16px; }

@@ -30,7 +30,8 @@ export default function Footer() {
         </p>
         <p className={styles.ctaTitle} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
           <span className={styles.ctaTitleBold}>궁금한 점이 있으신가요?</span>
-          <br className="mo_block" /> {SITE.name}가 친절히 안내해 드립니다.
+          <br />
+          {SITE.name}가 친절히 안내해 드립니다.
         </p>
         <p className={styles.ctaDesc} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">
           진료 분야와 연락처를 남겨주시면 확인 후 연락드립니다.

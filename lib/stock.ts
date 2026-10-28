@@ -56,6 +56,8 @@ const RULES: [RegExp, StockKey][] = [
   [/^망막박리$/, "eye-macro"],
   [/^당뇨망막병증$/, "exam-slitlamp"],
   [/^황반변성$/, "senior-couple"],
+  // 진료이념 페이지 대표 사진
+  [/^진료이념 대표 이미지$/, "senior-couple"],
   // 띠 배경
   [/^진료시간 배경$/, "corridor"],
   [/^상담 안내 배경$/, "consult"],

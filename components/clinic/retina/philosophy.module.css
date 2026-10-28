@@ -1,0 +1,93 @@
+/* 공통: 작은 영문 라벨 */
+.eyebrow { color: var(--color-accent); font-size: 14px; font-weight: 700; letter-spacing: 0.2em; }
+
+/* ───── 소개: 왼쪽 글 · 오른쪽 사진 ───── */
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 80px;
+  align-items: center;
+  width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--first-pt, 100px) 0 120px;
+}
+.slogan {
+  margin-top: 16px;
+  color: var(--color-primary);
+  font-family: var(--font-playfair);
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+.lead { margin-top: 28px; color: var(--color-deep-grey); font-size: 24px; font-weight: 700; line-height: 1.5; }
+.body { margin-top: 18px; color: var(--color-light-grey); font-size: 17px; line-height: 1.8; }
+
+/* 연간 수치: 세로선으로 구분 */
+.stats { display: flex; gap: 48px; margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--color-border); }
+.stats div + div { padding-left: 48px; border-left: 1px solid var(--color-border); }
+.stats dt { color: var(--color-light-grey); font-size: 15px; }
+.stats dd { margin-top: 6px; color: var(--color-primary); font-size: 42px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+.stats small { margin-left: 4px; font-size: 18px; font-weight: 500; }
+
+.introImg { overflow: hidden; border-radius: var(--card-radius); }
+
+/* ───── 네 가지 약속 ───── */
+.promise { background: var(--card-bg); }
+.promiseInner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 80px;
+  width: var(--max-width);
+  margin: 0 auto;
+  padding: 120px 0;
+}
+/* 왼쪽 제목은 스크롤해도 따라옴 */
+.promiseHead { position: sticky; top: calc(var(--header-height) + 40px); align-self: start; }
+.promiseTitle { margin-top: 16px; color: var(--color-deep-grey); font-size: 36px; font-weight: 700; line-height: 1.35; letter-spacing: -0.02em; }
+
+/* 오른쪽 목록: 가는 구분선 */
+.promiseList li {
+  display: flex;
+  gap: 28px;
+  padding: 36px 0;
+  border-bottom: 1px solid #d6deec;
+}
+.promiseList li:first-child { padding-top: 0; }
+.promiseList li:last-child { border-bottom: 0; padding-bottom: 0; }
+.promiseIcon {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  color: var(--color-primary);
+  background: #fff;
+  border-radius: 50%;
+}
+.promiseItemTitle { color: var(--color-primary); font-size: 22px; font-weight: 700; line-height: 1.4; }
+.promiseItemDesc { margin-top: 10px; color: var(--color-light-grey); font-size: 17px; line-height: 1.75; }
+
+/* ───── 태블릿·모바일 ───── */
+@media screen and (max-width: 1210px) {
+  .intro,
+  .promiseInner { width: 90%; }
+  .intro { grid-template-columns: minmax(0, 1fr); gap: 40px; padding: var(--first-pt-m, 60px) 0 70px; }
+  .introImg { order: -1; }
+  .slogan { font-size: 40px; }
+  .lead { font-size: 20px; }
+  .body { font-size: 16px; }
+  .stats { gap: 28px; margin-top: 32px; padding-top: 24px; }
+  .stats div + div { padding-left: 28px; }
+  .stats dd { font-size: 34px; }
+  .promiseInner { grid-template-columns: minmax(0, 1fr); gap: 36px; padding: 70px 0; }
+  .promiseHead { position: static; }
+  .promiseTitle { font-size: 28px; }
+  .promiseList li { gap: 18px; padding: 26px 0; }
+  .promiseIcon { width: 52px; height: 52px; }
+  .promiseItemTitle { font-size: 19px; }
+  .promiseItemDesc { font-size: 15px; }
+}
+@media screen and (max-width: 768px) {
+  .introImg :global([data-aos]) { aspect-ratio: 4 / 3 !important; }
+}

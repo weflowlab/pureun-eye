@@ -1,0 +1,67 @@
+/* 섹션 높이 = 화면 한 장 + 붙어 있는 동안 스크롤되는 거리(--fs-len 장) */
+.section {
+  position: relative;
+  height: calc(100svh * (1 + var(--fs-len)));
+  background: var(--fs-bg, #fff);
+}
+/* 화면에 붙는 영역 */
+.pin {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100svh;
+  padding: 0 20px;
+  overflow: hidden;
+  color: var(--fs-ink, #272727);
+  background: var(--fs-bg, #fff);
+}
+/* 아랫줄이 커져도(×1.12) 좁은 화면에서 넘치지 않는 크기 */
+.title {
+  color: inherit;
+  font-size: clamp(20px, 4.6vw, 56px);
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.035em;
+  text-align: center;
+}
+
+/* 윗줄은 왼쪽 밖에서, 아랫줄은 오른쪽 밖에서 — --fs-x가 1이면 제자리.
+   그 뒤 --fs-z가 커지면 윗줄은 작고 흐려지고(뒤), 아랫줄은 커짐(앞) */
+.line {
+  display: block;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+.lineA {
+  transform: translate3d(calc((1 - var(--fs-x, 0)) * -70vw), 0, 0) scale(calc(1 - var(--fs-z, 0) * 0.18));
+  opacity: calc(1 - var(--fs-z, 0) * 0.55);
+}
+.lineB {
+  transform: translate3d(calc((1 - var(--fs-x, 0)) * 70vw), 0, 0) scale(calc(1 + var(--fs-z, 0) * 0.12));
+}
+
+/* 폰에서는 조금 더 크게 (아랫줄 ×1.12 후에도 375px 화면 안) */
+@media screen and (max-width: 600px) {
+  .title { font-size: clamp(18px, 5.4vw, 56px); }
+}
+
+/* 빛: 하늘색 글씨 + 은은한 번짐 */
+.hl { transition: color 0.5s ease, text-shadow 0.5s ease; }
+.lit .hl { color: #a9c8ff; text-shadow: 0 0 28px rgba(127, 170, 247, 0.55); }
+
+/* 동작 줄이기 — 붙잡지 않고 남색 띠에 문장을 그대로 */
+@media (prefers-reduced-motion: reduce) {
+  .section { height: auto; background: #0f1c3f; }
+  .pin {
+    position: static;
+    height: auto;
+    padding: 120px 20px;
+    color: #fff;
+    background: #0f1c3f;
+  }
+  .lineA,
+  .lineB { transform: none; opacity: 1; }
+  .hl { color: #a9c8ff; }
+}

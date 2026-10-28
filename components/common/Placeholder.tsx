@@ -21,6 +21,8 @@ type Props = {
 /** 이미지 자리. lib/stock.ts 규칙에 맞는 라벨이면 임시 스톡 사진, 아니면 사선 패턴 플레이스홀더 */
 export default function Placeholder({ label, width, height, aspectRatio, dark, stock = true, className, style }: Props) {
   const src = stock ? stockFor(label) : null;
+  // 일반 사진은 스크롤 시 커튼 리빌 (배경용 dark는 제외)
+  const reveal = dark ? {} : { "data-aos": "reveal", suppressHydrationWarning: true };
 
   // 임시 스톡 사진
   if (src) {
@@ -29,6 +31,7 @@ export default function Placeholder({ label, width, height, aspectRatio, dark, s
         className={`${styles.stock} ${dark ? styles.stockDark : ""} ${className ?? ""}`}
         style={{ width, height, aspectRatio, ...style }}
         data-stock={label}
+        {...reveal}
       >
         <Image src={src} alt="" fill sizes="(max-width: 768px) 100vw, 60vw" />
       </div>
@@ -41,6 +44,7 @@ export default function Placeholder({ label, width, height, aspectRatio, dark, s
       aria-label={`${label} (이미지 자리)`}
       className={`${styles.ph} ${dark ? styles.dark : ""} ${className ?? ""}`}
       style={{ width, height, aspectRatio, ...style }}
+      {...reveal}
     >
       <span className={styles.label}>IMAGE · {label}</span>
     </div>

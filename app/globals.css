@@ -32,6 +32,11 @@
   --z-popup: 200;
   --z-mobile-menu: 150;
   --transition-base: all 0.3s ease;
+  /* 부드러운 카드: 테두리 없이 연한 회청색 + 균일한 둥근 모서리 */
+  --card-bg: #eef3fa;
+  --card-radius: 20px;
+  /* 알약형 태그 (채움) */
+  --chip-bg: #e3eaf6;
 }
 
 /* 리셋 */
@@ -93,4 +98,34 @@ html::-webkit-scrollbar-thumb { background-color: #2f3542; border-radius: 10px; 
 @media screen and (max-width: 1210px) {
   .cont-tit-txt { text-align: left; font-size: 25px; line-height: 30px; }
   .cont-sub-txt { text-align: left; margin: 15px 0 50px; font-size: 20px; line-height: 25px; }
+}
+
+/* ───────── 스크롤 등장 인터랙션 (AOS 전역 조정) ─────────
+   요소마다 data-aos-duration이 달라도 짧고 작게 통일: 0.6초, 이동 20px, 확대·축소 없음 */
+html [data-aos][data-aos] {
+  transition-duration: 0.6s !important;
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1) !important;
+}
+html [data-aos^="fade"][data-aos^="fade"]:not(.aos-animate) { transform: translate3d(0, 20px, 0); }
+html [data-aos="fade-left"]:not(.aos-animate) { transform: translate3d(20px, 0, 0); }
+html [data-aos="fade-right"]:not(.aos-animate) { transform: translate3d(-20px, 0, 0); }
+html [data-aos="fade-in"]:not(.aos-animate) { transform: none; }
+/* zoom 계열은 크기 변화 없이 페이드만 */
+html [data-aos^="zoom"][data-aos^="zoom"] { opacity: 0; transition-property: opacity; }
+html [data-aos^="zoom"][data-aos^="zoom"]:not(.aos-animate) { transform: none; }
+html [data-aos^="zoom"][data-aos^="zoom"].aos-animate { opacity: 1; transform: none; }
+
+/* 사진 리빌: 커튼이 걷히듯 왼쪽부터 드러나며 살짝 확대됐다 제자리로 */
+html [data-aos="reveal"] {
+  clip-path: inset(0 100% 0 0);
+  transition-property: clip-path !important;
+  transition-duration: 1s !important;
+}
+html [data-aos="reveal"].aos-animate { clip-path: inset(0 0 0 0); }
+html [data-aos="reveal"] img { transform: scale(1.08); transition: transform 1.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+html [data-aos="reveal"].aos-animate img { transform: scale(1); }
+
+/* 움직임 줄이기 설정 사용자는 애니메이션 없이 바로 표시 */
+@media (prefers-reduced-motion: reduce) {
+  html [data-aos] { transition: none !important; transform: none !important; opacity: 1 !important; clip-path: none !important; }
 }

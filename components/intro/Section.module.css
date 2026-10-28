@@ -11,7 +11,7 @@
   position: relative;
   width: var(--max-width);
   margin: 0 auto;
-  padding: var(--section-padding);
+  padding: var(--first-pt, 150px) 0 150px;
   /* 고정 헤더 높이만큼 앵커 위치 보정 */
   scroll-margin-top: var(--header-height);
 }
@@ -36,7 +36,7 @@
 @media screen and (max-width: 1210px) {
   .p { display: none; }
   .m { display: block; }
-  .contInner { width: 90%; padding: var(--section-padding-mobile); scroll-margin-top: var(--header-height-mobile); }
+  .contInner { width: 90%; padding: var(--first-pt-m, 50px) 0 50px; scroll-margin-top: var(--header-height-mobile); }
   .contInnerFull { width: 90%; overflow: hidden; }
   .contTitTxt { text-align: left; font-size: 25px; line-height: 30px; }
   .contSubTxt { text-align: left; margin: 15px 0 50px; font-size: 20px; line-height: 25px; }

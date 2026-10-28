@@ -163,7 +163,7 @@ export default function FloatersPage() {
         <SectionHead title="자주 묻는 질문" />
         <QnaList className={`${styles.secBody} ${styles.qnaList}`}>
           {QNA.map((item) => (
-            <QnaCard key={item.q} title={`Q. ${item.q}`} inset>
+            <QnaCard key={item.q} title={`Q. ${item.q}`}>
               <p className={styles.qnaAnswer}>{item.a}</p>
             </QnaCard>
           ))}

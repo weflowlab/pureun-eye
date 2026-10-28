@@ -105,10 +105,13 @@
   line-height: 40px;
   letter-spacing: -1.5px;
 }
+/* 장비 분류명은 한 줄 */
 .txtTit {
   color: #303030;
   font-weight: 600;
   line-height: 40px;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 1800px) {
@@ -156,4 +159,9 @@
 @media screen and (max-width: 1025px) {
   .section { padding-top: 0; }
   .swiAb { bottom: 15%; }
+}
+
+/* 작은 폰: 장비 분류명이 한 줄에 들어가도록 글씨 축소 */
+@media screen and (max-width: 400px) {
+  .swiTxt { font-size: 21px; }
 }

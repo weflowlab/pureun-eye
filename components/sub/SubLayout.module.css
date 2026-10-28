@@ -1,0 +1,7 @@
+/* 서브페이지 본문 */
+.body { position: relative; }
+/* 서브메뉴 바로 아래 첫 섹션은 위 여백을 줄임 (각 섹션의 위 여백이 --first-pt 변수를 따름) */
+.body > :first-child {
+  --first-pt: 30px;
+  --first-pt-m: 20px;
+}

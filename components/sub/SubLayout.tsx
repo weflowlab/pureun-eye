@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { findPage } from "@/lib/site";
 import Banner from "./Banner";
 import Lnb from "./Lnb";
+import styles from "./SubLayout.module.css";
 
 type Props = {
   /** 현재 페이지 경로 (예: "/retina/diabetic") — 배너 문구·서브메뉴 활성 상태에 사용 */
@@ -26,7 +27,7 @@ export default function SubLayout({ path, title, description, compactTitle, chil
     <>
       <Banner title={title ?? page.label} subtitle={group.label} description={description} compact={compactTitle} />
       <Lnb group={group} current={page.slug} />
-      <div>{children}</div>
+      <div className={styles.body}>{children}</div>
     </>
   );
 }

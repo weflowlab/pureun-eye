@@ -6,10 +6,10 @@
   position: relative;
   width: var(--max-width);
   margin: 0 auto;
-  padding: 150px 0;
+  padding: var(--first-pt, 150px) 0 150px;
 }
 
 /* 태블릿·모바일 */
 @media screen and (max-width: 1210px) {
-  .inner { width: 90%; padding: 50px 0; }
+  .inner { width: 90%; padding: var(--first-pt-m, 50px) 0 50px; }
 }

@@ -36,6 +36,14 @@ export default function ScheduleTable({ rows, notes, caption }: Props) {
       <div className={styles.tableScroll}>
         <table className={styles.table}>
           <caption className="sr-only">{caption}</caption>
+          {/* 칸 폭: 오전/오후 · 시간 고정, 월~토 6칸은 남은 폭을 똑같이 나눔 */}
+          <colgroup>
+            <col className={styles.colPeriod} />
+            <col className={styles.colTime} />
+            {WEEKDAYS.map((d) => (
+              <col key={d} />
+            ))}
+          </colgroup>
           <thead>
             <tr>
               <th scope="col" colSpan={2}>

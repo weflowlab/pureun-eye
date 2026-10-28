@@ -1,17 +1,12 @@
 /* 섹션: 화면 밖 슬라이드가 페이지 폭을 늘리지 않도록 가로만 잘라냄 */
 .section { overflow-x: clip; }
 
-/* 슬라이더 래퍼: 110% 폭, 가운데 정렬 */
+/* 슬라이더 래퍼: 본문 폭 안에 두어 화살표가 화면 밖·퀵메뉴 아래로 밀리지 않게 함 */
 .equipBS {
   position: relative;
-  left: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 110%;
-  transform: translate(-50%);
+  width: 100%;
 }
-.equipS { position: relative; width: var(--max-width); padding: 6px 0; overflow: visible !important; }
+.equipS { position: relative; width: 100%; padding: 6px 0; overflow: visible !important; }
 
 /* 장비 카드 */
 .equipSlide { height: 500px !important; box-shadow: 0 0 6px #00000017; background: var(--color-white); }
@@ -41,7 +36,8 @@
 }
 .equipS2 li:nth-child(-n + 2) { padding-left: 0; }
 /* 모델명 옆 장비 분류 */
-.equipS2 small { margin-left: 6px; color: var(--color-light-grey); font-size: 16px; font-weight: 400; }
+/* 분류명은 중간에 끊기지 않게 한 덩어리로 (자리가 모자라면 통째로 다음 줄) */
+.equipS2 small { display: inline-block; margin-left: 6px; color: var(--color-light-grey); font-size: 16px; font-weight: 400; white-space: nowrap; }
 .equipS2 li:nth-child(-n + 2)::before { display: none; }
 .equipS2 li:first-child { color: #212121; font-size: 32px; font-weight: 500; line-height: 47px; }
 .equipS2 li:nth-child(2) {
@@ -67,13 +63,14 @@
   box-shadow: 0 0 6px #0000001f;
   transform: translateY(-50%);
 }
-.next { right: 0; }
-.prev { left: 0; transform: translateY(-50%) rotate(180deg); }
+/* 화살표는 카드 안쪽 양 끝 */
+.next { right: 20px; }
+.prev { left: 20px; transform: translateY(-50%) rotate(180deg); }
 
 /* 1025px 이하: 카드 세로 배치 */
 @media screen and (max-width: 1025px) {
-  .equipBS { width: 100vw; }
-  .equipS { width: 80%; }
+  /* 화살표가 내용과 겹치지 않게 카드 안쪽 여백 확보 */
+  .equipSlideInner { padding: 0 70px; }
   .equipSlide { height: fit-content !important; padding: 35px 0; }
   .equipSlideInner { flex-direction: column; }
   .equipS2 { margin-top: 37px; }

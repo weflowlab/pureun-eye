@@ -1,9 +1,9 @@
+import Placeholder from "@/components/common/Placeholder";
+import { VALUES } from "@/components/common/philosophy";
 import SubLayout from "@/components/sub/SubLayout";
-import ContentBlock from "@/components/diseases/common/ContentBlock";
-import ImgTxtBox from "@/components/diseases/common/ImgTxtBox";
-import SectionTitle from "@/components/diseases/common/SectionTitle";
-import SectionHead from "./SectionHead";
-import styles from "./retina.module.css";
+import PhilosophyStatement from "./PhilosophyStatement";
+import { SITE } from "@/lib/site";
+import styles from "./philosophy.module.css";
 
 // 연간 방문·수술 수치 (기존 홈페이지 기준 — 기준 연도 확인 후 갱신)
 const STATS = [
@@ -11,87 +11,72 @@ const STATS = [
   { label: "연간 수술", num: "7천", unit: "명" },
 ];
 
-// 진료이념 4가지 (기존 원고 기반 — 봉사 항목은 현재 활동 확인 전까지 제외)
-const VALUES = [
-  {
-    title: "환자 안전과 인본(人本) 진료",
-    desc: "환자의 안전을 가장 먼저 생각하며, 사람을 존중하는 인본 진료를 지향합니다.",
-  },
-  {
-    title: "꼼꼼한 검사와 정확한 진단",
-    desc: "꼭 필요한 검사를 빠뜨리지 않고 시행하며, 검사의 질과 이를 해석하는 의료진의 판단에 늘 신중을 기합니다.",
-  },
-  {
-    title: "수술 후 관리까지 생각하는 진료",
-    desc: "많은 수술을 하기보다는 수술 후의 관리까지 고려하여 안전한 수술을 합니다.",
-  },
-  {
-    title: "전문 의료진과 끊임없는 연구",
-    desc: "분야별 전문 의료진과 정밀 진단·수술 장비를 갖추고, 꾸준한 투자와 연구로 질 높은 의료 서비스를 제공합니다.",
-  },
-];
-
-/** 푸른안과 진료이념 페이지 */
+/** 푸른안과 진료이념 페이지: 소개(좌우 분할) → 네 가지 약속(목록) → 마무리 문장(스크롤 연출) */
 export default function PhilosophyPage() {
   return (
-    <SubLayout
-      path="/about/philosophy"
-      description={
-        <>
-          잘 보이는 것은 <br className="pc_block" />
-          더 좋은 삶의 질을 의미합니다.
-        </>
-      }
-    >
-      {/* 슬로건 · 연간 수치 */}
-      <ContentBlock>
-        <SectionTitle />
-        <div className={styles.slogan}>
-          <p className={styles.sloganEn} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
+    <SubLayout path="/about/philosophy" description="잘 보이는 것은 더 좋은 삶의 질을 의미합니다.">
+      {/* 소개: 슬로건 · 원고 · 수치 + 사진 */}
+      <section className={styles.intro}>
+        <div className={styles.introText}>
+          <p className={styles.eyebrow} suppressHydrationWarning data-aos="fade-up">
+            OUR PHILOSOPHY
+          </p>
+          <h2 className={styles.slogan} suppressHydrationWarning data-aos="fade-up">
             See more, Do more
+          </h2>
+          <p className={styles.lead} suppressHydrationWarning data-aos="fade-up">
+            {SITE.name}는 환자의 시력 향상을 넘어,
+            <br />
+            환자의 삶을 생각합니다.
           </p>
-          <p className={styles.sloganKo} suppressHydrationWarning data-aos="fade-up" data-aos-delay="100" data-aos-duration="1500">
-            더 잘 보이도록, 더 많이 살피겠습니다.
+          <p className={styles.body} suppressHydrationWarning data-aos="fade-up">
+            궁극적으로 환자와 의료진 모두 사람이며, 기술은 사람의 삶을 위한 것이기 때문입니다. {SITE.since}년 개원 이래
+            안전함을 가장 먼저 생각하며 진료해 왔습니다.
           </p>
+          <dl className={styles.stats} suppressHydrationWarning data-aos="fade-up">
+            {STATS.map((s) => (
+              <div key={s.label}>
+                <dt>{s.label}</dt>
+                <dd>
+                  {s.num}
+                  <small>{s.unit}</small>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
-        <div className={styles.stats}>
-          {STATS.map((s, i) => (
-            <div key={s.label} className={styles.stat} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 100} data-aos-duration="1500">
-              <p className={styles.statLabel}>{s.label}</p>
-              <p className={styles.statNum}>
-                {s.num}
-                <small>{s.unit}</small>
-              </p>
-            </div>
-          ))}
+        <div className={styles.introImg}>
+          <Placeholder label="진료이념 대표 이미지" aspectRatio="4 / 5" />
         </div>
-      </ContentBlock>
+      </section>
 
-      {/* 안내 띠 */}
-      <ImgTxtBox
-        label="푸른안과 진료이념 배경"
-        lead={
-          <>
-            한 분 한 분의 눈을 정성껏 살피는 것,
-            <br className="pc_block" />
-            푸른안과가 진료하는 이유입니다.
-          </>
-        }
-      />
-
-      {/* 진료이념 3가지 */}
-      <ContentBlock tone="gray">
-        <SectionHead first title="푸른안과 진료이념" sub="환자와 지역사회를 위해 세 가지 약속을 지켜갑니다." />
-        <div className={`${styles.secBody} ${styles.values}`}>
-          {VALUES.map((v, i) => (
-            <div key={v.title} className={styles.value} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 100} data-aos-duration="1500">
-              <p className={styles.valueNum}>{String(i + 1).padStart(2, "0")}</p>
-              <p className={styles.valueTitle}>{v.title}</p>
-              <p className={styles.valueDesc}>{v.desc}</p>
-            </div>
-          ))}
+      {/* 네 가지 약속: 왼쪽 제목 고정 + 오른쪽 목록 */}
+      <section className={styles.promise}>
+        <div className={styles.promiseInner}>
+          <div className={styles.promiseHead}>
+            <p className={styles.eyebrow}>OUR PROMISE</p>
+            <h2 className={styles.promiseTitle}>
+              {SITE.name}가 지키는
+              <br />
+              네 가지 약속
+            </h2>
+          </div>
+          <ol className={styles.promiseList}>
+            {VALUES.map((v, i) => (
+              <li key={v.title} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 80}>
+                <span className={styles.promiseIcon}>{v.icon}</span>
+                <div>
+                  <p className={styles.promiseItemTitle}>{v.title}</p>
+                  <p className={styles.promiseItemDesc}>{v.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
-      </ContentBlock>
+      </section>
+
+      {/* 마무리 문장: 스크롤 고정 연출 (상담 안내는 바로 아래 공통 상담 띠가 담당) */}
+      <PhilosophyStatement />
     </SubLayout>
   );
 }

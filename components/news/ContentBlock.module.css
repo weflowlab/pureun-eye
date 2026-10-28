@@ -8,7 +8,7 @@
 .inner {
   width: 1210px;
   margin: 0 auto;
-  padding: 150px 0;
+  padding: var(--first-pt, 150px) 0 150px;
   position: relative;
 }
 
@@ -21,7 +21,7 @@
 @media screen and (max-width: 1210px) {
   .inner {
     width: 90%;
-    padding: 50px 0;
+    padding: var(--first-pt-m, 50px) 0 50px;
   }
 
   .headerOffset {
