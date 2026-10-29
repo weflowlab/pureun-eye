@@ -61,6 +61,8 @@ const RULES: [RegExp, StockKey][] = [
   // 띠 배경
   [/^진료시간 배경$/, "corridor"],
   [/^상담 안내 배경$/, "consult"],
+  // 푸터 위 상담 띠: 상담 & 문의 탭 배너와 같은 사진
+  [/^상담 문의 띠 배경$/, "consult-paper"],
   [/(진료이념|진료 철학) 배경$/, "blue-abstract"],
   [/백내장.*배경$/, "senior-reading"],
   [/(망막|BOIM|황반변성|당뇨|비문증|중심성|박리).*배경$/, "eye-warm"],

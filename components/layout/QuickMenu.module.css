@@ -1,197 +1,186 @@
-/* 우측 고정 위치 */
+/* 우측 고정 위치 (세로 중앙) */
 .side {
   position: fixed;
+  top: 50%;
   right: 0;
-  bottom: 50%;
   z-index: 9999;
   transform: translateY(-50%);
 }
 
-/* 메뉴 박스: 접힘 30x58 → 펼침 80x615 (항목 6개 + 닫기) */
-.menu {
+/* 펼친 메뉴: 흰 카드 + 연한 테두리 + 부드러운 그림자 */
+.panel {
   position: absolute;
   top: 50%;
-  right: 100%;
-  box-sizing: border-box;
-  width: 30px;
-  height: 58px;
-  overflow: hidden;
-  background-color: #152c6b;
-  border-radius: 12px 0 0 12px;
-  box-shadow: 0 0 3px #4b4b4b;
-  transform: translateY(-50%);
-  transition: height 0.4s, width 0.4s;
-}
-.menu.on {
-  width: 80px;
-  height: 615px;
-}
-
-/* 펼친 메뉴 목록 */
-.gnbCont {
-  display: none;
-}
-.menu.on .gnbCont {
-  display: block;
-}
-.item {
-  display: none;
-  width: 100%;
-  padding: 0;
-  color: #fff;
-  font-family: inherit;
-  border: 0;
-  border-bottom: 0.5px solid #152c6b;
-  cursor: pointer;
-}
-.menu.on .item {
-  position: relative;
+  right: 18px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding-top: 21px;
-  padding-bottom: 21px;
+  gap: 4px;
+  width: 86px;
+  padding: 10px 8px 8px;
+  background: #fff;
+  border: 1px solid #e3e8f0;
+  border-radius: var(--card-radius);
+  box-shadow: 0 12px 32px #152c6b1f;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(24px, -50%);
+  transition: opacity 0.35s, transform 0.35s, visibility 0.35s;
 }
-/* 항목 사이 구분선 */
-.menu.on .item::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: 90%;
-  height: 1px;
-  background: #d8d6c1;
+.on .panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -50%);
 }
-.menu.on .item:last-child::after {
-  display: none;
+/* 항목: 원형 아이콘 + 라벨 */
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 0;
+  font-family: inherit;
+  border-radius: 14px;
+  transition: background 0.3s;
 }
-.menu.on .firstItem {
-  padding-top: 30px;
-}
-.closeBtn {
-  padding-bottom: 22px;
-  border-bottom: none;
-}
-
-/* 아이콘·라벨 (hover 시 확대) */
 .icon {
   display: flex;
-  color: #fff;
-  font-size: 20px;
-  transition: all 0.4s;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  color: var(--color-primary);
+  background: var(--card-bg);
+  border-radius: 50%;
+  transition: background 0.3s, color 0.3s;
 }
 .label {
-  padding-top: 10px;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  transition: all 0.4s;
+  color: #4a5160;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  transition: color 0.3s;
 }
 .item:hover .icon {
-  transform: scale(1.2);
+  color: #fff;
+  background: var(--color-primary);
 }
 .item:hover .label {
-  transform: scale(1.1);
+  color: var(--color-primary);
 }
 
-/* 접힌 상태 펼치기 탭 (hover 시 흰 배경 + ◀ 표시) */
-.toggleBtn {
-  position: relative;
+/* 상담신청: 항상 남색 강조 */
+.primary .icon {
+  color: #fff;
+  background: var(--color-primary);
+}
+.primary .label {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+.primary:hover .icon {
+  color: var(--color-primary);
+  background: var(--color-accent);
+}
+
+/* 접기 버튼 */
+.closeBtn {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
-  padding: 0;
-  color: #fff;
-  text-align: center;
-  border: 0;
-  cursor: pointer;
+  height: 30px;
+  margin-top: 4px;
+  color: #9aa3b5;
+  border-top: 1px solid #eef1f6;
+  transition: color 0.3s;
 }
-.toggleIcon {
-  color: #fff;
-  font-size: 20px;
-  transition: all 0.4s;
-}
-.toggleBtn::after {
-  content: "◀";
-  position: absolute;
-  color: #152c6b;
-  font-size: 16px;
-  font-weight: 500;
-  opacity: 0;
-  transition: all 0.4s;
-}
-.toggleBtn:hover {
-  background-color: #fff;
-}
-.toggleBtn:hover::after {
-  opacity: 1;
-}
-.toggleBtn:hover .toggleIcon {
-  opacity: 0;
-}
-.menu.on .toggleBtn {
-  display: none;
+.closeBtn:hover {
+  color: var(--color-primary);
 }
 
-/* 맨 위로 버튼 */
-.topBtnWrap {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 1001;
-  padding: 0;
-  border: 0;
-  cursor: pointer;
-}
-.topBtn {
-  box-sizing: border-box;
+/* 접힌 상태: 우측 끝 남색 탭 */
+.toggleBtn {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 15px;
+  width: 34px;
+  height: 56px;
   color: #fff;
-  font-size: 16px;
-  background-color: #152c6b;
-  border-radius: 12px;
-  box-shadow: 0 0 3px #4b4b4b;
-  transition: all 0.4s;
+  background: var(--color-primary);
+  border-radius: 14px 0 0 14px;
+  box-shadow: 0 8px 20px #152c6b33;
+  transition: width 0.3s, background 0.3s, opacity 0.3s;
 }
-.topBtn span {
-  transition: all 0.4s;
+.toggleBtn:hover {
+  width: 40px;
+  background: #0f2152;
 }
-.topBtn:hover span {
-  transform: scale(1.2);
+.on .toggleBtn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 맨 위로: 흰 원형 버튼, 스크롤 후 노출 */
+.topBtn {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  z-index: 1001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  color: var(--color-primary);
+  background: #fff;
+  border: 1px solid #cfd8ea;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px #152c6b1a;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.3s, transform 0.3s, visibility 0.3s, background 0.3s, color 0.3s, border-color 0.3s;
+}
+.topShow {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.topBtn:hover {
+  color: #fff;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 /* 반응형 */
 @media screen and (max-width: 1210px) {
-  .menu.on {
-    width: 58px;
-    height: 456px;
+  .panel {
+    right: 10px;
+    width: 66px;
+    padding: 8px 5px 5px;
+    gap: 2px;
   }
-  .menu.on .label {
-    padding-top: 10px;
+  .icon {
+    width: 34px;
+    height: 34px;
+  }
+  .icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .label {
     font-size: 10px;
   }
-  .menu.on .closeBtn {
-    padding-bottom: 15px;
+  .item {
+    padding: 6px 0;
   }
-  .menu.on .firstItem {
-    padding-top: 20px;
-  }
-  .menu.on .item {
-    padding-top: 11px;
-    padding-bottom: 11px;
-  }
-}
-@media screen and (max-width: 780px) {
-  .toggleBtn .toggleIcon {
-    transform: rotate(180deg);
+  .topBtn {
+    right: 12px;
+    bottom: 16px;
+    width: 46px;
+    height: 46px;
   }
 }

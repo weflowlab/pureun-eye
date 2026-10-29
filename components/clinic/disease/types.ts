@@ -25,8 +25,8 @@ export type Disease = {
   treatment?: { title: string; sub?: ReactNode; items: (Item & { image?: string })[]; note?: ReactNode };
   /** 비교표 — highlight: 강조할 열 번호(1부터, 머리 열 제외) */
   compare?: { title: string; sub?: ReactNode; head: string[]; rows: string[][]; highlight?: number };
-  /** 예방법·자가진단처럼 페이지마다 다른 섹션 */
-  extras?: { title: string; sub?: ReactNode; body?: ReactNode; image?: string; items?: Item[] }[];
+  /** 예방법·자가진단처럼 페이지마다 다른 섹션 — body 안 <ol>은 번호 단계, 뒤따르는 <p>는 강조 안내 상자 / items는 아이콘 카드 */
+  extras?: { title: string; sub?: ReactNode; body?: ReactNode; image?: string; items?: (Item & { icon?: ReactNode })[] }[];
   /** 증례 사진 자리 (환자 동의를 받은 실제 사진으로 교체) */
   cases?: { title: string; sub?: ReactNode; images: string[] };
   faq: { q: string; a: ReactNode }[];

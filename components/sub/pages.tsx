@@ -10,7 +10,6 @@ import DoctorsPage from "@/components/clinic/about/DoctorsPage";
 import EquipmentPage from "@/components/clinic/about/EquipmentPage";
 import IntroPage from "@/components/clinic/about/intro/IntroPage";
 import LocationPage from "@/components/clinic/about/LocationPage";
-import ReferralPage from "@/components/clinic/community/ReferralPage";
 import FaqPage from "@/components/clinic/community/FaqPage";
 import OnlinePage from "@/components/clinic/contact/OnlinePage";
 
@@ -44,7 +43,6 @@ export const PAGES: Record<string, ComponentType<SubPageProps>> = {
   "/community/notice": NoticePage,
   "/community/faq": FaqPage,
   "/community/reviews": ReviewsPage,
-  "/community/referral": ReferralPage,
   "/contact/online": OnlinePage,
   // 진료과목별 페이지
   ...VISION_PAGES,

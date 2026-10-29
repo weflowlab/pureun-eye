@@ -114,7 +114,6 @@ export default function BoimPage() {
               <p className={styles.doctorRole}>{d.title}</p>
               <p className={styles.doctorName}>{d.name}</p>
               <p className={styles.doctorFields}>{d.specialties.join(", ")}</p>
-              {d.reservationOnly && <p className={styles.doctorNote}>예약 진료만 가능</p>}
               <Link href={`/about/doctors#${d.slug}`} className={styles.doctorLink}>
                 자세히 보기
               </Link>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { SITE } from "@/lib/site";
 import { getLenis } from "./Providers";
@@ -29,8 +29,8 @@ const writeOpen = (v: boolean) => {
 };
 
 // 퀵메뉴 아이콘 (단순 라인 아이콘)
-const Icon = ({ children }: { children: ReactNode }) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+const Icon = ({ children, size = 22 }: { children: ReactNode; size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     {children}
   </svg>
 );
@@ -43,19 +43,28 @@ const ICONS = {
   instagram: <Icon><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" /></Icon>,
 };
 
-/** 우측 고정 퀵메뉴 + 맨 위로 버튼 */
+/** 우측 고정 퀵메뉴(흰 카드) + 맨 위로 버튼 */
 export default function QuickMenu() {
   const open = useSyncExternalStore(subscribe, readOpen, () => false);
   const [modalOpen, setModalOpen] = useState(false);
+  // 맨 위로 버튼: 조금 내려왔을 때만 표시
+  const [showTop, setShowTop] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 400);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const toggle = () => writeOpen(!open);
 
   // 메뉴 항목: 고객 요청 문의 채널(전화·카카오채널·인스타그램·블로그) + 상담신청·오시는 길
   const items = [
-    { key: "kakao", label: "카카오채널", onClick: () => window.open(SITE.kakaoUrl) },
     { key: "consult", label: "상담신청", onClick: () => setModalOpen(true) },
     { key: "call", label: "상담전화", onClick: () => (location.href = `tel:${SITE.tel}`) },
+    { key: "kakao", label: "카카오채널", onClick: () => window.open(SITE.kakaoUrl) },
     { key: "instagram", label: "인스타그램", onClick: () => window.open(SITE.instagramUrl) },
     { key: "blog", label: "블로그", onClick: () => window.open(SITE.blogUrl) },
     { key: "map", label: "오시는 길", onClick: () => router.push("/about/location") },
@@ -70,38 +79,40 @@ export default function QuickMenu() {
 
   return (
     <>
-      <div className={styles.side}>
-        <div className={`${styles.menu} ${open ? styles.on : ""}`}>
-          {/* 펼친 상태의 메뉴 */}
-          <div className={styles.gnbCont}>
-            {items.map((item, i) => (
-              <button
-                key={item.key}
-                type="button"
-                className={`${styles.item} ${i === 0 ? styles.firstItem : ""}`}
-                onClick={item.onClick}
-              >
-                <span className={styles.icon}>{ICONS[item.key]}</span>
-                <span className={styles.label}>{item.label}</span>
-              </button>
-            ))}
-            <button type="button" className={`${styles.item} ${styles.closeBtn}`} onClick={toggle} aria-label="퀵메뉴 접기">
-              <span className={styles.icon}>⨉</span>
+      <div className={`${styles.side} ${open ? styles.on : ""}`}>
+        {/* 펼친 상태: 흰 카드 메뉴 (상담신청만 남색 강조) */}
+        <nav className={styles.panel} aria-label="퀵메뉴" aria-hidden={!open}>
+          {items.map((item) => (
+            <button
+              key={item.key}
+              type="button"
+              className={`${styles.item} ${item.key === "consult" ? styles.primary : ""}`}
+              onClick={item.onClick}
+              tabIndex={open ? 0 : -1}
+            >
+              <span className={styles.icon}>{ICONS[item.key]}</span>
+              <span className={styles.label}>{item.label}</span>
             </button>
-          </div>
-
-          {/* 접힌 상태의 펼치기 탭 */}
-          <button type="button" className={styles.toggleBtn} onClick={toggle} aria-label="퀵메뉴 펼치기">
-            <span className={styles.toggleIcon}>▶</span>
+          ))}
+          <button type="button" className={styles.closeBtn} onClick={toggle} aria-label="퀵메뉴 접기" tabIndex={open ? 0 : -1}>
+            <Icon size={16}><path d="M9 6l6 6-6 6" /></Icon>
           </button>
-        </div>
+        </nav>
+
+        {/* 접힌 상태: 우측 끝 남색 탭 */}
+        <button type="button" className={styles.toggleBtn} onClick={toggle} aria-label="퀵메뉴 펼치기" tabIndex={open ? -1 : 0}>
+          <Icon size={18}><path d="M15 6l-6 6 6 6" /></Icon>
+        </button>
       </div>
 
       {/* 맨 위로 버튼 */}
-      <button type="button" className={styles.topBtnWrap} onClick={scrollTop} aria-label="맨 위로">
-        <span className={styles.topBtn}>
-          <span>▲</span>
-        </span>
+      <button
+        type="button"
+        className={`${styles.topBtn} ${showTop ? styles.topShow : ""}`}
+        onClick={scrollTop}
+        aria-label="맨 위로"
+      >
+        <Icon size={20}><path d="M12 19V5M6 11l6-6 6 6" /></Icon>
       </button>
 
       <ReservationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />

@@ -1,4 +1,16 @@
+import { Ban, Cigarette, CircleAlert, Footprints, HeartPulse, Salad, ScanEye, Sun } from "lucide-react";
 import type { Disease } from "../types";
+
+// 생활 습관 아이콘 (lucide)
+const ICON = { size: 28, strokeWidth: 1.6 };
+
+/** 금연: 금지 표시(원 + 사선) 안에 담배 — lucide CigaretteOff는 오른쪽이 잘린 듯 보여 직접 합침 */
+const NoSmoking = () => (
+  <span style={{ position: "relative", display: "inline-flex", width: 30, height: 30 }}>
+    <Cigarette size={18} strokeWidth={1.7} style={{ position: "absolute", top: 6, left: 6 }} />
+    <Ban size={30} strokeWidth={1.6} />
+  </span>
+);
 
 // 황반변성 (의료 내용은 병원 검토 필요)
 export const macular: Disease = {
@@ -10,13 +22,23 @@ export const macular: Disease = {
     line2: "황반을 확인하세요",
     paragraphs: [
       "황반은 글자를 읽고 얼굴을 알아보는 중심 시력을 담당합니다.",
-      "황반변성은 나이가 들며 생기는 대표적인 실명 원인 질환으로, 일찍 발견해 치료를 시작할수록 시력을 지키는 데 유리합니다.",
+      <>
+        황반변성은 나이가 들며 생기는 대표적인 실명 원인 질환으로,
+        <br className="pc_block" />
+        일찍 발견해 치료를 시작할수록 시력을 지키는 데 유리합니다.
+      </>,
     ],
     images: ["정상 시야", "황반변성 시야"],
   },
   definition: {
     title: "*황반변성*은 무엇일까요?",
-    body: "망막 중심부인 황반에 노폐물이 쌓이거나 비정상 혈관이 자라 시세포가 손상되는 질환입니다. 크게 건성과 습성으로 나눕니다.",
+    body: (
+      <>
+        망막 중심부인 황반에 노폐물이 쌓이거나 비정상 혈관이 자라 시세포가 손상되는 질환입니다.
+        <br className="pc_block" />
+        크게 건성과 습성으로 나눕니다.
+      </>
+    ),
     figures: [
       {
         label: "정상 황반",
@@ -98,43 +120,32 @@ export const macular: Disease = {
       title: "암슬러 격자로 *자가 진단*해 보세요",
       image: "암슬러 격자",
       body: (
-        <ul>
-          <li>평소 쓰는 돋보기·안경을 쓰고 30cm 거리에서 봅니다.</li>
-          <li>한쪽 눈을 가리고 가운데 점을 바라봅니다.</li>
-          <li>선이 휘거나 끊기거나, 비어 보이는 칸이 있는지 확인합니다.</li>
-          <li>반대쪽 눈도 같은 방법으로 확인합니다.</li>
-          <li>
-            <b className="cr">이상이 보이면 가능한 한 빨리 검사를 받으세요.</b>
-          </li>
-        </ul>
+        <>
+          <ol>
+            <li>평소 쓰는 돋보기·안경을 쓰고 30cm 거리에서 봅니다.</li>
+            <li>한쪽 눈을 가리고 가운데 점을 바라봅니다.</li>
+            <li>선이 휘거나 끊기거나, 비어 보이는 칸이 있는지 확인합니다.</li>
+            <li>반대쪽 눈도 같은 방법으로 확인합니다.</li>
+          </ol>
+          <p>
+            <CircleAlert size={22} strokeWidth={2} aria-hidden />
+            이상이 보이면 가능한 한 빨리 검사를 받으세요.
+          </p>
+        </>
       ),
     },
     {
       title: "황반을 지키는 *생활 습관*",
       items: [
-        { title: "금연", desc: "흡연은 황반변성의 가장 큰 위험 요인입니다." },
-        { title: "자외선 차단", desc: "외출 시 선글라스와 모자를 써 주세요." },
-        {
-          title: "녹황색 채소 · 생선",
-          desc: "루테인·오메가-3가 풍부한 음식을 챙겨 드세요.",
-        },
-        {
-          title: "혈압 · 콜레스테롤 관리",
-          desc: "혈관 건강이 황반 건강으로 이어집니다.",
-        },
-        { title: "규칙적인 운동", desc: "적당한 유산소 운동이 도움이 됩니다." },
-        {
-          title: "50세 이후 정기 검진",
-          desc: "증상이 없어도 1년에 한 번 확인하세요.",
-        },
+        { icon: <NoSmoking />, title: "금연", desc: "흡연은 황반변성의 가장 큰 위험 요인입니다." },
+        { icon: <Sun {...ICON} />, title: "자외선 차단", desc: "외출 시 선글라스와 모자를 써 주세요." },
+        { icon: <Salad {...ICON} />, title: "녹황색 채소 · 생선", desc: "루테인·오메가-3가 풍부한 음식을 챙겨 드세요." },
+        { icon: <HeartPulse {...ICON} />, title: "혈압 · 콜레스테롤 관리", desc: "혈관 건강이 황반 건강으로 이어집니다." },
+        { icon: <Footprints {...ICON} />, title: "규칙적인 운동", desc: "적당한 유산소 운동이 도움이 됩니다." },
+        { icon: <ScanEye {...ICON} />, title: "50세 이후 정기 검진", desc: "증상이 없어도 1년에 한 번 확인하세요." },
       ],
     },
   ],
-  cases: {
-    title: "*치료* 사례",
-    sub: "황반 아래 출혈로 시야 일부가 가려져 내원해 수술과 주사 치료를 받은 사례입니다.",
-    images: ["황반변성 치료 전 사진", "황반변성 치료 후 사진"],
-  },
   faq: [
     {
       q: "*초기 증상*은 무엇인가요?",

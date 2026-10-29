@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState, useSyncExternalStore } from "react";
+import { Suspense, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -19,6 +19,8 @@ const getScrolledServer = () => false;
 /** 헤더 본체: 로고 / PC 메뉴 / 햄버거 + 모바일 GNB */
 function HeaderView({ pathname }: { pathname: string | null }) {
   const [gnbOpen, setGnbOpen] = useState(false);
+  // 전체메뉴 닫기(X)를 햄버거와 같은 위치에 두기 위한 기준
+  const burgerRef = useRef<HTMLButtonElement>(null);
   // PC 드롭다운 (메뉴에 마우스 올리면 전체 하위메뉴 펼침)
   const [dropOpen, setDropOpen] = useState(false);
   const scrolled = useSyncExternalStore(subscribeScroll, getScrolled, getScrolledServer);
@@ -73,7 +75,7 @@ function HeaderView({ pathname }: { pathname: string | null }) {
           <div className={styles.dropBg} aria-hidden="true" />
 
           {/* 햄버거 버튼 */}
-          <button type="button" className={styles.mGnb} onClick={() => setGnbOpen(true)} aria-label="메뉴 열기">
+          <button type="button" ref={burgerRef} className={styles.mGnb} onClick={() => setGnbOpen(true)} aria-label="메뉴 열기">
             <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
               <path d="M4 8h22M4 15h22M4 22h22" stroke="#152c6b" strokeWidth="2.4" strokeLinecap="round" />
             </svg>
@@ -81,7 +83,7 @@ function HeaderView({ pathname }: { pathname: string | null }) {
         </div>
       </header>
 
-      <GnbMenu open={gnbOpen} onClose={() => setGnbOpen(false)} />
+      <GnbMenu open={gnbOpen} onClose={() => setGnbOpen(false)} anchorRef={burgerRef} />
     </>
   );
 }

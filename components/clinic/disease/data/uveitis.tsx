@@ -41,11 +41,23 @@ export const uveitis: Disease = {
     items: [
       {
         title: "자가면역 질환",
-        desc: "강직성 척추염, 베체트병 등 전신 면역 질환과 함께 생길 수 있습니다.",
+        desc: (
+          <>
+            강직성 척추염, 베체트병 등
+            <br className="pc_block" />
+            전신 면역 질환과 함께 생길 수 있습니다.
+          </>
+        ),
       },
       {
         title: "감염",
-        desc: "바이러스·세균·결핵·톡소플라스마 등 감염이 원인이 됩니다.",
+        desc: (
+          <>
+            바이러스·세균·결핵·톡소플라스마 등
+            <br className="pc_block" />
+            감염이 원인이 됩니다.
+          </>
+        ),
       },
       {
         title: "눈 외상 · 수술",
@@ -53,7 +65,13 @@ export const uveitis: Disease = {
       },
       {
         title: "원인 불명",
-        desc: "정밀 검사에도 원인이 밝혀지지 않는 경우가 적지 않습니다.",
+        desc: (
+          <>
+            정밀 검사에도 원인이 밝혀지지 않는 경우가
+            <br className="pc_block" />
+            적지 않습니다.
+          </>
+        ),
       },
     ],
   },

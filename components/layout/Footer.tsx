@@ -24,7 +24,7 @@ export default function Footer() {
     <>
       {/* 상담 유도 밴드: 전화하기 · 상담 신청하기 */}
       <div className={styles.subFooter}>
-        <Placeholder label="상담 안내 배경" dark className={styles.subFooterBg} />
+        <Placeholder label="상담 문의 띠 배경" dark className={styles.subFooterBg} />
         <p className={styles.ctaLabel} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
           CONSULTATION
         </p>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Placeholder from "@/components/common/Placeholder";
+import MapButtons from "@/components/common/MapButtons";
 import MapEmbed from "@/components/common/MapEmbed";
 import { HOURS, SITE } from "@/lib/site";
 import styles from "./ClinicInfoSection.module.css";
@@ -78,16 +79,7 @@ export default function ClinicInfoSection() {
                 {SITE.address}
               </span>
             </p>
-            <div className={styles.mapBtns}>
-              <a href={SITE.naverMapUrl} target="_blank" rel="noopener noreferrer" className={styles.naverBtn}>
-                <span className={styles.mapIco} aria-hidden="true">N</span>
-                네이버지도보기
-              </a>
-              <a href={SITE.kakaoMapUrl} target="_blank" rel="noopener noreferrer" className={styles.kakaoBtn}>
-                <span className={styles.mapIco} aria-hidden="true">K</span>
-                카카오지도보기
-              </a>
-            </div>
+            <MapButtons className={styles.mapBtns} />
             <Link href="/about/location" className={styles.locationLink}>
               오시는 길 자세히 보기 +
             </Link>

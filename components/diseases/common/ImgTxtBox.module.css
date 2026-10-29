@@ -1,47 +1,68 @@
-/* 이미지 텍스트 띠 */
+/* 이미지 텍스트 띠: 왼쪽 정렬 문구 + 왼쪽만 짙은 남색 덮개 */
 .box {
   position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
-  height: 600px;
+  height: 520px;
   overflow: hidden;
+  color: #fff;
 }
+.bgWrap { position: absolute; inset: 0; overflow: hidden; }
 .bg {
   position: absolute !important;
   inset: 0;
   border: 0 !important;
 }
+/* 글자가 있는 왼쪽만 남색으로 짙게 */
+.box .bg::after {
+  background: linear-gradient(90deg, rgba(10, 22, 52, 0.88) 0%, rgba(10, 22, 52, 0.6) 45%, rgba(10, 22, 52, 0.15) 100%);
+}
 /* 플레이스홀더 라벨은 우측 상단으로 (문구와 겹침 방지) */
 .bg > span { position: absolute; top: 20px; right: 20px; }
 
-/* 문구 공통 */
-.badge,
-.lead,
-.desc {
-  position: relative;
-  z-index: 1;
-  font-size: 25px;
-  line-height: 45px;
-  text-align: center;
+/* 스크롤 시 사진이 글자보다 천천히 움직임 (지원 브라우저만) */
+@supports (animation-timeline: view()) {
+  .bg {
+    top: -60px !important;
+    height: calc(100% + 120px) !important;
+    animation: drift linear both;
+    animation-timeline: view();
+  }
 }
-/* 흰 알약 배지 */
+@keyframes drift {
+  from { transform: translateY(-50px); }
+  to { transform: translateY(50px); }
+}
+
+.inner { position: relative; z-index: 1; width: var(--max-width); margin: 0 auto; }
+
+/* 라벨: 앞에 가는 선 + 하늘색 */
 .badge {
-  width: 500px;
-  padding: 10px 0;
-  color: #393939;
-  background: #f2f2f2;
-  border-radius: 50px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  color: #a9c8ff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
-.lead { color: #f2f2f2; font-weight: 700; }
-.desc { color: #f2f2f2; font-weight: 400; }
-.spaced { margin-top: 55px; }
+.badge::before { content: ""; width: 32px; height: 1.5px; background: currentColor; }
+.lead { margin-top: 22px; font-size: 36px; font-weight: 700; line-height: 1.45; letter-spacing: -0.03em; }
+.desc { margin-top: 18px; color: rgba(255, 255, 255, 0.8); font-size: 18px; line-height: 1.75; }
+.spaced { margin-top: 22px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bg { animation: none; }
+}
 
 /* 태블릿·모바일 */
 @media screen and (max-width: 1210px) {
-  .badge { width: auto; padding: 10px 30px; font-size: 20px; }
-  .lead,
-  .desc { width: 80%; font-size: 20px; line-height: 28px; }
+  .box { height: 400px; }
+  .box .bg::after { background: linear-gradient(90deg, rgba(10, 22, 52, 0.85) 0%, rgba(10, 22, 52, 0.55) 100%); }
+  .inner { width: 90%; }
+  .badge { gap: 10px; font-size: 14px; }
+  .badge::before { width: 22px; }
+  .lead { margin-top: 16px; font-size: 24px; }
+  .desc { font-size: 15px; }
 }

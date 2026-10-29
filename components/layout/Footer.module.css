@@ -12,7 +12,7 @@
   text-align: center;
   background: #2c3448;
 }
-/* 배경 이미지 (영역 전체 채움) */
+/* 배경 사진 (상담 & 문의 탭 배너와 같은 사진, 영역 전체 채움) */
 .subFooterBg {
   position: absolute !important;
   inset: 0;
@@ -76,9 +76,9 @@
   border-color: #fff;
 }
 .ctaPrimary:hover {
-  color: #fff;
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: #dbe9ff;
+  border-color: #dbe9ff;
 }
 
 /* 푸터 본체: 밝은 톤 (위 상담 띠와 구분) */

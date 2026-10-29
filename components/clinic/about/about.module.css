@@ -61,23 +61,7 @@
 
 /* ───── 오시는 길: 지도 + 정보 ───── */
 .locWrap { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 60px; margin-top: 70px; }
-.mapBtns { display: flex; gap: 10px; margin-top: 15px; }
-/* 지도 앱 버튼: 브랜드 색 + 아이콘 */
-.mapBtn {
-  display: flex;
-  flex: 1;
-  gap: 8px;
-  justify-content: center;
-  align-items: center;
-  padding: 15px 0;
-  font-size: 16px;
-  font-weight: 700;
-  border-radius: 30px;
-  transition: filter 0.2s;
-}
-.mapBtn:hover { filter: brightness(0.95); }
-.naver { color: #fff; background: #03c75a; }
-.kakao { color: #191919; background: #fee500; }
+.mapBtns { margin-top: 15px; }
 /* 오른쪽 정보: 왼쪽 지도(버튼 포함) 높이에 맞춰 세 줄이 고르게 나눠 가짐 */
 .locInfo { display: flex; flex-direction: column; border-top: 3px solid var(--color-primary); }
 .locRow { display: flex; flex: 1; gap: 20px; align-items: center; padding: 28px 0; border-bottom: 1px solid var(--color-border); }

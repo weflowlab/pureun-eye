@@ -135,40 +135,8 @@
   white-space: nowrap;
 }
 
-/* 지도 앱 버튼 */
-.mapBtns {
-  display: flex;
-  gap: 10px;
-}
-.mapBtns a {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  max-width: 237px;
-  padding: 12px 25px;
-  color: #fff;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 18px;
-  border-radius: 50px;
-}
-.mapIco {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  font-size: 13px;
-  font-weight: 900;
-  background: #ffffff40;
-  border-radius: 4px;
-}
-.naverBtn { background: #2db400; }
-.kakaoBtn { color: #000 !important; background: #fed500; }
+/* 지도 앱 버튼 (모양은 공통 MapButtons) */
+.mapBtns { max-width: 484px; }
 
 /* 오시는 길 페이지 바로가기 */
 .locationLink {
@@ -203,6 +171,5 @@
   .mapTxt { margin-top: 10px; }
   /* 모바일은 폭이 좁아 줄바꿈 허용 */
   .mapTxtAddr { white-space: normal; }
-  .mapBtns { justify-content: center; }
-  .mapBtns a { gap: 4px; font-size: 16px; }
+  .mapBtns { max-width: none; }
 }

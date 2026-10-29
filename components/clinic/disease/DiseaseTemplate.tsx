@@ -3,8 +3,10 @@ import { Fragment, type CSSProperties, type ReactNode } from "react";
 import Placeholder from "@/components/common/Placeholder";
 import SubLayout from "@/components/sub/SubLayout";
 import { SITE } from "@/lib/site";
+import DiseaseFaq from "./DiseaseFaq";
 import Pic from "./Pic";
 import ProcessSteps from "./ProcessSteps";
+import VisionSlider from "./VisionSlider";
 import type { Disease } from "./types";
 import styles from "./disease.module.css";
 
@@ -30,7 +32,7 @@ const TRUST = {
   },
 };
 
-/** "*강조*" 표기를 태그로 (제목은 strong, FAQ 질문은 하늘색 span) */
+/** "*강조*" 표기를 태그로 (제목은 strong) */
 function rich(text: string, Tag: "strong" | "span" = "strong", className?: string) {
   return text.split(/\*([^*]+)\*/).map((part, i) =>
     i % 2 ? (
@@ -59,7 +61,7 @@ export default function DiseaseTemplate({ d }: { d: Disease }) {
 
   return (
     <SubLayout path={d.path} description={d.description}>
-      {/* 소개: 왼쪽 두 줄 제목 · 오른쪽 문단 → 아래 비교 이미지 */}
+      {/* 소개: 왼쪽 두 줄 제목 · 오른쪽 문단 → 아래 시야 비교(슬라이더로 조절) */}
       <section className={styles.intro}>
         <div className={styles.introTop}>
           <div suppressHydrationWarning data-aos="fade-up">
@@ -75,14 +77,12 @@ export default function DiseaseTemplate({ d }: { d: Disease }) {
             ))}
           </div>
         </div>
-        <div className={styles.introImgs}>
-          {d.intro.images.map((label) => (
-            <figure key={label}>
-              <Pic label={label} aspectRatio="16 / 10" />
-              <figcaption>{label}</figcaption>
-            </figure>
-          ))}
-        </div>
+        <VisionSlider
+          base={<Pic label={d.intro.images[0]} aspectRatio="16 / 7" />}
+          overlay={<Pic label={d.intro.images[1]} aspectRatio="16 / 7" />}
+          baseLabel={d.intro.images[0]}
+          overlayLabel={d.intro.images[1]}
+        />
       </section>
 
       {/* 정의: 큰 그림 + 그림 위 알약 라벨 */}
@@ -135,14 +135,14 @@ export default function DiseaseTemplate({ d }: { d: Disease }) {
         </section>
       )}
 
-      {/* 원인: 흰 판 위 3열 */}
+      {/* 원인: 가로 카드 한 줄 (원인 수만큼) */}
       {d.causes && (
         <section className={`${styles.block} ${styles.causeBg}`}>
           <div className={styles.inner}>
             <Head title={d.causes.title} sub={d.causes.sub} />
-            <ol className={styles.causes} suppressHydrationWarning data-aos="fade-up">
+            <ol className={styles.causes} style={{ "--n": d.causes.items.length } as CSSProperties}>
               {d.causes.items.map((c, i) => (
-                <li key={c.title}>
+                <li key={c.title} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 60}>
                   <span className={styles.causeNo}>{String(i + 1).padStart(2, "0")}</span>
                   <p className={styles.itemTitle}>{c.title}</p>
                   {c.desc && <p className={styles.itemDesc}>{c.desc}</p>}
@@ -229,6 +229,7 @@ export default function DiseaseTemplate({ d }: { d: Disease }) {
               <ul className={styles.tiles}>
                 {x.items.map((t, i) => (
                   <li key={t.title} suppressHydrationWarning data-aos="fade-up" data-aos-delay={(i % 3) * 80}>
+                    {t.icon && <span className={styles.tileIcon}>{t.icon}</span>}
                     <p className={styles.itemTitle}>{t.title}</p>
                     {t.desc && <p className={styles.itemDesc}>{t.desc}</p>}
                   </li>
@@ -274,21 +275,10 @@ export default function DiseaseTemplate({ d }: { d: Disease }) {
         </div>
       </section>
 
-      {/* 자주 묻는 질문: 어두운 카드 2열, 질문 키워드는 하늘색 */}
+      {/* 자주 묻는 질문: 왼쪽 제목·상담 버튼 + 오른쪽 펼침 목록 */}
       <section className={styles.block}>
         <div className={styles.inner}>
-          <Head title="*자주 묻는* 질문" />
-          <ul className={styles.faq}>
-            {d.faq.map((f, i) => (
-              <li key={f.q} suppressHydrationWarning data-aos="fade-up" data-aos-delay={(i % 2) * 80}>
-                <p className={styles.faqQ}>
-                  <span className={styles.q}>Q.</span>
-                  <span>{rich(f.q, "span", styles.hl)}</span>
-                </p>
-                <p className={styles.faqA}>{f.a}</p>
-              </li>
-            ))}
-          </ul>
+          <DiseaseFaq items={d.faq} />
         </div>
       </section>
     </SubLayout>
