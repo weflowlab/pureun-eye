@@ -39,7 +39,7 @@ export const MENU: MenuGroup[] = [
     label: "푸른안과",
     labelEn: "ABOUT",
     pages: [
-      { slug: "philosophy", label: "푸른안과 진료이념" },
+      { slug: "intro", label: "병원소개" },
       { slug: "doctors", label: "의료진소개" },
       { slug: "equipment", label: "첨단의료장비" },
       { slug: "location", label: "오시는 길" },

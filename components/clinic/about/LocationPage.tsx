@@ -40,56 +40,70 @@ const BusIcon = () => (
     <circle cx="16" cy="14" r="0.8" />
   </Icon>
 );
-const StopIcon = () => (
+const ParkingIcon = () => (
   <Icon>
-    <path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z" />
-    <circle cx="12" cy="10" r="2.2" />
+    <rect x="4" y="3" width="16" height="18" rx="3" />
+    <path d="M10 17V8h3a2.5 2.5 0 0 1 0 5h-3" />
   </Icon>
 );
 
-type Route = { tag?: string; text: ReactNode };
-type Direction = { icon: ReactNode; title: string; routes: Route[]; note?: string };
+/** 안내 한 줄: 설명 + 배지 (택시 · 고속도로 · 버스 번호) */
+type Line = { text: ReactNode; taxi?: boolean; road?: string; buses?: string[] };
+type Transit = { label: string; icon: ReactNode; lines: Line[] };
+
+// 시내버스 번호 (기존 홈페이지 기준) — 전주 시내버스는 2024년부터 노선 개편 중이라 병원 확인 후 갱신
+const BUS_STATION = ["72", "79", "100", "119", "337", "1000"];
+const BUS_TERMINAL = ["72", "79"];
+const BUS_ALL = [...BUS_STATION, "508", "536", "542", "545", "546", "8-1", "8-2"];
 
 // 교통수단별 오시는 길 (기존 홈페이지 A6000 기준)
-const DIRECTIONS: Direction[] = [
+const TRANSIT: Transit[] = [
+  { label: "시내버스", icon: <BusIcon />, lines: [{ text: "사대부고 사거리 정류장 하차", buses: BUS_ALL }] },
   {
-    icon: <CarIcon />,
-    title: "고속도로 이용 시",
-    routes: [
-      { tag: "호남고속도로", text: "전주 IC 진출" },
-      { tag: "서해안고속도로", text: "동군산 IC 진출 → 남원 방면 (약 10km 직진)" },
-    ],
-    note: "건물 뒤편 대형 주차장 이용",
-  },
-  {
+    label: "기차",
     icon: <TrainIcon />,
-    title: "기차 이용 시 (전주역 하차)",
-    routes: [
-      { tag: "택시", text: "기본요금 거리 → 푸른안과(왼쪽) → 횡단보도를 건너오시면 됩니다." },
-      { tag: "버스", text: "72, 79, 100, 119, 337, 1000번 이용 → 사대부고 사거리 하차" },
+    lines: [
+      { text: "전주역에서 기본요금 거리 — 푸른안과(왼쪽) 앞 횡단보도를 건너오시면 됩니다.", taxi: true },
+      { text: "전주역 앞 정류장 승차 → 사대부고 사거리 하차", buses: BUS_STATION },
     ],
   },
   {
+    label: "고속·시외버스",
     icon: <BusIcon />,
-    title: "시외버스터미널 이용 시",
-    routes: [
-      { tag: "택시", text: "기본요금 거리 → 터미널 건너편 → 푸른안과" },
-      { tag: "버스", text: "터미널 건너편에서 72, 79번 이용 → 사대부고 사거리 하차 → 전주역 방향 117m 도보" },
+    lines: [
+      { text: "시외버스터미널에서 기본요금 거리 — 터미널 건너편에 있습니다.", taxi: true },
+      { text: "터미널 건너편 정류장 승차 → 사대부고 사거리 하차 → 전주역 방향 117m 도보", buses: BUS_TERMINAL },
     ],
   },
   {
-    icon: <StopIcon />,
-    title: "시내버스 이용 시",
-    routes: [{ text: "508, 536, 542, 545, 546, 8-1, 8-2, 72, 79, 100, 119, 337, 1000번 이용" }],
-    note: "사대부고 사거리에서 하차",
+    label: "자가용",
+    icon: <CarIcon />,
+    lines: [
+      { text: "전주 IC 진출", road: "호남고속도로" },
+      { text: "동군산 IC 진출 → 남원 방면 약 10km 직진", road: "서해안고속도로" },
+    ],
   },
+  { label: "주차", icon: <ParkingIcon />, lines: [{ text: "푸른안과 건물 뒤편 대형 주차장을 이용하실 수 있습니다." }] },
 ];
 
-/** 지도 바로가기 링크 (URL 미정("#")이면 새 창 열지 않음) */
-function MapLink({ href, children }: { href: string; children: ReactNode }) {
+// 지도 앱 아이콘: 네이버 "N" · 카카오맵 위치 핀
+const NaverIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <path d="M4 3h5.2l5.6 8.3V3H20v18h-5.2l-5.6-8.3V21H4z" />
+  </svg>
+);
+const KakaoMapIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <path d="M12 2a7.5 7.5 0 0 0-7.5 7.5c0 5.3 6.4 11.6 6.7 11.9a1.1 1.1 0 0 0 1.6 0c.3-.3 6.7-6.6 6.7-11.9A7.5 7.5 0 0 0 12 2zm0 10.3a2.8 2.8 0 1 1 0-5.6 2.8 2.8 0 0 1 0 5.6z" />
+  </svg>
+);
+
+/** 지도 바로가기 링크: 앱별 브랜드 색 (URL 미정("#")이면 새 창 열지 않음) */
+function MapLink({ href, brand, children }: { href: string; brand: "naver" | "kakao"; children: ReactNode }) {
   const external = href !== "#";
   return (
-    <a href={href} className={styles.mapBtn} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+    <a href={href} className={`${styles.mapBtn} ${styles[brand]}`} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+      {brand === "naver" ? <NaverIcon /> : <KakaoMapIcon />}
       {children}
     </a>
   );
@@ -110,8 +124,12 @@ export default function LocationPage({ path }: SubPageProps) {
           <div className={styles.locMap} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
             <MapEmbed aspectRatio="4 / 3" />
             <div className={styles.mapBtns}>
-              <MapLink href={SITE.naverMapUrl}>네이버 지도</MapLink>
-              <MapLink href={SITE.kakaoMapUrl}>카카오맵</MapLink>
+              <MapLink href={SITE.naverMapUrl} brand="naver">
+                네이버 지도
+              </MapLink>
+              <MapLink href={SITE.kakaoMapUrl} brand="kakao">
+                카카오맵
+              </MapLink>
             </div>
           </div>
 
@@ -155,39 +173,37 @@ export default function LocationPage({ path }: SubPageProps) {
         </div>
       </ContentBlock>
 
-      {/* 교통수단별 안내 */}
+      {/* 교통수단별 안내: 왼쪽 수단 · 오른쪽 설명 + 배지 */}
       <ContentBlock tone="gray">
-        <SectionHead first title="타지역에서 찾아오시는 길" sub="이용하시는 교통수단에 맞춰 안내해 드립니다." />
-        <div className={styles.dirGrid}>
-          {DIRECTIONS.map((d, i) => (
-            <div key={d.title} className={styles.dirCard} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 100} data-aos-duration="1500">
-              <div className={styles.dirHead}>
-                <span className={styles.dirIcon}>{d.icon}</span>
-                <p className={styles.dirTitle}>{d.title}</p>
-              </div>
-              <ul className={styles.routeList}>
-                {d.routes.map((r, j) => (
-                  <li key={j}>
-                    {r.tag && <span className={styles.routeTag}>{r.tag}</span>}
-                    <span>{r.text}</span>
-                  </li>
+        <SectionHead first title="교통편 안내" sub="이용하시는 교통수단에 맞춰 안내해 드립니다." />
+        <ul className={styles.transit}>
+          {TRANSIT.map((t, i) => (
+            <li key={t.label} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 60}>
+              <p className={styles.transitLabel}>
+                <span className={styles.transitIcon}>{t.icon}</span>
+                {t.label}
+              </p>
+              <div className={styles.transitLines}>
+                {t.lines.map((l, j) => (
+                  <div key={j} className={styles.transitLine}>
+                    <p>
+                      {l.taxi && <span className={styles.taxi}>택시</span>}
+                      {l.road && <span className={styles.road}>{l.road}</span>}
+                      {l.text}
+                    </p>
+                    {l.buses && (
+                      <ul className={styles.buses} aria-label="버스 번호">
+                        {l.buses.map((b) => (
+                          <li key={b}>{b}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 ))}
-              </ul>
-              {d.note && <p className={styles.dirNote}>※ {d.note}</p>}
-            </div>
+              </div>
+            </li>
           ))}
-        </div>
-
-        {/* 주차 안내 */}
-        <div className={styles.parking} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
-          <span className={styles.parkingMark} aria-hidden>
-            P
-          </span>
-          <div>
-            <p className={styles.parkingTitle}>주차 안내</p>
-            <p className={styles.parkingDesc}>푸른안과 건물 뒤편에 대형 주차장이 준비되어 있습니다.</p>
-          </div>
-        </div>
+        </ul>
       </ContentBlock>
     </SubLayout>
   );

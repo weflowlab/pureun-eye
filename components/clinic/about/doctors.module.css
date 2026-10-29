@@ -1,0 +1,128 @@
+/* 의료진소개 — 소개(사진 카드 흐름) + 원장별 프로필 */
+.intro,
+.profiles { --point: #1d63d8; --sky: #3796ef; --ink: #111; }
+
+/* ───── 소개 ───── */
+.intro { overflow: hidden; padding: var(--first-pt, 100px) 0 110px; background: linear-gradient(180deg, #fff 0%, #e8f1fc 100%); }
+.introHead { width: var(--max-width); margin: 0 auto; text-align: center; }
+.brand { color: #9aa6bd; font-family: var(--font-italic), var(--font-playfair), serif; font-size: 20px; font-style: italic; }
+.introTitle { margin-top: 14px; color: var(--ink); font-size: 36px; line-height: 1.45; letter-spacing: -0.03em; }
+.introTitle span,
+.introTitle strong { display: block; }
+.introTitle span { font-weight: 500; }
+/* 파란 그라데이션 글씨 */
+.introTitle strong {
+  font-weight: 700;
+  color: transparent;
+  background: linear-gradient(90deg, #005ed9 20%, #65adff 50%, #0047cc 78%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.introSub { margin-top: 18px; color: #666; font-size: 17px; }
+.introSub b { color: var(--point); }
+
+/* 사진 카드가 가로로 흐름 (마우스를 올리면 멈춤) */
+.marquee { margin-top: 64px; }
+.marqueeTrack { display: flex; width: max-content; animation: marquee 48s linear infinite; }
+.marquee:hover .marqueeTrack { animation-play-state: paused; }
+/* 간격은 margin으로 (gap이면 절반 이동 시 이음매가 어긋남) */
+.marqueeTrack li { width: 250px; margin-right: 24px; }
+.marqueeTrack a { display: block; }
+.marqueeTrack a > div:first-child { overflow: hidden; border-radius: 18px; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+.marqueeTrack a:hover > div:first-child { box-shadow: 0 18px 36px rgba(21, 44, 107, 0.16); transform: translateY(-6px); }
+.cardName { margin-top: 16px; color: var(--ink); font-size: 18px; font-weight: 700; }
+.cardName span { margin-left: 4px; color: #555; font-size: 14px; font-weight: 400; }
+.cardClinic { margin-top: 4px; color: #929292; font-size: 14px; }
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* ───── 프로필 ───── */
+/* 탭 위 여백 = 탭 아래 여백 (첫 프로필 여백 + 탭 아래 10px) */
+.profiles { width: var(--max-width); margin: 0 auto; padding: 100px 0 140px; }
+.profiles .tabs { margin-top: 0; margin-bottom: 10px; }
+.profile {
+  display: grid;
+  grid-template-columns: 380px minmax(0, 1fr);
+  gap: 80px;
+  padding: 90px 0;
+  border-bottom: 1px solid #e6e9ef;
+  scroll-margin-top: calc(var(--header-height) + 20px);
+}
+.profile:last-child { border-bottom: 0; padding-bottom: 0; }
+/* 사진은 프로필을 읽는 동안 화면에 붙어 따라옴 */
+.photo { position: sticky; top: calc(var(--header-height) + 40px); align-self: start; overflow: hidden; border-radius: 20px; }
+
+.clinic { display: flex; gap: 12px; align-items: center; color: var(--sky); font-size: 15px; font-weight: 700; }
+.reserve { padding: 3px 12px; color: var(--point); font-size: 13px; border: 1px solid var(--point); border-radius: 20px; }
+.name { margin-top: 12px; color: var(--ink); font-size: 42px; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+.title { margin-left: 10px; color: #929292; font-size: 20px; font-weight: 500; }
+.nameEn { margin-top: 6px; color: #9aa6bd; font-family: var(--font-italic), var(--font-playfair), serif; font-size: 22px; font-style: italic; }
+
+/* 한마디: 큰 따옴표 + 남색 글씨 */
+.motto {
+  position: relative;
+  margin-top: 34px;
+  padding-left: 46px;
+  color: var(--color-primary);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+.motto::before {
+  content: "\201C";
+  position: absolute;
+  top: -14px;
+  left: 0;
+  color: #b9d3f6;
+  font-family: var(--font-italic), var(--font-playfair), serif;
+  font-size: 72px;
+  line-height: 1;
+}
+.specialties { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.specialties li { padding: 7px 15px; color: var(--color-primary); font-size: 14px; font-weight: 500; background: #eef3fa; border-radius: 30px; }
+
+/* 약력 · 현 · 전 3단 */
+.careers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; margin-top: 48px; padding-top: 40px; border-top: 1px solid #e6e9ef; }
+.label { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; color: var(--ink); font-size: 16px; font-weight: 700; }
+.label::before { content: ""; width: 14px; height: 2px; background: var(--sky); }
+.careerList li { position: relative; padding-left: 12px; color: #555; font-size: 15px; line-height: 1.7; }
+.careerList li + li { margin-top: 6px; }
+.careerList li::before { content: ""; position: absolute; top: 0.8em; left: 0; width: 4px; height: 4px; background: #b9c4d6; border-radius: 50%; }
+.schedule { margin-top: 48px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; }
+  .marqueeTrack { animation: none; }
+}
+
+/* ───── 태블릿·모바일 ───── */
+@media screen and (max-width: 1210px) {
+  .introHead,
+  .profiles { width: 90%; }
+  .intro { padding: var(--first-pt-m, 60px) 0 70px; }
+  .introTitle { font-size: 27px; }
+  .introSub { font-size: 15px; }
+  .marquee { margin-top: 40px; }
+  .marqueeTrack li { width: 190px; margin-right: 16px; }
+  .cardName { font-size: 16px; }
+
+  .profiles { padding: 70px 0 90px; }
+  .profiles .tabs { margin-top: 0; }
+  .profile { grid-template-columns: 260px minmax(0, 1fr); gap: 40px; padding: 60px 0; scroll-margin-top: calc(var(--header-height-mobile) + 20px); }
+  .photo { top: calc(var(--header-height-mobile) + 20px); }
+  .name { font-size: 32px; }
+  .title { font-size: 17px; }
+  .nameEn { font-size: 18px; }
+  .motto { margin-top: 24px; padding-left: 36px; font-size: 19px; }
+  .motto::before { font-size: 56px; }
+  .careers { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 36px; padding-top: 30px; }
+  .schedule { margin-top: 36px; }
+}
+@media screen and (max-width: 768px) {
+  .profiles { padding-top: 60px; }
+  .profile { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 50px 0; }
+  .photo { position: static; max-width: 280px; }
+  .careers { grid-template-columns: minmax(0, 1fr); }
+}

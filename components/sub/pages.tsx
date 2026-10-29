@@ -1,6 +1,5 @@
 import type { ComponentType } from "react";
 import SubLayout from "./SubLayout";
-import EquipSection from "@/components/intro/EquipSection";
 import Board from "@/components/news/Board";
 import { getNewsList } from "@/lib/news";
 import { getReviewList, REVIEW_NOTICE } from "@/lib/reviews";
@@ -8,6 +7,8 @@ import { VISION_PAGES } from "@/components/clinic/vision";
 import { DISEASE_PAGES } from "@/components/clinic/disease";
 import { RETINA_PAGES } from "@/components/clinic/retina";
 import DoctorsPage from "@/components/clinic/about/DoctorsPage";
+import EquipmentPage from "@/components/clinic/about/EquipmentPage";
+import IntroPage from "@/components/clinic/about/intro/IntroPage";
 import LocationPage from "@/components/clinic/about/LocationPage";
 import ReferralPage from "@/components/clinic/community/ReferralPage";
 import FaqPage from "@/components/clinic/community/FaqPage";
@@ -15,15 +16,6 @@ import OnlinePage from "@/components/clinic/contact/OnlinePage";
 
 export type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 export type SubPageProps = { path: string; searchParams: SearchParams };
-
-// 병원소개 — 첨단의료장비
-function EquipmentPage({ path }: SubPageProps) {
-  return (
-    <SubLayout path={path}>
-      <EquipSection />
-    </SubLayout>
-  );
-}
 
 // 커뮤니티 — 공지사항 목록
 function NoticePage({ path, searchParams }: SubPageProps) {
@@ -45,6 +37,7 @@ function ReviewsPage({ path, searchParams }: SubPageProps) {
 
 /** 경로 → 페이지 컴포넌트. 등록되지 않은 메뉴는 "준비 중"으로 표시 */
 export const PAGES: Record<string, ComponentType<SubPageProps>> = {
+  "/about/intro": IntroPage,
   "/about/doctors": DoctorsPage,
   "/about/equipment": EquipmentPage,
   "/about/location": LocationPage,

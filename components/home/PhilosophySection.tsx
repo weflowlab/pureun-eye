@@ -21,7 +21,7 @@ export default function PhilosophySection() {
           <br />
           많은 수술보다, 수술 후의 관리까지 고려한 안전한 수술을 합니다.
         </p>
-        <Link href="/about/philosophy" className={styles.moreBtn} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
+        <Link href="/about/intro" className={styles.moreBtn} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
           진료이념 보기 +
         </Link>
         <div className={styles.clinicImg} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">

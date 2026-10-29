@@ -5,12 +5,12 @@ import { Swiper, SwiperSlide } from "@/components/common/Swiper";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import Image from "next/image";
-import { EQUIPMENTS } from "@/lib/equipment";
+import { EQUIPMENTS_WITH_PHOTO } from "@/lib/equipment";
 import { SITE } from "@/lib/site";
 import styles from "./EquipmentCarousel.module.css";
 
 // 장비 목록: 기존 홈페이지 장비 사진 사용
-const ITEMS = EQUIPMENTS;
+const ITEMS = EQUIPMENTS_WITH_PHOTO;
 
 /** 보유 장비 소개: 좌측 텍스트 + 우측 자동 루프 캐러셀 */
 export default function EquipmentCarousel() {

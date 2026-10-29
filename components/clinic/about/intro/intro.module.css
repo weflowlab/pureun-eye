@@ -1,0 +1,264 @@
+/* 병원소개 — 진한 글씨(#111) + 강조 파랑, 연출 섹션은 PC에서만 화면 고정 */
+.hero,
+.philo,
+.tour,
+.fields,
+.promise { --point: #1d63d8; --ink: #111; }
+.inner { width: var(--max-width); margin: 0 auto; }
+
+/* 공통 글씨 */
+.brand { color: #9aa6bd; font-family: var(--font-playfair); font-size: 20px; font-style: italic; }
+.heroTitle,
+.secTitle { margin-top: 14px; color: var(--ink); font-size: 36px; line-height: 1.45; letter-spacing: -0.03em; }
+.heroTitle span,
+.heroTitle strong,
+.secTitle span,
+.secTitle strong { display: block; }
+.heroTitle span,
+.secTitle span { font-weight: 500; }
+.heroTitle strong,
+.secTitle strong { font-weight: 700; }
+/* 두 줄 제목을 한 줄로 */
+.secTitle.oneLine span,
+.secTitle.oneLine strong { display: inline; }
+/* 파란 그라데이션 글씨 */
+.gradient {
+  color: transparent;
+  background: linear-gradient(90deg, #005ed9 20%, #65adff 50%, #0047cc 78%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.highlight { color: #3796ef; font-size: 19px; font-weight: 700; line-height: 1.6; letter-spacing: -0.02em; }
+.body { margin-top: 14px; color: #666; font-size: 16px; line-height: 1.85; letter-spacing: -0.02em; }
+
+/* ───── 1. 소개: 사진이 양옆으로 넓어짐 ───── */
+.hero { height: 200svh; }
+/* 헤더 바로 아래에 붙음 (위 여백은 붙기 전에도 남으므로 top으로 처리) */
+.heroStage {
+  position: sticky;
+  top: var(--header-height);
+  display: flex;
+  flex-direction: column;
+  height: calc(100svh - var(--header-height));
+  padding-top: 70px;
+}
+.heroText {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  gap: 60px;
+  align-items: end;
+  width: var(--max-width);
+  margin: 0 auto 40px;
+}
+/* 진행도 --p 0→0.6 동안 좌우 여백·모서리가 줄어 화면을 채움 */
+.heroImg {
+  --e: min(1, var(--p, 0) * 1.7);
+  flex: 1;
+  min-height: 0;
+  clip-path: inset(0 calc((1 - var(--e)) * max(6vw, 50vw - 605px)) round calc((1 - var(--e)) * 28px));
+}
+.heroImg > * { height: 100%; }
+
+/* ───── 2. 철학 ───── */
+.philo { padding: 130px 0; background: linear-gradient(180deg, #fff 0%, #e3eefb 100%); }
+.philoHead { max-width: 760px; }
+.philoRow { display: grid; grid-template-columns: minmax(0, 774fr) minmax(0, 436fr); gap: 60px; margin-top: 56px; }
+.philoMain { overflow: hidden; border-radius: 20px; }
+.philoText .body { margin-top: 0; }
+.stats { display: flex; gap: 36px; margin-top: 30px; padding-top: 24px; border-top: 1px solid #cfdcef; }
+.stats div + div { padding-left: 36px; border-left: 1px solid #cfdcef; }
+.stats dt { color: #777; font-size: 14px; }
+.stats dd { margin-top: 6px; color: var(--point); font-size: 36px; font-weight: 700; line-height: 1; }
+.stats small { margin-left: 3px; font-size: 16px; font-weight: 500; }
+/* 작은 사진 카드 + 뒤에 비껴 놓인 색 판 */
+.photoCard { position: relative; width: min(100%, 300px); margin: 44px 0 0 auto; }
+.photoCard::before { content: ""; position: absolute; inset: 0; background: #c6dcf7; border-radius: 20px; transform: translate(18px, 18px); }
+.photoCard > * { position: relative; overflow: hidden; border-radius: 20px; }
+
+/* ───── 3. 공간: 가로 이동 (섹션 높이는 JS가 이동 거리만큼 지정) ───── */
+.tourStage { position: sticky; top: 0; display: flex; align-items: center; height: 100svh; padding-top: var(--header-height); overflow: hidden; }
+.tourTrack { display: flex; gap: 90px; align-items: flex-end; padding: 0 max(5vw, calc(50vw - 605px)); will-change: transform; }
+.tourHead { flex-shrink: 0; align-self: center; width: 400px; }
+.space { flex-shrink: 0; width: min(869px, 58vw); }
+.spaceEn {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-bottom: -0.32em;
+  color: #388ff3;
+  font-family: var(--font-playfair);
+  font-size: clamp(64px, 8vw, 120px);
+  line-height: 1;
+}
+.spaceImg { overflow: hidden; border-radius: 20px; }
+.space figcaption { display: flex; gap: 18px; align-items: baseline; margin-top: 20px; }
+.spaceName { color: var(--ink); font-size: 21px; font-weight: 700; }
+.spaceDesc { color: #666; font-size: 15px; }
+
+/* ───── 4. 진료 분야: 카드 넘김 (분야 하나당 화면 한 장) ───── */
+.fields { height: calc(var(--n) * 100svh); background: linear-gradient(180deg, #f4f9ff 0%, #e3eefb 100%); }
+.fieldStage {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100svh;
+  padding-top: var(--header-height);
+  overflow: clip;
+}
+.fieldHead { text-align: center; }
+.fieldHead .highlight { margin-top: 12px; }
+/* 큰 영문명 배경 · 가운데 사진 · 오른쪽 설명 (사진 오른쪽 여백은 뒤에 비치는 사진 자리) */
+.fieldBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 50px;
+  align-items: center;
+  width: var(--max-width);
+  margin: 36px auto 0;
+}
+/* 위 공간 섹션 사진보다 조금 작게, 4:3 */
+.cards { position: relative; z-index: 1; grid-column: 2; grid-row: 1; height: min(525px, 55svh); margin-right: 40px; aspect-ratio: 4 / 3; }
+/* 영문명: 왼쪽 칸부터 사진 뒤까지 크고 흐리게 깔고, 사진 오른쪽 끝(여백 40px 제외)에서 잘라냄 */
+.fieldBg {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  overflow: hidden;
+  color: var(--point);
+  font-family: var(--font-italic), var(--font-playfair), serif;
+  font-size: clamp(110px, 11vw, 170px);
+  font-style: italic;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  opacity: 0.12;
+  clip-path: inset(0 40px 0 0);
+  animation: bgIn 0.8s ease both;
+}
+@keyframes bgIn {
+  from { opacity: 0; transform: translateX(-30px); }
+}
+.fieldCard {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 24px 50px rgba(21, 44, 107, 0.18);
+  transform-origin: right center;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
+}
+.fieldCard > * { height: 100%; }
+.fieldCard[data-state="on"] { z-index: 10; }
+/* 다음 사진: 오른쪽 뒤로 비껴 작게 */
+.fieldCard[data-state="wait"] {
+  z-index: calc(10 - var(--d));
+  opacity: calc(1 - (var(--d) - 1) * 0.35);
+  transform: translateX(calc(var(--d) * 20px)) scale(calc(1 - var(--d) * 0.05));
+}
+/* 지나간 사진: 왼쪽으로 밀려나며 사라짐 */
+.fieldCard[data-state="gone"] { z-index: 11; opacity: 0; transform: translateX(-115%); pointer-events: none; }
+/* 설명은 사진 세로 가운데(배경 영문명과 같은 높이), 쪽수는 아래 */
+.fieldSide { position: relative; grid-column: 3; grid-row: 1; display: flex; flex-direction: column; justify-content: center; align-self: stretch; }
+/* 영문명 (모바일 목록) */
+.fieldEn { color: var(--ink); font-size: 21px; line-height: 1.5; }
+.fieldTitle { color: var(--ink); font-size: 26px; font-weight: 700; }
+.fieldDesc { margin-top: 12px; color: #555; font-size: 16px; line-height: 1.75; white-space: pre-line; }
+.fieldLink { display: inline-block; margin-top: 20px; color: var(--point); font-size: 15px; font-weight: 700; }
+/* 쪽수: 1 ─ 4 */
+.pager { position: absolute; bottom: 6px; left: 0; display: flex; gap: 12px; align-items: center; color: #8a96ad; font-size: 15px; }
+.pager b { color: var(--point); font-size: 20px; }
+.pager span { width: 40px; height: 1px; background: #8a96ad; }
+/* 바뀔 때 아래에서 떠오름 */
+.rise { animation: rise 0.6s ease both; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+}
+.fieldList { display: none; }
+
+/* ───── 5. 네 가지 약속: 남색 띠 ───── */
+.promise { position: relative; overflow: hidden; color: #fff; background: #1a3a6b; }
+.promiseBg { position: absolute !important; inset: 0; height: 100% !important; opacity: 0.35; }
+.promiseInner { position: relative; padding: 120px 0; }
+.promise .secTitle { color: #fff; }
+.promise .secTitle strong { color: #a9c8ff; }
+.promiseLead { margin-top: 16px; color: rgba(255, 255, 255, 0.8); font-size: 18px; font-weight: 700; }
+.promiseHead { text-align: center; }
+/* 네 가지 약속: 가로 카드 4장 (폰은 옆으로 넘기는 슬라이드) */
+.promiseList { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: 56px; }
+.promiseList li {
+  padding: 36px 22px 34px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.promiseList li .promiseIcon { margin-bottom: 26px; }
+.promiseIcon { display: flex; flex-shrink: 0; justify-content: center; align-items: center; width: 56px; height: 56px; background: rgba(255, 255, 255, 0.12); border-radius: 50%; }
+/* 카드 제목은 한 줄 */
+.promiseTitle { font-size: 18px; font-weight: 700; letter-spacing: -0.04em; white-space: nowrap; }
+.promiseDesc { margin-top: 8px; color: rgba(255, 255, 255, 0.78); font-size: 15px; line-height: 1.75; }
+
+/* ───── 태블릿·모바일 + 동작 줄이기: 화면 고정 없이 차례로 ───── */
+@media screen and (max-width: 1024px), (prefers-reduced-motion: reduce) {
+  .hero,
+  .fields { height: auto; }
+  .heroStage,
+  .tourStage,
+  .fieldStage { position: static; height: auto; padding-top: 0; }
+  .heroImg { clip-path: none; }
+
+  .tourStage { display: block; padding: 0 0 100px; }
+  .tourTrack { flex-direction: column; gap: 50px; align-items: stretch; padding: 0; width: var(--max-width); margin: 0 auto; transform: none !important; }
+  .tourHead,
+  .space { width: 100%; }
+
+  .fieldStage { padding: 100px 0; }
+  .fieldBody { display: none; }
+  .fieldList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 50px 30px; width: var(--max-width); margin: 50px auto 0; }
+  .fieldList .fieldEn { margin-top: 18px; font-size: 16px; }
+  .fieldList .fieldTitle { margin-top: 4px; }
+  .fieldListImg { overflow: hidden; border-radius: 20px; }
+}
+@media screen and (max-width: 1024px) {
+  .heroImg { width: 90%; margin: 0 auto; overflow: hidden; border-radius: 20px; }
+  .heroImg > * { aspect-ratio: 4 / 3; }
+}
+@media screen and (max-width: 1210px) {
+  .inner,
+  .heroText,
+  .tourTrack,
+  .fieldBody,
+  .fieldList { width: 90%; }
+  .heroStage { padding-top: 60px; }
+  .heroText { grid-template-columns: minmax(0, 1fr); gap: 20px; margin-bottom: 30px; }
+  .heroTitle,
+  .secTitle { font-size: 27px; }
+  .highlight { font-size: 17px; }
+  .body { font-size: 15px; }
+  .philo { padding: 80px 0; }
+  .philoRow { grid-template-columns: minmax(0, 1fr); gap: 30px; margin-top: 36px; }
+  .photoCard { display: none; }
+  .stats dd { font-size: 30px; }
+  .promiseInner { padding: 80px 0; }
+  /* 슬라이드: 카드 폭 고정, 한 장씩 멈춤, 화면 끝까지 넘겨 보이게 */
+  .promiseList {
+    display: flex;
+    gap: 14px;
+    margin: 36px -5.556% 0;
+    padding: 0 5.556% 6px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 5.556%;
+    scrollbar-width: none;
+  }
+  .promiseList::-webkit-scrollbar { display: none; }
+  .promiseList li { flex: 0 0 min(78%, 300px); padding: 30px 20px; scroll-snap-align: start; }
+  .promiseTitle { font-size: 17px; }
+  .spaceEn { font-size: 56px; }
+}
+@media screen and (max-width: 768px) {
+  .fieldList { grid-template-columns: minmax(0, 1fr); }
+  .space figcaption { flex-direction: column; gap: 4px; }
+}

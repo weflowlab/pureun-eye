@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Placeholder from "@/components/common/Placeholder";
 import ImgTxtBox from "@/components/diseases/common/ImgTxtBox";
-import { EQUIPMENTS } from "@/lib/equipment";
+import { EQUIPMENTS_WITH_PHOTO } from "@/lib/equipment";
 import styles from "./vision.module.css";
 
 type SecHeadProps = {
@@ -73,7 +73,7 @@ export function CompareImages({ items }: { items: string[] }) {
 
 /** 장비 실사진 (lib/equipment.ts 기준) */
 export function EquipImage({ model }: { model: string }) {
-  const eq = EQUIPMENTS.find((e) => e.model === model);
+  const eq = EQUIPMENTS_WITH_PHOTO.find((e) => e.model === model);
   if (!eq) return null;
   return (
     <figure className={styles.equip}>

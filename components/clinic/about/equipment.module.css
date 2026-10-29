@@ -1,0 +1,90 @@
+/* 첨단의료장비 — 소개 + 분류 필터 + 카드 격자 */
+.wrap { --point: #1d63d8; --sky: #3796ef; --ink: #111; padding: var(--first-pt, 100px) 0 140px; background: linear-gradient(180deg, #fff 0%, #eef4fc 420px, #fff 900px); }
+.head { width: var(--max-width); margin: 0 auto; text-align: center; }
+.brand { color: #9aa6bd; font-family: var(--font-italic), var(--font-playfair), serif; font-size: 20px; font-style: italic; }
+.title { margin-top: 14px; color: var(--ink); font-size: 36px; line-height: 1.45; letter-spacing: -0.03em; }
+.title span,
+.title strong { display: block; }
+.title span { font-weight: 500; }
+/* 파란 그라데이션 글씨 */
+.title strong {
+  font-weight: 700;
+  color: transparent;
+  background: linear-gradient(90deg, #005ed9 20%, #65adff 50%, #0047cc 78%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* 분류 필터: 알약 + 개수 */
+.filters { display: flex; justify-content: center; gap: 8px; margin-top: 50px; }
+.filter {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 11px 22px;
+  color: #555;
+  font-size: 15px;
+  font-weight: 500;
+  background: #fff;
+  border: 1px solid #d6e0ee;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+.filter span { color: var(--sky); font-weight: 700; }
+.filter:hover { border-color: var(--color-primary); }
+.filter.on { color: #fff; font-weight: 700; background: var(--color-primary); border-color: var(--color-primary); }
+.filter.on span { color: #a9c8ff; }
+
+/* 카드 격자 */
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; width: var(--max-width); margin: 44px auto 0; }
+.card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e6ebf3;
+  border-radius: 20px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  /* backwards: 등장 후에는 hover 이동을 막지 않도록 */
+  animation: rise 0.6s ease backwards;
+}
+.card:hover { box-shadow: 0 20px 40px rgba(21, 44, 107, 0.12); transform: translateY(-6px); }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+}
+/* 장비 사진: 배경을 딴 사진을 흰 바탕에, 잘리지 않게 contain */
+.photo { position: relative; aspect-ratio: 325 / 260; background: #fff; }
+.photo img { object-fit: contain; padding: 8%; transition: transform 0.5s ease; }
+.card:hover .photo img { transform: scale(1.05); }
+.photo > div { height: 100%; }
+.body { padding: 22px 22px 26px; }
+.category { display: inline-block; padding: 4px 12px; color: var(--point); font-size: 13px; font-weight: 700; background: #eaf2ff; border-radius: 20px; }
+.model { margin-top: 12px; color: var(--ink); font-size: 18px; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em; }
+.maker { margin-top: 4px; color: #929292; font-size: 14px; }
+.points { margin-top: 14px; padding-top: 14px; border-top: 1px solid #eef1f6; }
+.points li { position: relative; padding-left: 11px; color: #555; font-size: 14px; line-height: 1.6; }
+.points li + li { margin-top: 4px; }
+.points li::before { content: ""; position: absolute; top: 0.7em; left: 0; width: 4px; height: 4px; background: #b9c4d6; border-radius: 50%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card { animation: none; }
+}
+
+/* ───── 태블릿·모바일 ───── */
+@media screen and (max-width: 1210px) {
+  .wrap { padding: var(--first-pt-m, 60px) 0 90px; }
+  .head,
+  .grid { width: 90%; }
+  .title { font-size: 27px; }
+  .filters { flex-wrap: wrap; margin-top: 44px; }
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+}
+@media screen and (max-width: 768px) {
+  .filters { gap: 6px; }
+  .filter { padding: 9px 14px; font-size: 14px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 30px; }
+  .body { padding: 16px 14px 18px; }
+  .category { padding: 3px 9px; font-size: 12px; }
+  .model { font-size: 15px; }
+  .maker { font-size: 13px; }
+  .points li { font-size: 13px; }
+}

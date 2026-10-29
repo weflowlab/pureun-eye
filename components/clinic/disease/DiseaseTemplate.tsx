@@ -1,296 +1,264 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { Fragment, type CSSProperties, type ReactNode } from "react";
 import Placeholder from "@/components/common/Placeholder";
 import SubLayout from "@/components/sub/SubLayout";
 import { SITE } from "@/lib/site";
+import Pic from "./Pic";
+import ProcessSteps from "./ProcessSteps";
 import type { Disease } from "./types";
 import styles from "./disease.module.css";
 
 // 클리닉별 신뢰 포인트 (기존 푸른안과 원고 기준 — 수치는 병원 확인 필요)
 const TRUST = {
   retina: {
-    title: "망막클리닉 보임이 함께합니다",
+    title: "*망막클리닉 보임*이 함께합니다",
     items: [
-      {
-        num: SITE.since,
-        unit: "년부터",
-        title: "이어온 망막 진료",
-        desc: "개원 때부터 전북 지역 망막 환자를 진료해 왔습니다.",
-      },
-      {
-        num: "400",
-        unit: "례 이상",
-        title: "매년 시행하는 망막 수술",
-        desc: "망막박리·당뇨망막병증 등 중증 질환을 가까이에서 수술합니다.",
-      },
-      {
-        num: "4",
-        unit: "인",
-        title: "망막 전문 의료진",
-        desc: "진단부터 수술, 경과 관찰까지 같은 의료진이 함께합니다.",
-      },
-      {
-        num: "200",
-        unit: "°",
-        title: "초광각 망막 검사",
-        desc: "Optos·OCT 혈관조영 등 망막 전용 장비로 정밀하게 살핍니다.",
-      },
+      { num: String(SITE.since), unit: "년부터", title: "이어온 망막 진료", desc: "개원 때부터 전북 지역 망막 환자를 진료해 왔습니다." },
+      { num: "400", unit: "례 이상", title: "매년 시행하는 망막 수술", desc: "망막박리·당뇨망막병증 등 중증 질환을 가까이에서 수술합니다." },
+      { num: "4", unit: "인", title: "망막 전문 의료진", desc: "진단부터 수술, 경과 관찰까지 같은 의료진이 함께합니다." },
+      { num: "200", unit: "°", title: "초광각 망막 검사", desc: "Optos·OCT 혈관조영 등 망막 전용 장비로 정밀하게 살핍니다." },
     ],
   },
   cataract: {
-    title: "푸른 백내장 클리닉이 함께합니다",
+    title: "*푸른안과 백내장 클리닉*이 함께합니다",
     items: [
-      {
-        num: "30,000",
-        unit: "례 이상",
-        title: "백내장 수술 경험",
-        desc: `${SITE.since}년 개원 이래 쌓아 온 수술 경험입니다.`,
-      },
-      {
-        num: "1:1",
-        unit: "",
-        title: "맞춤 인공수정체 선택",
-        desc: "정밀 검사와 생활 습관을 함께 고려해 렌즈를 고릅니다.",
-      },
-      {
-        num: "ONE",
-        unit: "",
-        title: "망막까지 한 곳에서",
-        desc: "망막클리닉 보임과 함께 망막·시신경 상태까지 확인합니다.",
-      },
-      {
-        num: "AFTER",
-        unit: "",
-        title: "수술 후 정기 관리",
-        desc: "회복 경과와 후발백내장 여부를 꾸준히 확인합니다.",
-      },
+      { num: "30,000", unit: "례 이상", title: "백내장 수술 경험", desc: `${SITE.since}년 개원 이래 쌓아 온 수술 경험입니다.` },
+      { num: "1:1", unit: "", title: "맞춤 인공수정체 선택", desc: "정밀 검사와 생활 습관을 함께 고려해 렌즈를 고릅니다." },
+      { num: "ONE", unit: "", title: "망막까지 한 곳에서", desc: "망막클리닉 보임과 함께 망막·시신경 상태까지 확인합니다." },
+      { num: "AFTER", unit: "", title: "수술 후 정기 관리", desc: "회복 경과와 후발백내장 여부를 꾸준히 확인합니다." },
     ],
   },
 };
 
-/** 섹션 머리: 영문 라벨 + 제목 + 보조 문구 */
-function Head({ eyebrow, title, sub }: { eyebrow: string; title: ReactNode; sub?: ReactNode }) {
+/** "*강조*" 표기를 태그로 (제목은 strong, FAQ 질문은 하늘색 span) */
+function rich(text: string, Tag: "strong" | "span" = "strong", className?: string) {
+  return text.split(/\*([^*]+)\*/).map((part, i) =>
+    i % 2 ? (
+      <Tag key={i} className={className}>
+        {part}
+      </Tag>
+    ) : (
+      <Fragment key={i}>{part}</Fragment>
+    ),
+  );
+}
+
+/** 섹션 머리: 두 톤 제목 + 보조 문구 (가운데) */
+function Head({ title, sub, light }: { title: string; sub?: ReactNode; light?: boolean }) {
   return (
-    <div className={styles.head} suppressHydrationWarning data-aos="fade-up">
-      <p className={styles.eyebrow}>{eyebrow}</p>
-      <h3 className={styles.title}>{title}</h3>
+    <div className={`${styles.head} ${light ? styles.light : ""}`} suppressHydrationWarning data-aos="fade-up">
+      <h3 className={styles.title}>{rich(title)}</h3>
       {sub && <p className={styles.sub}>{sub}</p>}
     </div>
   );
 }
 
-/** 질환 페이지 공통 틀 — 원고(Disease)에 있는 섹션만 순서대로 그리고, 배경은 흰색·연파랑 번갈아 */
+/** 질환 페이지 공통 틀 (섹션마다 배경과 연출이 다름) */
 export default function DiseaseTemplate({ d }: { d: Disease }) {
-  const sections: { key: string; node: ReactNode }[] = [];
-  const add = (key: string, node: ReactNode) => sections.push({ key, node });
-
-  if (d.definition) {
-    const { title, body, figures } = d.definition;
-    add(
-      "definition",
-      <>
-        <Head eyebrow="WHAT IS" title={title} sub={body} />
-        {figures && (
-          <div className={`${styles.figures} ${figures.length === 2 ? styles.two : ""}`}>
-            {figures.map((f, i) => (
-              <figure key={f.title} className={styles.figure} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 80}>
-                <Placeholder label={f.label} aspectRatio="4 / 3" stock={false} />
-                <figcaption>
-                  <p className={styles.figTitle}>{f.title}</p>
-                  {f.desc && <p className={styles.figDesc}>{f.desc}</p>}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        )}
-      </>,
-    );
-  }
-
-  if (d.causes) {
-    add(
-      "causes",
-      <>
-        <Head eyebrow="CAUSE" title={d.causes.title} sub={d.causes.sub} />
-        <ol className={styles.numList}>
-          {d.causes.items.map((c, i) => (
-            <li key={c.title} suppressHydrationWarning data-aos="fade-up" data-aos-delay={(i % 2) * 80}>
-              <span className={styles.num}>{String(i + 1).padStart(2, "0")}</span>
-              <div>
-                <p className={styles.itemTitle}>{c.title}</p>
-                {c.desc && <p className={styles.itemDesc}>{c.desc}</p>}
-              </div>
-            </li>
-          ))}
-        </ol>
-      </>,
-    );
-  }
-
-  if (d.symptoms) {
-    add(
-      "symptoms",
-      <>
-        <Head eyebrow="SYMPTOM" title={d.symptoms.title} sub={d.symptoms.sub} />
-        <ul className={styles.symptoms}>
-          {d.symptoms.items.map((s, i) => (
-            <li key={s.title} suppressHydrationWarning data-aos="fade-up" data-aos-delay={(i % 4) * 80}>
-              <Placeholder label={`${s.title} 일러스트`} aspectRatio="1 / 1" stock={false} />
-              <p className={styles.itemTitle}>{s.title}</p>
-              {s.desc && <p className={styles.itemDesc}>{s.desc}</p>}
-            </li>
-          ))}
-        </ul>
-        <div className={styles.cta}>
-          <Link href="/contact/online" className={styles.ctaBtn}>
-            내 증상 상담하기
-          </Link>
-        </div>
-      </>,
-    );
-  }
-
-  if (d.diagnosis) {
-    add(
-      "diagnosis",
-      <>
-        <Head eyebrow={d.diagnosis.eyebrow ?? "DIAGNOSIS"} title={d.diagnosis.title} sub={d.diagnosis.sub} />
-        <ol className={styles.steps}>
-          {d.diagnosis.steps.map((s, i) => (
-            <li key={s.title} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 80}>
-              <span className={styles.stepNo}>STEP {i + 1}</span>
-              <p className={styles.itemTitle}>{s.title}</p>
-              {s.desc && <p className={styles.itemDesc}>{s.desc}</p>}
-            </li>
-          ))}
-        </ol>
-      </>,
-    );
-  }
-
-  if (d.treatment) {
-    const { title, sub, items, note } = d.treatment;
-    add(
-      "treatment",
-      <>
-        <Head eyebrow="TREATMENT" title={title} sub={sub} />
-        <div className={`${styles.cards} ${items.length === 2 ? styles.two : ""}`}>
-          {items.map((t, i) => (
-            <div key={t.title} className={styles.card} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 80}>
-              {t.image && <Placeholder label={t.image} aspectRatio="16 / 10" stock={false} />}
-              <div className={styles.cardBody}>
-                <p className={styles.itemTitle}>{t.title}</p>
-                {t.desc && <p className={styles.itemDesc}>{t.desc}</p>}
-              </div>
-            </div>
-          ))}
-        </div>
-        {note && <p className={styles.note}>{note}</p>}
-      </>,
-    );
-  }
-
-  if (d.compare) {
-    const { title, sub, head, rows } = d.compare;
-    add(
-      "compare",
-      <>
-        <Head eyebrow="COMPARE" title={title} sub={sub} />
-        <div className={styles.tableWrap} suppressHydrationWarning data-aos="fade-up">
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                {head.map((h, i) => (
-                  <th key={i} scope="col">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((r) => (
-                <tr key={r[0]}>
-                  <th scope="row">{r[0]}</th>
-                  {r.slice(1).map((c, i) => (
-                    <td key={i}>{c}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </>,
-    );
-  }
-
-  d.extras?.forEach((x) =>
-    add(
-      x.title,
-      <>
-        <Head eyebrow={x.eyebrow} title={x.title} sub={x.sub} />
-        {(x.body || x.image) && (
-          <div className={styles.extra} suppressHydrationWarning data-aos="fade-up">
-            {x.image && <Placeholder label={x.image} aspectRatio="1 / 1" stock={false} />}
-            {x.body && <div className={styles.extraBody}>{x.body}</div>}
-          </div>
-        )}
-        {x.items && (
-          <ul className={styles.tiles}>
-            {x.items.map((t, i) => (
-              <li key={t.title} suppressHydrationWarning data-aos="fade-up" data-aos-delay={(i % 3) * 80}>
-                <p className={styles.itemTitle}>{t.title}</p>
-                {t.desc && <p className={styles.itemDesc}>{t.desc}</p>}
-              </li>
-            ))}
-          </ul>
-        )}
-      </>,
-    ),
-  );
-
-  if (d.cases) {
-    add(
-      "cases",
-      <>
-        <Head eyebrow="CASE" title={d.cases.title} sub={d.cases.sub} />
-        <div className={styles.figures}>
-          {d.cases.images.map((label, i) => (
-            <div key={label} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 80}>
-              <Placeholder label={label} aspectRatio="4 / 3" stock={false} />
-            </div>
-          ))}
-        </div>
-        <p className={styles.note}>※ 환자분의 동의를 받아 게재한 실제 사례이며, 치료 결과는 개인에 따라 다를 수 있습니다.</p>
-      </>,
-    );
-  }
-
   const trust = TRUST[d.clinic];
 
   return (
     <SubLayout path={d.path} description={d.description}>
-      {/* 소개: 왼쪽 글 · 오른쪽 사진 */}
+      {/* 소개: 왼쪽 두 줄 제목 · 오른쪽 문단 → 아래 비교 이미지 */}
       <section className={styles.intro}>
-        <div suppressHydrationWarning data-aos="fade-up">
-          <h2 className={styles.introTitle}>{d.intro.title}</h2>
-          <p className={styles.introBody}>{d.intro.body}</p>
+        <div className={styles.introTop}>
+          <div suppressHydrationWarning data-aos="fade-up">
+            <p className={styles.brand}>Pureun Eye Clinic</p>
+            <h2 className={styles.introTitle}>
+              <span>{d.intro.line1}</span>
+              <strong>{d.intro.line2}</strong>
+            </h2>
+          </div>
+          <div className={styles.introBody} suppressHydrationWarning data-aos="fade-up" data-aos-delay="100">
+            {d.intro.paragraphs.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
         </div>
-        <div className={styles.introImg}>
-          <Placeholder label={d.intro.image} aspectRatio="4 / 3" />
+        <div className={styles.introImgs}>
+          {d.intro.images.map((label) => (
+            <figure key={label}>
+              <Pic label={label} aspectRatio="16 / 10" />
+              <figcaption>{label}</figcaption>
+            </figure>
+          ))}
         </div>
       </section>
 
-      {sections.map((s, i) => (
-        <section key={s.key} className={`${styles.block} ${i % 2 === 0 ? styles.alt : ""}`}>
-          <div className={styles.inner}>{s.node}</div>
+      {/* 정의: 큰 그림 + 그림 위 알약 라벨 */}
+      {d.definition && (
+        <section className={styles.block}>
+          <div className={styles.inner}>
+            <Head title={d.definition.title} sub={d.definition.body} />
+            {d.definition.figures && (
+              <div className={`${styles.figures} ${styles[`n${d.definition.figures.length}`]}`}>
+                {d.definition.figures.map((f, i) => (
+                  <figure key={f.title} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 80}>
+                    <div className={styles.figImg}>
+                      <Placeholder label={f.label} aspectRatio="16 / 10" stock={false} />
+                      <span className={styles.pill}>{f.title}</span>
+                    </div>
+                    {f.desc && <figcaption>{f.desc}</figcaption>}
+                  </figure>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* 증상: 하늘색 배경 + 사진 카드가 가로로 흘러감 (마우스를 올리면 멈춤) */}
+      {d.symptoms && (
+        <section className={`${styles.block} ${styles.sky}`}>
+          <div className={styles.inner}>
+            <Head title={d.symptoms.title} sub={d.symptoms.sub} />
+          </div>
+          <div className={styles.marquee}>
+            {/* 끊김 없이 이어지도록 같은 목록을 두 번 */}
+            <ul className={styles.marqueeTrack} style={{ animationDuration: `${d.symptoms.items.length * 6}s` }}>
+              {[0, 1].map((dup) =>
+                d.symptoms!.items.map((s) => (
+                  <li key={`${dup}-${s.title}`} aria-hidden={dup === 1 || undefined}>
+                    <Pic label={`${s.title} 이미지`} aspectRatio="345 / 225" />
+                    <p className={styles.symTitle}>{s.title}</p>
+                    {s.desc && <p className={styles.symDesc}>{s.desc}</p>}
+                  </li>
+                )),
+              )}
+            </ul>
+          </div>
+          <div className={styles.cta}>
+            <Link href="/contact/online" className={styles.ctaBtn}>
+              내 증상 상담하기
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {/* 원인: 흰 판 위 3열 */}
+      {d.causes && (
+        <section className={`${styles.block} ${styles.causeBg}`}>
+          <div className={styles.inner}>
+            <Head title={d.causes.title} sub={d.causes.sub} />
+            <ol className={styles.causes} suppressHydrationWarning data-aos="fade-up">
+              {d.causes.items.map((c, i) => (
+                <li key={c.title}>
+                  <span className={styles.causeNo}>{String(i + 1).padStart(2, "0")}</span>
+                  <p className={styles.itemTitle}>{c.title}</p>
+                  {c.desc && <p className={styles.itemDesc}>{c.desc}</p>}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
+
+      {/* 진단: 파란 그라데이션 위 카드가 차례로 겹쳐 쌓임 */}
+      {d.diagnosis && (
+        <section className={`${styles.block} ${styles.blue}`}>
+          <div className={styles.inner}>
+            <Head title={d.diagnosis.title} sub={d.diagnosis.sub} />
+            <ol className={styles.stack}>
+              {d.diagnosis.steps.map((s, i) => (
+                <li key={s.title} style={{ "--i": i } as CSSProperties}>
+                  <div className={styles.stackImg}>
+                    <Pic label={s.title} aspectRatio="16 / 10" />
+                  </div>
+                  <div>
+                    <span className={styles.stepNo}>Step {String(i + 1).padStart(2, "0")}</span>
+                    <p className={styles.stackTitle}>{s.title}</p>
+                    {s.desc && <p className={styles.itemDesc}>{s.desc}</p>}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
+
+      {/* 수술 과정: 왼쪽 사진 고정 + 오른쪽 단계 */}
+      {d.process && (
+        <section className={styles.block}>
+          <div className={styles.inner}>
+            <Head title={d.process.title} sub={d.process.sub} />
+            <ProcessSteps
+              steps={d.process.steps}
+              images={d.process.steps.map((s) => (
+                <Pic key={s.title} label={s.title} aspectRatio="525 / 332" />
+              ))}
+            />
+          </div>
+        </section>
+      )}
+
+      {/* 치료: 사진 카드 */}
+      {d.treatment && (
+        <section className={`${styles.block} ${styles.sky}`}>
+          <div className={styles.inner}>
+            <Head title={d.treatment.title} sub={d.treatment.sub} />
+            <div className={`${styles.cards} ${d.treatment.items.length === 2 ? styles.two : ""}`}>
+              {d.treatment.items.map((t, i) => (
+                <div key={t.title} className={styles.card} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 80}>
+                  {t.image && <Pic label={t.image} aspectRatio="16 / 10" />}
+                  <div className={styles.cardBody}>
+                    <p className={styles.itemTitle}>{t.title}</p>
+                    {t.desc && <p className={styles.itemDesc}>{t.desc}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {d.treatment.note && <p className={styles.note}>{d.treatment.note}</p>}
+          </div>
+        </section>
+      )}
+
+      {/* 비교표: 칸마다 둥근 블록, 강조 열은 하늘색 */}
+      {d.compare && <Compare {...d.compare} />}
+
+      {d.extras?.map((x) => (
+        <section key={x.title} className={styles.block}>
+          <div className={styles.inner}>
+            <Head title={x.title} sub={x.sub} />
+            {(x.body || x.image) && (
+              <div className={styles.extra} suppressHydrationWarning data-aos="fade-up">
+                {x.image && <Pic label={x.image} aspectRatio="1 / 1" />}
+                {x.body && <div className={styles.extraBody}>{x.body}</div>}
+              </div>
+            )}
+            {x.items && (
+              <ul className={styles.tiles}>
+                {x.items.map((t, i) => (
+                  <li key={t.title} suppressHydrationWarning data-aos="fade-up" data-aos-delay={(i % 3) * 80}>
+                    <p className={styles.itemTitle}>{t.title}</p>
+                    {t.desc && <p className={styles.itemDesc}>{t.desc}</p>}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </section>
       ))}
+
+      {d.cases && (
+        <section className={`${styles.block} ${styles.sky}`}>
+          <div className={styles.inner}>
+            <Head title={d.cases.title} sub={d.cases.sub} />
+            <div className={`${styles.figures} ${styles.n2}`}>
+              {d.cases.images.map((label, i) => (
+                <div key={label} className={styles.figImg} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 80}>
+                  <Placeholder label={label} aspectRatio="4 / 3" stock={false} />
+                </div>
+              ))}
+            </div>
+            <p className={styles.note}>※ 환자분의 동의를 받아 게재한 실제 사례이며, 치료 결과는 개인에 따라 다를 수 있습니다.</p>
+          </div>
+        </section>
+      )}
 
       {/* 신뢰 포인트: 남색 띠 */}
       <section className={styles.trust}>
         <div className={styles.inner}>
-          <p className={styles.eyebrow}>WHY PUREUN</p>
-          <h3 className={styles.trustTitle}>{trust.title}</h3>
+          <Head title={trust.title} light />
           <ul className={styles.trustList}>
             {trust.items.map((t, i) => (
               <li key={t.title} suppressHydrationWarning data-aos="fade-up" data-aos-delay={i * 80}>
@@ -306,23 +274,61 @@ export default function DiseaseTemplate({ d }: { d: Disease }) {
         </div>
       </section>
 
-      {/* 자주 묻는 질문: 펼침 목록 */}
+      {/* 자주 묻는 질문: 어두운 카드 2열, 질문 키워드는 하늘색 */}
       <section className={styles.block}>
         <div className={styles.inner}>
-          <Head eyebrow="FAQ" title="자주 묻는 질문" />
-          <div className={styles.faq}>
-            {d.faq.map((f) => (
-              <details key={f.q} className={styles.faqItem}>
-                <summary>
-                  <span className={styles.q}>Q</span>
-                  {f.q}
-                </summary>
+          <Head title="*자주 묻는* 질문" />
+          <ul className={styles.faq}>
+            {d.faq.map((f, i) => (
+              <li key={f.q} suppressHydrationWarning data-aos="fade-up" data-aos-delay={(i % 2) * 80}>
+                <p className={styles.faqQ}>
+                  <span className={styles.q}>Q.</span>
+                  <span>{rich(f.q, "span", styles.hl)}</span>
+                </p>
                 <p className={styles.faqA}>{f.a}</p>
-              </details>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
     </SubLayout>
+  );
+}
+
+/** 비교표: 첫 열(항목명)은 짙은 블록, 나머지는 연회색 블록 */
+function Compare({ title, sub, head, rows, highlight }: NonNullable<Disease["compare"]>) {
+  const hl = (c: number) => (highlight === c ? styles.hlCol : "");
+  return (
+    <section className={styles.block}>
+      <div className={styles.inner}>
+        <Head title={title} sub={sub} />
+        <div className={styles.tableWrap} suppressHydrationWarning data-aos="fade-up">
+          <div className={styles.grid} style={{ "--cols": head.length - 1 } as CSSProperties} role="table">
+            <div role="row" className={styles.row}>
+              <span role="columnheader" className={styles.corner}>
+                {head[0]}
+              </span>
+              {head.slice(1).map((h, c) => (
+                <span key={h} role="columnheader" className={`${styles.colHead} ${hl(c + 1)}`}>
+                  {h}
+                </span>
+              ))}
+            </div>
+            {rows.map((r) => (
+              <div key={r[0]} role="row" className={styles.row}>
+                <span role="rowheader" className={styles.rowHead}>
+                  {r[0]}
+                </span>
+                {r.slice(1).map((cell, c) => (
+                  <span key={c} role="cell" className={`${styles.cell} ${hl(c + 1)}`}>
+                    {cell}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
