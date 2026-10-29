@@ -21,7 +21,7 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
             {HOURS.weekday.label} {HOURS.weekday.time}, {HOURS.saturday.label} {HOURS.saturday.time}입니다.
           </>
         ),
-        link: { href: "/about/hours", label: "진료시간안내" },
+        link: { href: "/about/location", label: "오시는 길 · 진료시간" },
       },
       {
         q: "전화로 접수할 수 있나요?",
@@ -74,12 +74,12 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
       {
         q: "백내장은 언제 수술해야 하나요?",
         a: <>초기에는 경과를 관찰하기도 하지만, 시력이 떨어져 일상생활이 불편해지면 수술 치료를 권합니다.</>,
-        link: { href: "/cataract/about", label: "백내장이란" },
+        link: { href: "/cataract/about", label: "백내장" },
       },
       {
         q: "다초점 인공수정체는 누구나 할 수 있나요?",
         a: <>눈 상태와 생활 방식에 따라 권하지 않는 경우도 있습니다. 정밀 검사 후 의료진과 상의해 결정합니다.</>,
-        link: { href: "/cataract/premium", label: "프리미엄 백내장 수술" },
+        link: { href: "/cataract/about", label: "인공수정체 선택" },
       },
     ],
   },

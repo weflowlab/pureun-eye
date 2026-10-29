@@ -17,7 +17,7 @@ const DELAY = 5000;
 // 슬라이드 = 하단 탭: 진료과목 3개 + 의료진 (배경 사진 라벨은 lib/stock.ts 규칙과 연결)
 const SLIDES = [
   { tab: "시력교정", short: "시력교정", label: "메인 비주얼 1", headline: "내 눈에 맞는 시력교정", desc: "33가지 수술 전 검사로 스마일 · 라식 · 라섹 중 알맞은 수술을 찾습니다.", href: "/vision/pre-care" },
-  { tab: "백내장", short: "백내장", label: "메인 비주얼 2", headline: "흐려진 시야, 미루지 마세요", desc: "푸른 백내장 노안센터에서 정밀 검사부터 수술 후 관리까지 함께합니다.", href: "/cataract/center" },
+  { tab: "백내장", short: "백내장", label: "메인 비주얼 2", headline: "흐려진 시야, 미루지 마세요", desc: "정밀 검사부터 수술 후 관리까지 같은 의료진이 함께합니다.", href: "/cataract/about" },
   { tab: "망막클리닉 보임", short: "망막", label: "메인 비주얼 3", headline: "치료 시기가 중요한 망막 질환", desc: "망막클리닉 보임에서 망막 전문 의료진이 진료합니다.", href: "/retina/boim" },
   { tab: "의료진", short: "의료진", label: "메인 비주얼 4", headline: "분야별 의료진이 함께합니다", desc: "외래클리닉과 망막클리닉 보임의 원장님을 소개합니다.", href: "/about/doctors" },
 ];

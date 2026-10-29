@@ -14,8 +14,8 @@ import styles from "./TreatmentSection.module.css";
 const SLIDES = [
   { title: "Smile 4 me", desc: "각막 절편 없이 작은 절개창으로 교정하는 시력교정수술입니다.", href: "/vision/smile" },
   { title: "LASIK / LASEK", desc: "정밀 검사로 각막 상태를 확인해 알맞은 수술 방법을 선택합니다.", href: "/vision/lasik" },
-  { title: "프리미엄 백내장 수술", desc: "다초점 인공수정체로 굴절이상과 노안 개선까지 함께 고려합니다.", href: "/cataract/premium" },
-  { title: "레이저 백내장 수술", desc: "3D OCT 안구 분석으로 수술의 주요 단계를 미리 계획합니다.", href: "/cataract/laser" },
+  { title: "백내장 수술", desc: "정밀 검사와 생활 방식에 맞춰 알맞은 인공수정체를 고릅니다.", href: "/cataract/about" },
+  { title: "인공수정체 탈구", desc: "수술 후 다시 흐려졌다면 렌즈 위치와 망막까지 함께 확인합니다.", href: "/cataract/iol" },
   { title: "망막박리", desc: "망막이 떨어지는 질환으로, 빠른 진단과 수술이 중요합니다.", href: "/retina/detachment" },
   { title: "당뇨망막병증", desc: "당뇨로 인한 망막 혈관 손상을 단계별로 치료합니다.", href: "/retina/diabetic" },
   { title: "황반변성", desc: "정밀 검사와 꾸준한 치료로 중심 시력을 지켜갑니다.", href: "/retina/macular" },

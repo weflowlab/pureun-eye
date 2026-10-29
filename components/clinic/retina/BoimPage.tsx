@@ -5,6 +5,7 @@ import ContentBlock from "@/components/diseases/common/ContentBlock";
 import ImgTxtBox from "@/components/diseases/common/ImgTxtBox";
 import SectionTitle from "@/components/diseases/common/SectionTitle";
 import VerticalInfoBox from "@/components/diseases/common/VerticalInfoBox";
+import RetinaEquipList from "./RetinaEquipList";
 import SectionHead from "./SectionHead";
 import { DOCTORS } from "@/lib/doctors";
 import styles from "./retina.module.css";
@@ -17,11 +18,14 @@ const HISTORY = [
   { year: "2015", month: "03", title: "망막클리닉 BOIM 확장 오픈", desc: "4층으로 공간을 넓히고 4인 의료진 체제의 BOIM 클리닉을 열었습니다." },
 ];
 
-// 주요 치료 질환
+// 주요 치료 질환 (망막클리닉 하위 탭)
 const FOCUS = [
-  { title: "열공성 망막박리", desc: "망막에 생긴 구멍(열공)을 통해 망막이 떨어지는 질환으로, 빠른 진단과 수술이 중요합니다.", href: "/retina/detachment" },
-  { title: "당뇨망막병증", desc: "당뇨로 인한 망막 혈관 손상과 이로 인한 견인성 망막박리까지 단계별로 치료합니다.", href: "/retina/diabetic" },
-  { title: "황반변성", desc: "중심 시력을 담당하는 황반의 질환으로, 정밀 검사와 꾸준한 치료로 시력을 지켜갑니다.", href: "/retina/macular" },
+  { title: "비문증", desc: "갑자기 늘어난 비문증은 망막열공의 신호일 수 있어 망막 주변부까지 확인합니다.", href: "/retina/floaters" },
+  { title: "망막박리", desc: "망막이 떨어지는 응급 질환으로, 빠른 진단과 수술이 시력을 지킵니다.", href: "/retina/detachment" },
+  { title: "망막혈관질환", desc: "망막 혈관이 막혀 생긴 부종과 출혈을 주사·레이저로 치료합니다.", href: "/retina/vascular" },
+  { title: "포도막염", desc: "눈 속 염증을 빠르게 가라앉히고 재발과 합병증을 관리합니다.", href: "/retina/uveitis" },
+  { title: "당뇨망막병증", desc: "당뇨로 손상된 망막 혈관을 단계별로 치료하고 정기적으로 관리합니다.", href: "/retina/diabetic" },
+  { title: "황반변성", desc: "중심 시력을 담당하는 황반을 정밀 검사와 꾸준한 치료로 지켜갑니다.", href: "/retina/macular" },
 ];
 
 // 망막클리닉 의료진 (lib/doctors.ts 공통 데이터, 사진은 추후 교체)
@@ -118,6 +122,9 @@ export default function BoimPage() {
           ))}
         </div>
       </ContentBlock>
+
+      {/* 장비 (검사 · 레이저 · 수술) */}
+      <RetinaEquipList />
     </SubLayout>
   );
 }

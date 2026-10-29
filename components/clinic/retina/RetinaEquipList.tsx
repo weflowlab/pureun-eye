@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Placeholder from "@/components/common/Placeholder";
-import SubLayout from "@/components/sub/SubLayout";
 import ContentBlock from "@/components/diseases/common/ContentBlock";
-import SectionTitle from "@/components/diseases/common/SectionTitle";
-import VerticalInfoBox from "@/components/diseases/common/VerticalInfoBox";
+import SectionHead from "./SectionHead";
 import { EQUIPMENTS } from "@/lib/equipment";
 import styles from "./retina.module.css";
 
@@ -26,10 +24,7 @@ const GROUPS: { title: string; items: RetinaEquip[] }[] = [
         maker: "Optos (영국)",
         category: "초광각 안저촬영",
         photoModel: "Optos Daytona",
-        desc: [
-          "일반 안저사진(약 45°)보다 넓은 최대 200° 범위를 한 번에 촬영합니다.",
-          "산동(동공 확장) 없이도 주변부 망막 이상을 확인하는 데 도움이 됩니다.",
-        ],
+        desc: ["일반 안저사진(약 45°)보다 넓은 최대 200° 범위를 한 번에 촬영합니다.", "산동(동공 확장) 없이도 주변부 망막 이상을 확인하는 데 도움이 됩니다."],
       },
       {
         model: "Zeiss VISUCAM FAG",
@@ -55,10 +50,7 @@ const GROUPS: { title: string; items: RetinaEquip[] }[] = [
         maker: "ZEISS (독일)",
         category: "빛간섭단층촬영 (OCT 혈관조영)",
         photoModel: "Zeiss OCT HD5000 Angioflex",
-        desc: [
-          "망막 중심부 8×8mm 범위의 망막·맥락막 혈관 이상을 짧은 시간에 촬영합니다.",
-          "형광물질 등 조영제 주사 없이 혈관 영상을 얻을 수 있습니다.",
-        ],
+        desc: ["망막 중심부 8×8mm 범위의 망막·맥락막 혈관 이상을 짧은 시간에 촬영합니다.", "형광물질 등 조영제 주사 없이 혈관 영상을 얻을 수 있습니다."],
       },
     ],
   },
@@ -79,10 +71,7 @@ const GROUPS: { title: string; items: RetinaEquip[] }[] = [
         model: "Zeiss Visulas 532s",
         maker: "ZEISS (독일)",
         category: "아르곤 레이저",
-        desc: [
-          "532nm 단일 파장으로 망막 광응고술을 시행합니다.",
-          "망막열공, 망막박리, 당뇨망막병증 치료와 급성 폐쇄각 녹내장의 홍채절개술에 사용합니다.",
-        ],
+        desc: ["532nm 단일 파장으로 망막 광응고술을 시행합니다.", "망막열공, 망막박리, 당뇨망막병증 치료와 급성 폐쇄각 녹내장의 홍채절개술에 사용합니다."],
       },
     ],
   },
@@ -94,10 +83,7 @@ const GROUPS: { title: string; items: RetinaEquip[] }[] = [
         maker: "Alcon (미국)",
         category: "유리체절제술 장비",
         photoModel: "Constellation",
-        desc: [
-          "23G·25G·27G 유리체절제술과 최대 7,500cpm 고속 절제를 지원합니다.",
-          "안구 내 레이저 치료, 유리체 내 가스 주입 등을 한 장비로 시행합니다.",
-        ],
+        desc: ["23G·25G·27G 유리체절제술과 최대 7,500cpm 고속 절제를 지원합니다.", "안구 내 레이저 치료, 유리체 내 가스 주입 등을 한 장비로 시행합니다."],
       },
       {
         model: "Zeiss LUMERA 700",
@@ -116,32 +102,16 @@ const GROUPS: { title: string; items: RetinaEquip[] }[] = [
 // 실제 사진 경로 조회 (lib/equipment.ts)
 const photoOf = (model?: string) => EQUIPMENTS.find((e) => e.model === model)?.image;
 
-/** 망막클리닉 보임 장비 페이지 */
-export default function RetinaEquipmentPage() {
+/** 망막클리닉 보임 장비 목록 (보임 소개 페이지 하단) */
+export default function RetinaEquipList() {
   return (
-    <SubLayout
-      path="/retina/equipment"
-      description={
-        <>
-          정확한 진단과 안전한 수술을 위해 <br className="pc_block" />
-          망막 전용 검사·수술 장비를 갖추고 있습니다.
-        </>
-      }
-    >
-      {/* 장비 도입 소개 */}
-      <ContentBlock>
-        <SectionTitle />
-        <VerticalInfoBox title="망막클리닉 BOIM 장비">
-          2002년 황반변성 광역학치료 도입을 시작으로,
-          <br className="pc_block" />
-          2013년 망막 수술 장비(Constellation)와 초광각 검사 장비(Optos)를,
-          <br className="pc_block" />
-          2015년 4층 확장과 함께 비문증 치료 레이저(Ellex Ultra Q)를 도입했습니다.
-        </VerticalInfoBox>
-      </ContentBlock>
-
-      {/* 장비 목록 (검사 · 레이저 · 수술) */}
-      <ContentBlock tone="gray">
+    <ContentBlock tone="gray">
+      <SectionHead
+        first
+        title="망막클리닉 보임 장비"
+        sub="2013년 망막 수술 장비(Constellation)·초광각 검사 장비(Optos), 2015년 비문증 치료 레이저(Ellex Ultra Q)를 도입했습니다."
+      />
+      <div className={styles.secBody}>
         {GROUPS.map((g) => (
           <div key={g.title} className={styles.equipGroup}>
             <p className={styles.equipGroupTitle} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
@@ -175,7 +145,7 @@ export default function RetinaEquipmentPage() {
             </div>
           </div>
         ))}
-      </ContentBlock>
-    </SubLayout>
+      </div>
+    </ContentBlock>
   );
 }

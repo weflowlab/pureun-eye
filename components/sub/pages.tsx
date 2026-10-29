@@ -1,21 +1,14 @@
 import type { ComponentType } from "react";
 import SubLayout from "./SubLayout";
 import EquipSection from "@/components/intro/EquipSection";
-import HoursSection from "@/components/intro/HoursSection";
 import Board from "@/components/news/Board";
 import { getNewsList } from "@/lib/news";
 import { getReviewList, REVIEW_NOTICE } from "@/lib/reviews";
-import CataractPage from "@/components/diseases/cataract/CataractPage";
-import DiabeticPage from "@/components/diseases/diabetic/DiabeticPage";
-import MacularPage from "@/components/diseases/macular/MacularPage";
-import DetachmentPage from "@/components/diseases/detachment/DetachmentPage";
-import GrowthPage from "@/components/diseases/growth/GrowthPage";
 import { VISION_PAGES } from "@/components/clinic/vision";
-import { CATARACT_PAGES } from "@/components/clinic/cataract";
+import { DISEASE_PAGES } from "@/components/clinic/disease";
 import { RETINA_PAGES } from "@/components/clinic/retina";
 import DoctorsPage from "@/components/clinic/about/DoctorsPage";
 import LocationPage from "@/components/clinic/about/LocationPage";
-import TourPage from "@/components/clinic/about/TourPage";
 import ReferralPage from "@/components/clinic/community/ReferralPage";
 import FaqPage from "@/components/clinic/community/FaqPage";
 import OnlinePage from "@/components/clinic/contact/OnlinePage";
@@ -28,15 +21,6 @@ function EquipmentPage({ path }: SubPageProps) {
   return (
     <SubLayout path={path}>
       <EquipSection />
-    </SubLayout>
-  );
-}
-
-// 병원소개 — 진료시간
-function HoursPage({ path }: SubPageProps) {
-  return (
-    <SubLayout path={path}>
-      <HoursSection />
     </SubLayout>
   );
 }
@@ -63,21 +47,14 @@ function ReviewsPage({ path, searchParams }: SubPageProps) {
 export const PAGES: Record<string, ComponentType<SubPageProps>> = {
   "/about/doctors": DoctorsPage,
   "/about/equipment": EquipmentPage,
-  "/about/hours": HoursPage,
   "/about/location": LocationPage,
-  "/cataract/about": CataractPage,
-  "/retina/diabetic": DiabeticPage,
-  "/retina/macular": MacularPage,
-  "/retina/detachment": DetachmentPage,
-  "/retina/csc": GrowthPage,
-  "/about/tour": TourPage,
   "/community/notice": NoticePage,
   "/community/faq": FaqPage,
   "/community/reviews": ReviewsPage,
   "/community/referral": ReferralPage,
   "/contact/online": OnlinePage,
-  // 진료과목별 페이지 (기존 푸른안과 원고 기반)
+  // 진료과목별 페이지
   ...VISION_PAGES,
-  ...CATARACT_PAGES,
   ...RETINA_PAGES,
+  ...DISEASE_PAGES,
 };
