@@ -7,10 +7,13 @@
   width: 100vw;
   height: 100vh;
   background: linear-gradient(135deg, #152c6b 0%, #0f2152 100%);
-  transition: top 0.4s ease-in;
+  /* 닫혀 있을 땐 보이지 않게(화면 밖 패널이 가로 스크롤 폭을 늘리지 않도록) — 슬라이드가 끝난 뒤 숨김 */
+  visibility: hidden;
+  transition: top 0.4s ease-in, visibility 0s linear 0.4s;
 }
 .gnb.open {
   top: 0;
+  visibility: visible;
   transition: top 0.4s ease-out;
 }
 
@@ -191,7 +194,7 @@
     width: 78vw;
     max-width: 420px;
     height: 100vh;
-    transition: right 0.4s ease-in;
+    transition: right 0.4s ease-in, visibility 0s linear 0.4s;
   }
   .gnb.open {
     right: 0;

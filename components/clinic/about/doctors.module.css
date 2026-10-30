@@ -91,6 +91,8 @@
 .careerList li + li { margin-top: 6px; }
 .careerList li::before { content: ""; position: absolute; top: 0.8em; left: 0; width: 4px; height: 4px; background: #b9c4d6; border-radius: 50%; }
 .schedule { margin-top: 48px; }
+/* 약력·진료시간 펼침 버튼: 폰에서만 보임 */
+.moreBtn { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee { overflow-x: auto; }
@@ -122,7 +124,30 @@
 }
 @media screen and (max-width: 768px) {
   .profiles { padding-top: 60px; }
-  .profile { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 50px 0; }
-  .photo { position: static; max-width: 280px; }
-  .careers { grid-template-columns: minmax(0, 1fr); }
+  .profile { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 44px 0; }
+  .photo { position: static; max-width: 240px; }
+  .name { font-size: 28px; }
+  .motto { font-size: 17px; }
+  .careers { grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 28px; padding-top: 24px; }
+  /* 약력·진료시간은 접어 두고 버튼으로 펼침 */
+  .moreBtn {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 24px;
+    padding: 13px 0;
+    color: var(--color-primary);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    background: #fff;
+    border: 1.5px solid var(--color-primary);
+    border-radius: 40px;
+    cursor: pointer;
+  }
+  .moreBtn svg { transition: transform 0.25s; }
+  .moreBtn[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .detail[data-open="false"] { display: none; }
 }

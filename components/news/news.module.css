@@ -54,7 +54,7 @@
 .tags { display: flex; gap: 6px; }
 .tags:empty { display: none; }
 .pinTag,
-.catTag { padding: 3px 10px; font-size: 12px; font-weight: 700; border-radius: 20px; }
+.catTag { padding: 3px 10px; font-size: 13px; font-weight: 700; border-radius: 20px; }
 .pinTag { color: #fff; background: var(--color-primary); }
 .catTag { color: #1d63d8; background: #eaf2ff; }
 .postTitle { margin-top: 8px; color: #111; font-size: 19px; font-weight: 700; line-height: 1.45; letter-spacing: -0.02em; transition: color 0.2s; }

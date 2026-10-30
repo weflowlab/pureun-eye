@@ -292,6 +292,9 @@ function Compare({ title, sub, head, rows, highlight }: NonNullable<Disease["com
     <section className={styles.block}>
       <div className={styles.inner}>
         <Head title={title} sub={sub} />
+        <p className={styles.swipeHint} aria-hidden="true">
+          ← 옆으로 밀어서 보세요 →
+        </p>
         <div className={styles.tableWrap} suppressHydrationWarning data-aos="fade-up">
           <div className={styles.grid} style={{ "--cols": head.length - 1 } as CSSProperties} role="table">
             <div role="row" className={styles.row}>

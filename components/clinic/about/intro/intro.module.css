@@ -164,7 +164,7 @@
 .fieldEn { color: var(--ink); font-size: 21px; line-height: 1.5; }
 .fieldTitle { color: var(--ink); font-size: 26px; font-weight: 700; }
 .fieldDesc { margin-top: 12px; color: #555; font-size: 16px; line-height: 1.75; white-space: pre-line; }
-.fieldLink { display: inline-block; margin-top: 20px; color: var(--point); font-size: 15px; font-weight: 700; }
+.fieldLink { display: inline-block; margin-top: 12px; padding: 8px 0; color: var(--point); font-size: 15px; font-weight: 700; }
 /* 쪽수: 1 ─ 4 */
 .pager { position: absolute; bottom: 6px; left: 0; display: flex; gap: 12px; align-items: center; color: #8a96ad; font-size: 15px; }
 .pager b { color: var(--point); font-size: 20px; }
@@ -259,6 +259,10 @@
   .spaceEn { font-size: 56px; }
 }
 @media screen and (max-width: 768px) {
-  .fieldList { grid-template-columns: minmax(0, 1fr); }
+  .fieldList { grid-template-columns: minmax(0, 1fr); gap: 36px; margin-top: 36px; }
+  .fieldStage { padding: 70px 0; }
+  .tourStage { padding-bottom: 70px; }
+  .tourTrack { gap: 36px; }
   .space figcaption { flex-direction: column; gap: 4px; }
+  .spaceEn { font-size: 44px; }
 }

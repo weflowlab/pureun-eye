@@ -197,6 +197,8 @@
 
 /* ───── 비교표: 둥근 블록 격자 ───── */
 .tableWrap { overflow-x: auto; }
+/* 폰: 표를 옆으로 넘겨 보라는 안내 */
+.swipeHint { display: none; margin-bottom: 10px; color: #8a96ad; font-size: 13px; text-align: right; }
 .grid {
   display: grid;
   grid-template-columns: 140px repeat(var(--cols), minmax(0, 1fr));
@@ -393,7 +395,7 @@
   .visionImg { border-radius: 16px; }
   .visionImg :global([data-aos]),
   .visionImg > div:first-child { aspect-ratio: 4 / 3 !important; }
-  .visionCtrl { bottom: 14px; gap: 12px; padding: 10px 18px; font-size: 13px; }
+  .visionCtrl { bottom: 12px; gap: 10px; padding: 9px 14px; font-size: 13px; }
   .visionCtrl input::-webkit-slider-thumb { width: 20px; height: 20px; border-width: 3px; }
 
   .n3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -455,9 +457,17 @@
   .causeNo { width: 44px; height: 44px; margin-bottom: 14px; font-size: 14px; }
   .causes .itemTitle { font-size: 16px; }
   .causes .itemDesc { font-size: 13px; }
-  /* 폰에서는 카드 쌓기 대신 차례로 나열 */
-  .stack li { position: static; margin-bottom: 20px; }
+  /* 폰에서는 카드 쌓기 대신 차례로 나열, 왼쪽 작은 사진 + 오른쪽 글 */
+  .stack li { position: static; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; margin-bottom: 14px; padding: 16px; border-radius: 18px; }
+  .stackImg { border-radius: 12px; }
+  .stackImg > div { aspect-ratio: 1 / 1 !important; }
+  .stackTitle { margin-top: 4px; font-size: 18px; }
+  .stack .itemDesc { margin-top: 6px; font-size: 14px; }
+  .stepNo { font-size: 13px; }
+  /* 수술 과정 사진도 조금 작게 */
+  .processImgMo { max-width: 300px; }
   .grid { min-width: 680px; }
+  .swipeHint { display: block; }
 }
 
 /* 실제 이미지 (Pic) — 장비 사진은 잘리지 않게 흰 바탕에 contain */

@@ -203,7 +203,7 @@
   .description :global(.pc_block) { display: none; }
   .crumb { bottom: 16px; padding: 4px; font-size: 13px; }
   .crumb > a,
-  .dropBtn { padding: 6px 9px; }
+  .dropBtn { padding: 9px 10px; }
   .dropBtn { gap: 6px; }
   .sep { margin: 0 2px; }
 }

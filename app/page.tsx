@@ -9,14 +9,11 @@ import DoctorSection from "@/components/home/DoctorSection";
 import BlogSection from "@/components/home/BlogSection";
 import NewsSection from "@/components/home/NewsSection";
 import ClinicInfoSection from "@/components/home/ClinicInfoSection";
-import PopupModal from "@/components/home/PopupModal";
 
 /** 메인 페이지: 비주얼 → 진료과목 → 검사·장비 → 진료이념 → 대표 치료 → 의료진 → 영상·소식 → 진료 안내 */
 export default function Home() {
   return (
     <>
-      {/* 첫 방문 레이어 팝업 */}
-      <PopupModal />
       <HeroSection />
       <ClinicSection />
       <DepartmentShowcase />

@@ -1,20 +1,40 @@
-/* 인트로 영상 섹션 */
-.section {
+/* 메인 첫 화면: 헤더 아래 한 화면, 둥근 카드 → 스크롤하면 꽉 참 */
+.wrap {
+  --hero-p: 0;
+  --gap-max: 24px;
+  --radius-max: 28px;
+  --gap: calc((1 - var(--hero-p)) * var(--gap-max));
+  --gap-top: calc((1 - var(--hero-p)) * 4px);
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding-top: var(--header-height);
+  background: #fff;
+}
+.card {
   position: relative;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+  padding: clamp(16px, 3vh, 40px) 20px;
   overflow: hidden;
+  color: #fff;
+  text-align: center;
+  background: #0f1c3f;
+  clip-path: inset(var(--gap-top) var(--gap) var(--gap) round calc((1 - var(--hero-p)) * var(--radius-max)));
 }
+.media { position: absolute !important; inset: 0; z-index: 0; }
+/* 가독성 어두운 막 */
+.veil { position: absolute; inset: 0; z-index: 1; background: rgba(5, 12, 30, 0.2); }
 
-/* 영상 영역: 헤더 위로 덮는 풀스크린 (원본 z-index 유지) */
-.videoPc,
-.videoMobile {
-  position: relative;
-  z-index: 1001;
-  width: 100vw;
-  height: 100vh;
-}
-.videoMobile { display: none; }
-
+/* 모바일: 헤더 50px 아래 한 화면, 카드 여백은 좁게 */
 @media screen and (max-width: 1210px) {
-  .videoPc { display: none; }
-  .videoMobile { display: block; height: 60vh; }
+  .wrap { padding-top: var(--header-height-mobile); }
+}
+@media screen and (max-width: 768px) {
+  .wrap { --gap-max: 12px; --radius-max: 20px; }
+  .card { padding: 20px 16px; }
 }

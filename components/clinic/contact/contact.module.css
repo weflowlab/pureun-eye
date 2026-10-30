@@ -108,7 +108,7 @@ textarea.input { resize: vertical; line-height: 1.6; }
 .agree input:checked + .box { background: var(--color-primary); border-color: var(--color-primary); }
 .agree input:checked + .box::after { opacity: 1; }
 .agree input:focus-visible + .box { outline: 2px solid #a9c8ff; outline-offset: 2px; }
-.agreeLink { margin-left: auto; color: #8a96ad; font-size: 14px; text-decoration: underline; }
+.agreeLink { margin-left: auto; padding: 8px 0; color: #8a96ad; font-size: 14px; text-decoration: underline; }
 .submit {
   width: 100%;
   margin-top: 40px;

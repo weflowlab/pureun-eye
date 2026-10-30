@@ -243,4 +243,12 @@ a.card:hover .cardMore { color: #f2f2f2; }
   .cardGrid.four { grid-template-columns: minmax(0, 1fr); }
   .doctorGrid { grid-template-columns: minmax(0, 1fr); }
   .doctorPhoto { max-width: 300px; }
+  /* 장비 목록: 왼쪽 작은 사진 + 오른쪽 글 (세로로 길어지지 않게) */
+  .equipItem,
+  .equipItem:nth-child(even) { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; }
+  .equipImg { width: 110px; max-width: none; }
+  .equipImg img { border-radius: 12px; }
+  .equipModel { font-size: 18px; line-height: 26px; }
+  .equipDesc { margin-top: 12px; font-size: 14px; line-height: 22px; }
+  .equipGroupTitle { padding: 9px 22px; font-size: 16px; }
 }

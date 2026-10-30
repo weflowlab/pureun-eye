@@ -54,7 +54,7 @@
 .slotClinic { color: #fff; background: var(--color-primary); }
 .slotSurgery { color: var(--color-deep-grey); background: var(--color-accent); }
 .slotOff { color: #b0b0b0; }
-.slotNote { color: var(--color-primary); font-size: 12px; font-weight: 700; line-height: 16px; }
+.slotNote { color: var(--color-primary); font-size: 13px; font-weight: 700; line-height: 16px; }
 .tableNotes { margin-top: 12px; }
 .tableNotes li { color: var(--color-danger); font-size: 14px; line-height: 22px; }
 .tableNotes li::before { content: "※ "; }
