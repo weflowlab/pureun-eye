@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
+import { ClipboardList, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { SITE } from "@/lib/site";
 import { getLenis } from "./Providers";
@@ -28,20 +29,58 @@ const writeOpen = (v: boolean) => {
   listeners.forEach((l) => l());
 };
 
-// 퀵메뉴 아이콘 (단순 라인 아이콘)
+// 퀵메뉴 화살표 아이콘 (단순 라인 아이콘)
 const Icon = ({ children, size = 22 }: { children: ReactNode; size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    {children}
+  </svg>
+);
+// 항목 아이콘: 전화·카카오·인스타·블로그는 실제 앱 모양(채움), 상담신청·오시는 길은 lucide 선 아이콘
+const Fill = ({ children, size = 22 }: { children: ReactNode; size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     {children}
   </svg>
 );
 const ICONS = {
-  kakao: <Icon><path d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9L6.5 20l3.6-2.2c.6.1 1.2.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z" /></Icon>,
-  consult: <Icon><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M9 8h6M9 12h6M9 16h4" /></Icon>,
-  call: <Icon><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z" /></Icon>,
-  map: <Icon><path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z" /><circle cx="12" cy="10" r="2.2" /></Icon>,
-  blog: <Icon><path d="M4 5h16v11H8l-4 4z" /><path d="M8 9h8M8 12h5" /></Icon>,
-  instagram: <Icon><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" /></Icon>,
+  consult: <ClipboardList size={22} strokeWidth={2} aria-hidden />,
+  call: (
+    <Fill>
+      <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2z" />
+    </Fill>
+  ),
+  kakao: (
+    <Fill>
+      <path d="M12 3C6.48 3 2 6.51 2 10.84c0 2.8 1.86 5.26 4.66 6.65l-.95 3.48c-.08.3.26.54.52.37l4.15-2.74c.53.07 1.07.11 1.62.11 5.52 0 10-3.51 10-7.87S17.52 3 12 3z" />
+    </Fill>
+  ),
+  instagram: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5.5" />
+      <circle cx="12" cy="12" r="4.2" />
+      <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  ),
+  blog: (
+    <Fill>
+      <text x="12" y="18" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="17" fontWeight="900">
+        B
+      </text>
+    </Fill>
+  ),
+  map: <MapPin size={22} strokeWidth={2} aria-hidden />,
 };
+// 실제 앱 색을 쓰는 항목 (마우스를 올려도 남색으로 바뀌지 않음)
+const BRAND = new Set(["call", "kakao", "instagram", "blog"]);
 
 /** 우측 고정 퀵메뉴(흰 카드) + 맨 위로 버튼 */
 export default function QuickMenu() {
@@ -63,7 +102,7 @@ export default function QuickMenu() {
   // 메뉴 항목: 고객 요청 문의 채널(전화·카카오채널·인스타그램·블로그) + 상담신청·오시는 길
   const items = [
     { key: "consult", label: "상담신청", onClick: () => setModalOpen(true) },
-    { key: "call", label: "상담전화", onClick: () => (location.href = `tel:${SITE.tel}`) },
+    { key: "call", label: "상담전화", onClick: () => window.location.assign(`tel:${SITE.tel}`) },
     { key: "kakao", label: "카카오채널", onClick: () => window.open(SITE.kakaoUrl) },
     { key: "instagram", label: "인스타그램", onClick: () => window.open(SITE.instagramUrl) },
     { key: "blog", label: "블로그", onClick: () => window.open(SITE.blogUrl) },
@@ -86,7 +125,7 @@ export default function QuickMenu() {
             <button
               key={item.key}
               type="button"
-              className={`${styles.item} ${item.key === "consult" ? styles.primary : ""}`}
+              className={`${styles.item} ${item.key === "consult" ? styles.primary : ""} ${BRAND.has(item.key) ? `${styles.brand} ${styles[item.key]}` : ""}`}
               onClick={item.onClick}
               tabIndex={open ? 0 : -1}
             >
@@ -95,24 +134,25 @@ export default function QuickMenu() {
             </button>
           ))}
           <button type="button" className={styles.closeBtn} onClick={toggle} aria-label="퀵메뉴 접기" tabIndex={open ? 0 : -1}>
-            <Icon size={16}><path d="M9 6l6 6-6 6" /></Icon>
+            <Icon size={16}>
+              <path d="M9 6l6 6-6 6" />
+            </Icon>
           </button>
         </nav>
 
         {/* 접힌 상태: 우측 끝 남색 탭 */}
         <button type="button" className={styles.toggleBtn} onClick={toggle} aria-label="퀵메뉴 펼치기" tabIndex={open ? -1 : 0}>
-          <Icon size={18}><path d="M15 6l-6 6 6 6" /></Icon>
+          <Icon size={18}>
+            <path d="M15 6l-6 6 6 6" />
+          </Icon>
         </button>
       </div>
 
       {/* 맨 위로 버튼 */}
-      <button
-        type="button"
-        className={`${styles.topBtn} ${showTop ? styles.topShow : ""}`}
-        onClick={scrollTop}
-        aria-label="맨 위로"
-      >
-        <Icon size={20}><path d="M12 19V5M6 11l6-6 6 6" /></Icon>
+      <button type="button" className={`${styles.topBtn} ${showTop ? styles.topShow : ""}`} onClick={scrollTop} aria-label="맨 위로">
+        <Icon size={20}>
+          <path d="M12 19V5M6 11l6-6 6 6" />
+        </Icon>
       </button>
 
       <ReservationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />

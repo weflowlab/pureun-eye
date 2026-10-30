@@ -1,8 +1,8 @@
 import type { ComponentType } from "react";
 import SubLayout from "./SubLayout";
 import Board from "@/components/news/Board";
-import { getNewsList } from "@/lib/news";
-import { getReviewList, REVIEW_NOTICE } from "@/lib/reviews";
+import { NEWS_CATEGORIES, getNewsList } from "@/lib/news";
+import { getReviewList, REVIEW_CATEGORIES, REVIEW_NOTICE } from "@/lib/reviews";
 import { VISION_PAGES } from "@/components/clinic/vision";
 import { DISEASE_PAGES } from "@/components/clinic/disease";
 import { RETINA_PAGES } from "@/components/clinic/retina";
@@ -20,7 +20,14 @@ export type SubPageProps = { path: string; searchParams: SearchParams };
 function NoticePage({ path, searchParams }: SubPageProps) {
   return (
     <SubLayout path={path}>
-      <Board title="공지사항" basePath={path} posts={getNewsList()} searchParams={searchParams} />
+      <Board
+        heading={{ strong: "푸른안과", rest: "소식" }}
+        sub="진료 일정과 병원 소식을 알려 드립니다."
+        basePath={path}
+        posts={getNewsList()}
+        categories={NEWS_CATEGORIES}
+        searchParams={searchParams}
+      />
     </SubLayout>
   );
 }
@@ -29,7 +36,15 @@ function NoticePage({ path, searchParams }: SubPageProps) {
 function ReviewsPage({ path, searchParams }: SubPageProps) {
   return (
     <SubLayout path={path}>
-      <Board title="고객후기" basePath={path} posts={getReviewList()} searchParams={searchParams} notice={REVIEW_NOTICE} />
+      <Board
+        heading={{ strong: "고객", rest: "후기" }}
+        sub="푸른안과에서 진료받으신 분들의 이야기입니다."
+        basePath={path}
+        posts={getReviewList()}
+        categories={REVIEW_CATEGORIES}
+        searchParams={searchParams}
+        notice={REVIEW_NOTICE}
+      />
     </SubLayout>
   );
 }

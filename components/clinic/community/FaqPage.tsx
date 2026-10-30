@@ -1,13 +1,12 @@
-import Link from "next/link";
-import type { ReactNode } from "react";
+import { Phone } from "lucide-react";
 import type { SubPageProps } from "@/components/sub/pages";
 import SubLayout from "@/components/sub/SubLayout";
 import ContentBlock from "@/components/diseases/common/ContentBlock";
-import SectionHead from "@/components/clinic/retina/SectionHead";
+import ConsultButton from "@/components/clinic/contact/ConsultButton";
+import { playfairItalic } from "@/lib/fonts";
 import { HOURS, SITE } from "@/lib/site";
+import FaqBoard, { type Faq } from "./FaqBoard";
 import styles from "./community.module.css";
-
-type Faq = { q: string; a: ReactNode; link?: { href: string; label: string } };
 
 // 자주묻는질문 — 기존 원고·작성된 진료 페이지 내용 기반 (병원 검토 필요)
 const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
@@ -101,36 +100,35 @@ const FAQ_GROUPS: { title: string; items: Faq[] }[] = [
 ];
 
 /** 자주묻는질문: 분류별 아코디언 (details/summary — JS 없이 동작) */
+/** 커뮤니티 — 자주묻는질문: 제목 → 분야 칩 + 펼침 목록 → 문의 안내 */
 export default function FaqPage({ path }: SubPageProps) {
   return (
     <SubLayout path={path}>
       <ContentBlock>
-        {FAQ_GROUPS.map((g, gi) => (
-          <div key={g.title}>
-            <SectionHead title={g.title} first={gi === 0} />
-            <div className={styles.faqList}>
-              {g.items.map((item) => (
-                <details key={item.q} className={styles.faqItem}>
-                  <summary className={styles.faqQ}>
-                    <span className={styles.faqMark}>Q</span>
-                    {item.q}
-                  </summary>
-                  <div className={styles.faqA}>
-                    <span className={styles.faqMark}>A</span>
-                    <div>
-                      <p>{item.a}</p>
-                      {item.link && (
-                        <Link href={item.link.href} className={styles.faqLink}>
-                          {item.link.label} 자세히 보기 →
-                        </Link>
-                      )}
-                    </div>
-                  </div>
-                </details>
-              ))}
-            </div>
+        <div className={`${styles.head} ${playfairItalic.variable}`} suppressHydrationWarning data-aos="fade-up">
+          <p className={styles.brand}>Pureun Eye Clinic</p>
+          <h2 className={styles.title}>
+            <strong>자주 묻는</strong> 질문
+          </h2>
+          <p className={styles.sub}>진료와 수술에 대해 많이 물어보시는 내용을 분야별로 모았습니다.</p>
+        </div>
+
+        <FaqBoard groups={FAQ_GROUPS} />
+
+        {/* 문의 안내 */}
+        <div className={styles.ask}>
+          <div>
+            <p className={styles.askTitle}>찾으시는 질문이 없나요?</p>
+            <p className={styles.askDesc}>궁금한 점을 남겨 주시면 친절히 안내해 드립니다.</p>
           </div>
-        ))}
+          <div className={styles.askBtns}>
+            <a href={`tel:${SITE.tel}`} className={styles.askBtn}>
+              <Phone size={18} strokeWidth={2} aria-hidden />
+              전화하기
+            </a>
+            <ConsultButton className={`${styles.askBtn} ${styles.askPrimary}`}>상담 신청하기</ConsultButton>
+          </div>
+        </div>
       </ContentBlock>
     </SubLayout>
   );

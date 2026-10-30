@@ -1,9 +1,17 @@
 import { SITE } from "@/lib/site";
 
+/** 공지사항 분류 (목록 필터) */
+export const NEWS_CATEGORIES = ["진료 일정", "진료 안내", "병원 소식", "건강 정보"] as const;
+export type NewsCategory = (typeof NEWS_CATEGORIES)[number];
+
 /** 공지사항 게시글 */
 export type NewsPost = {
   id: number;
   title: string;
+  /** 분류 (공지사항: NEWS_CATEGORIES, 고객후기: REVIEW_CATEGORIES) */
+  category?: string;
+  /** 목록 맨 위 고정 */
+  pinned?: boolean;
   date: string;
   views: number;
   /** 대표 이미지 자리 라벨 (없으면 이미지 미노출) */
@@ -19,6 +27,7 @@ const POSTS: NewsPost[] = [
   {
     id: 101,
     title: `${SITE.name}에 오신 것을 환영합니다.`,
+    category: "병원 소식",
     date: "2025-01-02",
     views: 452,
     thumbnail: "개원 안내",
@@ -32,6 +41,8 @@ const POSTS: NewsPost[] = [
   {
     id: 102,
     title: "환자의 권리와 의무",
+    category: "진료 안내",
+    pinned: true,
     date: "2025-01-02",
     views: 192,
     body: [
@@ -44,6 +55,7 @@ const POSTS: NewsPost[] = [
   {
     id: 103,
     title: "설 연휴 진료 안내",
+    category: "진료 일정",
     date: "2025-01-20",
     views: 287,
     thumbnail: "설 연휴 진료 일정",
@@ -57,6 +69,7 @@ const POSTS: NewsPost[] = [
   {
     id: 104,
     title: "주차 이용 안내",
+    category: "진료 안내",
     date: "2025-02-11",
     views: 341,
     body: [
@@ -68,6 +81,7 @@ const POSTS: NewsPost[] = [
   {
     id: 105,
     title: "산동 검사 시 유의사항",
+    category: "진료 안내",
     date: "2025-03-04",
     views: 518,
     body: [
@@ -80,6 +94,7 @@ const POSTS: NewsPost[] = [
   {
     id: 106,
     title: "OCT 정밀 검사 장비 도입 안내",
+    category: "병원 소식",
     date: "2025-03-27",
     views: 403,
     thumbnail: "OCT 검사 장비",
@@ -92,6 +107,7 @@ const POSTS: NewsPost[] = [
   {
     id: 107,
     title: "5월 가정의 달 휴진 안내",
+    category: "진료 일정",
     date: "2025-04-28",
     views: 226,
     body: [
@@ -103,6 +119,7 @@ const POSTS: NewsPost[] = [
   {
     id: 108,
     title: "당뇨 환자 정기 안저검사 권고",
+    category: "건강 정보",
     date: "2025-05-15",
     views: 389,
     body: [
@@ -114,6 +131,7 @@ const POSTS: NewsPost[] = [
   {
     id: 109,
     title: "[블로그] 눈 건강 이야기 블로그 오픈",
+    category: "병원 소식",
     date: "2025-06-10",
     views: 486,
     thumbnail: "블로그 배너",
@@ -128,6 +146,7 @@ const POSTS: NewsPost[] = [
   {
     id: 110,
     title: "여름 휴가 기간 진료 안내",
+    category: "진료 일정",
     date: "2025-07-21",
     views: 254,
     body: [
@@ -139,6 +158,7 @@ const POSTS: NewsPost[] = [
   {
     id: 111,
     title: "추석 연휴 진료 안내",
+    category: "진료 일정",
     date: "2025-09-29",
     views: 198,
     body: [
@@ -150,6 +170,7 @@ const POSTS: NewsPost[] = [
   {
     id: 112,
     title: "독감 유행 시기 내원 안내",
+    category: "진료 안내",
     date: "2025-11-03",
     views: 177,
     body: [
@@ -161,6 +182,7 @@ const POSTS: NewsPost[] = [
   {
     id: 113,
     title: "온라인 진료 예약 서비스 오픈",
+    category: "병원 소식",
     date: "2025-12-01",
     views: 612,
     thumbnail: "온라인 예약 안내",
@@ -173,6 +195,8 @@ const POSTS: NewsPost[] = [
   {
     id: 114,
     title: "2026년 진료 시간 변경 안내",
+    category: "진료 일정",
+    pinned: true,
     date: "2026-01-05",
     views: 734,
     body: [
@@ -184,6 +208,8 @@ const POSTS: NewsPost[] = [
   {
     id: 115,
     title: "비급여 진료비용 안내입니다.",
+    category: "진료 안내",
+    pinned: true,
     date: "2026-06-09",
     views: 897,
     body: [

@@ -1,6 +1,6 @@
-/* 개인정보처리방침 래퍼 */
+/* 개인정보처리방침 래퍼 (위 여백은 ContentBlock headerOffset이 담당) */
 .wrap {
-  padding-top: 120px;
+  padding-top: 0;
 }
 
 .title {

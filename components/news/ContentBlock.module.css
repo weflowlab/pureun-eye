@@ -12,9 +12,12 @@
   position: relative;
 }
 
-/* 고정 헤더 높이만큼 상단 여백 보정 */
+/* 고정 헤더 높이만큼 상단 여백 보정 (배너 없는 페이지: 개인정보처리방침) — 본문 위 여백은 줄임 */
 .headerOffset {
   padding-top: 85px;
+}
+.headerOffset .inner {
+  padding-top: 70px;
 }
 
 /* 태블릿·모바일 */
@@ -26,5 +29,8 @@
 
   .headerOffset {
     padding-top: 50px;
+  }
+  .headerOffset .inner {
+    padding-top: 40px;
   }
 }

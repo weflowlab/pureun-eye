@@ -1,16 +1,12 @@
 "use client";
 
 import { useState, type ChangeEvent } from "react";
+import { CONSULT_SUBJECTS } from "@/lib/consult";
 import { SITE } from "@/lib/site";
 import styles from "./ReservationModal.module.css";
 
-// 진료 분야 선택지 (진료과목 3개 + 기타)
-const SUBJECTS = [
-  { id: "subject1", value: "시력교정 (스마일·라식·라섹)" },
-  { id: "subject2", value: "백내장 · 노안" },
-  { id: "subject3", value: "망막 질환 (망막클리닉 보임)" },
-  { id: "subject4", value: "기타 문의" },
-]
+// 진료 분야 선택지 (lib/consult.ts 공통 — 상담 신청 페이지와 같은 목록)
+const SUBJECTS = CONSULT_SUBJECTS.map((value, i) => ({ id: `subject${i + 1}`, value }));
 
 type CheckboxProps = {
   id: string;

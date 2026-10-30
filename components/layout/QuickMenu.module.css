@@ -63,13 +63,21 @@
   white-space: nowrap;
   transition: color 0.3s;
 }
-.item:hover .icon {
+.item:not(.brand):hover .icon {
   color: #fff;
   background: var(--color-primary);
 }
 .item:hover .label {
   color: var(--color-primary);
 }
+
+/* 실제 앱 색 (전화 · 카카오 · 인스타 · 블로그): 마우스를 올리면 제 색 그대로 살짝 떠오름 */
+.brand .icon { transition: transform 0.25s ease, filter 0.25s ease; }
+.brand:hover .icon { filter: brightness(1.05); transform: translateY(-2px); }
+.call .icon { color: #fff; background: #2fbf57; }
+.kakao .icon { color: #191919; background: #fee500; }
+.instagram .icon { color: #fff; background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+.blog .icon { color: #fff; background: #03c75a; }
 
 /* 상담신청: 항상 남색 강조 */
 .primary .icon {
@@ -83,6 +91,17 @@
 .primary:hover .icon {
   color: var(--color-primary);
   background: var(--color-accent);
+}
+/* 마우스를 올리면 서류 아이콘이 좌우로 흔들림 */
+.primary:hover .icon svg { animation: shake 0.5s ease-in-out; }
+@keyframes shake {
+  20% { transform: rotate(-14deg); }
+  40% { transform: rotate(12deg); }
+  60% { transform: rotate(-8deg); }
+  80% { transform: rotate(5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .primary:hover .icon svg { animation: none; }
 }
 
 /* 접기 버튼 */

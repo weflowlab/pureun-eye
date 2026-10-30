@@ -1,73 +1,62 @@
-/* 상세 래퍼 */
-.wrap {
-  padding-top: 100px;
-}
+/* 게시글 상세 */
+.wrap { max-width: 920px; margin: 0 auto; }
 
-/* 제목·메타 헤더 */
-.header {
-  border-bottom: 2px solid var(--color-primary);
-  margin-bottom: 40px;
-  padding-bottom: 20px;
-}
-
-.title {
-  color: var(--color-deep-grey);
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.meta {
-  display: flex;
-  gap: 16px;
-  margin-top: 8px;
-  color: #999;
-  font-size: 14px;
-}
-
-.date,
-.hit {
-  color: #999;
-  font-size: 14px;
-}
+/* 제목·메타 */
+.header { padding-bottom: 32px; text-align: center; border-bottom: 1px solid #e6e9ef; }
+.cat { display: inline-block; margin-bottom: 14px; padding: 4px 14px; color: #1d63d8; font-size: 13px; font-weight: 700; background: #eaf2ff; border-radius: 20px; }
+.title { color: #111; font-size: 32px; font-weight: 700; line-height: 1.4; letter-spacing: -0.03em; word-break: keep-all; }
+.meta { display: flex; justify-content: center; gap: 16px; margin-top: 16px; color: #8a96ad; font-size: 15px; }
+.meta span + span { padding-left: 16px; border-left: 1px solid #d6dce6; }
 
 /* 대표 이미지 */
-.thumbnail {
-  display: block;
-  max-width: 100%;
-  margin: 0 auto 40px;
-}
+.thumbnail { max-width: 800px; margin: 44px auto 0; overflow: hidden; border-radius: 20px; }
 
 /* 본문 */
-.body {
-  min-height: 300px;
-  color: var(--color-deep-grey);
-  font-size: 16px;
-  line-height: 1.8;
-}
-
+.body { padding: 48px 0 60px; color: #333; font-size: 17px; line-height: 1.9; word-break: keep-all; }
 .link {
-  color: #ff0000;
-}
-
-/* 하단 목록 버튼 영역 */
-.nav {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-  padding-top: 20px;
-  border-top: 1px solid var(--color-border);
-}
-
-.backBtn {
-  background: var(--color-primary);
-  color: var(--color-white);
-  border-radius: 8px;
-  padding: 12px 40px;
+  display: inline-block;
+  margin-top: 28px;
+  padding: 12px 24px;
+  color: var(--color-primary);
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 700;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 40px;
+  transition: var(--transition-base);
+}
+.link:hover { color: #fff; background: var(--color-primary); }
+
+/* 이전 글 · 다음 글 */
+.adjacent { border-top: 2px solid #111; }
+.adjRow { display: flex; gap: 28px; align-items: center; padding: 20px 12px; border-bottom: 1px solid #e6e9ef; }
+.adjLabel { flex-shrink: 0; width: 64px; color: #8a96ad; font-size: 14px; font-weight: 700; }
+.adjTitle { overflow: hidden; color: #333; font-size: 16px; white-space: nowrap; text-overflow: ellipsis; transition: color 0.2s; }
+.adjTitle:hover { color: #1d63d8; }
+.adjNone { color: #b9bdc4; font-size: 15px; }
+
+/* 목록으로 */
+.nav { margin-top: 44px; text-align: center; }
+.backBtn {
+  display: inline-block;
+  padding: 14px 44px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  background: var(--color-primary);
+  border-radius: 40px;
   transition: opacity 0.2s;
 }
+.backBtn:hover { opacity: 0.88; }
 
-.backBtn:hover {
-  opacity: 0.8;
+/* 태블릿·모바일 */
+@media screen and (max-width: 1210px) {
+  .header { padding-bottom: 24px; }
+  .title { font-size: 24px; }
+  .meta { font-size: 14px; }
+  .thumbnail { margin-top: 30px; border-radius: 14px; }
+  .body { padding: 32px 0 44px; font-size: 16px; }
+  .adjRow { gap: 16px; padding: 16px 4px; }
+  .adjLabel { width: 54px; font-size: 13px; }
+  .adjTitle { font-size: 15px; }
+  .nav { margin-top: 32px; }
 }
