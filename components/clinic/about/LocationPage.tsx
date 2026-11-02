@@ -97,7 +97,16 @@ export default function LocationPage({ path }: SubPageProps) {
     <SubLayout path={path}>
       {/* 지도 + 기본 정보 */}
       <ContentBlock>
-        <SectionHead first title="오시는 길" sub="해마다 십만 명이 넘는 고객이 푸른안과를 다녀가셨습니다." />
+        <SectionHead
+          first
+          title="오시는 길"
+          sub={
+            <>
+              해마다 십만 명이 넘는 고객이 <br className="mo_block" />
+              푸른안과를 다녀가셨습니다.
+            </>
+          }
+        />
         <div className={styles.locWrap}>
           <div className={styles.locMap} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
             <MapEmbed aspectRatio="4 / 3" />

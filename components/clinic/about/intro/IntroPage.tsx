@@ -54,7 +54,10 @@ export default function IntroPage() {
       <section className={styles.philo}>
         <div className={styles.inner}>
           <div className={styles.philoHead} suppressHydrationWarning data-aos="fade-up">
-            <h2 className={styles.highlight}>See more, Do more — {SITE.name}가 삶을 먼저 생각하는 이유</h2>
+            <h2 className={styles.highlight}>
+              See more, Do more{" "}
+              <br className="mo_block" />— {SITE.name}가 삶을 먼저 생각하는 이유
+            </h2>
             <p className={styles.body}>
               잘 보인다는 것은 책을 읽고, 가족의 얼굴을 알아보고, 하고 싶은 일을 계속할 수 있다는 뜻입니다.{" "}
               <br className="pc_block" />

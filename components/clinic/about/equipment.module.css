@@ -59,7 +59,19 @@
 .body { padding: 22px 22px 26px; }
 .category { display: inline-block; padding: 4px 12px; color: var(--point); font-size: 13px; font-weight: 700; background: #eaf2ff; border-radius: 20px; }
 .model { margin-top: 12px; color: var(--ink); font-size: 18px; font-weight: 700; line-height: 1.35; letter-spacing: -0.01em; }
-.maker { margin-top: 4px; color: #929292; font-size: 14px; }
+/* line-height를 넉넉히: overflow hidden이라 g·p 같은 글자 아랫부분이 잘리지 않게 */
+.maker { margin-top: 4px; color: #929292; font-size: 14px; line-height: 1.5; }
+/* 모델명·제조사: 한 줄. 칸보다 길면 넘친 만큼 왼쪽으로 천천히 갔다가 돌아옴 (--over는 JS가 잼) */
+.model,
+.maker { overflow: hidden; white-space: nowrap; }
+.model span,
+.maker span { display: inline-block; }
+.model[data-slide="on"] span,
+.maker[data-slide="on"] span { animation: slide 7s ease-in-out infinite alternate; }
+@keyframes slide {
+  0%, 20% { transform: translateX(0); }
+  80%, 100% { transform: translateX(calc(-1 * var(--over, 0px))); }
+}
 .points { margin-top: 14px; padding-top: 14px; border-top: 1px solid #eef1f6; }
 .points li { position: relative; padding-left: 11px; color: #555; font-size: 14px; line-height: 1.6; }
 .points li + li { margin-top: 4px; }
@@ -67,6 +79,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .card { animation: none; }
+  /* 움직임 줄이기: 흐르지 않고 두 줄로 */
+  .model,
+  .maker { white-space: normal; }
+  .model[data-slide="on"] span,
+  .maker[data-slide="on"] span { animation: none; }
 }
 
 /* ───── 태블릿·모바일 ───── */
@@ -79,11 +96,23 @@
   .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 }
 @media screen and (max-width: 768px) {
-  .filters { gap: 6px; }
-  .filter { padding: 9px 14px; font-size: 14px; }
+  /* 분류 필터: 한 줄로 두고 손가락 가로 스크롤 */
+  .filters {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 6px;
+    width: 90%;
+    margin: 36px auto 0;
+    padding-bottom: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .filters::-webkit-scrollbar { display: none; }
+  .filter { flex-shrink: 0; padding: 9px 14px; font-size: 14px; white-space: nowrap; }
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 30px; }
-  .body { padding: 16px 14px 18px; }
-  .category { padding: 3px 9px; font-size: 13px; }
+  .body { padding: 14px 12px 16px; }
+  /* 분류명은 한 줄 (넘치면 말줄임) */
+  .category { display: block; width: fit-content; max-width: 100%; padding: 3px 8px; overflow: hidden; font-size: 11px; letter-spacing: -0.02em; white-space: nowrap; text-overflow: ellipsis; }
   .model { font-size: 15px; }
   .maker { font-size: 13px; }
   .points li { font-size: 13px; }

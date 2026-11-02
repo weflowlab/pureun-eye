@@ -221,8 +221,11 @@
   .fieldStage { padding: 100px 0; }
   .fieldBody { display: none; }
   .fieldList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 50px 30px; width: var(--max-width); margin: 50px auto 0; }
-  .fieldList .fieldEn { margin-top: 18px; font-size: 16px; }
-  .fieldList .fieldTitle { margin-top: 4px; }
+  /* 목록에서는 영문명·번호 없이 한글 제목부터 */
+  .fieldList .fieldEn { display: none; }
+  .fieldList .fieldTitle { margin-top: 18px; }
+  /* 좁은 폭에서는 원고의 줄바꿈 대신 자연스럽게 흐르게 */
+  .fieldList .fieldDesc { font-size: 15px; white-space: normal; }
   .fieldListImg { overflow: hidden; border-radius: 20px; }
 }
 @media screen and (max-width: 1024px) {
@@ -244,6 +247,7 @@
   .philo { padding: 80px 0; }
   .philoRow { grid-template-columns: minmax(0, 1fr); gap: 30px; margin-top: 36px; }
   .photoCard { display: none; }
+  .stats { justify-content: center; text-align: center; }
   .stats dd { font-size: 30px; }
   .promiseInner { padding: 80px 0; }
   /* 슬라이드: 카드 폭 고정, 한 장씩 멈춤, 화면 끝까지 넘겨 보이게 */
@@ -267,6 +271,7 @@
   .fieldStage { padding: 70px 0; }
   .tourStage { padding: 70px 0; }
   .tourTrack { gap: 36px; }
-  .space figcaption { flex-direction: column; gap: 4px; }
+  .space figcaption { flex-direction: column; gap: 10px; margin-top: 16px; }
+  .spaceDesc { line-height: 1.6; }
   .spaceEn { font-size: 44px; }
 }

@@ -119,11 +119,15 @@
 
 /* 모바일 */
 @media screen and (max-width: 768px) {
-  .tabs { width: 100%; }
-  .tab { padding: 10px 12px; font-size: 15px; }
+  /* 탭: 글씨를 줄여 한 줄·한 칸으로 (칸 폭은 글자 길이대로) */
+  .tabs { grid-auto-columns: auto; gap: 6px; width: fit-content; }
+  .tab { padding: 7px 12px; font-size: 13px; line-height: 18px; white-space: nowrap; border-width: 1px; }
   .legend { justify-content: flex-start; }
 
-  .locRow { flex-direction: column; gap: 8px; padding: 20px 0; }
+  /* 주소·전화·진료시간: 제목과 내용 모두 왼쪽 정렬 */
+  .locRow { flex-direction: column; align-items: flex-start; gap: 8px; padding: 20px 0; }
+  .hourList li { display: flex; gap: 10px; align-items: flex-start; }
+  .hourList span { flex-shrink: 0; min-width: 48px; margin: 0; }
   .locRow dd,
   .locRow dt { font-size: 16px; }
   .telLink { font-size: 20px; }
