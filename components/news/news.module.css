@@ -113,7 +113,10 @@ a.pageBtn:hover { color: var(--color-primary); background: #eef3fa; }
   .arrow { width: 36px; height: 36px; }
 }
 @media screen and (max-width: 768px) {
-  .filter { padding: 8px 14px; font-size: 14px; }
+  /* 분류 칩: 한 줄로 옆으로 밀어 보기 (화면 끝까지) */
+  .filters { flex-wrap: nowrap; justify-content: flex-start; margin: 0 -5.556% 26px; padding: 0 5.556% 4px; overflow-x: auto; scrollbar-width: none; }
+  .filters::-webkit-scrollbar { display: none; }
+  .filter { flex-shrink: 0; padding: 8px 14px; font-size: 14px; white-space: nowrap; }
   /* 폰: 날짜는 제목 아래로 */
   .row { grid-template-columns: 40px minmax(0, 1fr); gap: 4px 14px; }
   .icon { grid-row: span 2; width: 40px; height: 40px; }

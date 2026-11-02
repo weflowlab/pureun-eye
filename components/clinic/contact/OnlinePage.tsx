@@ -60,7 +60,13 @@ export default function OnlinePage({ path }: SubPageProps) {
               {[HOURS.weekday, HOURS.saturday].map((h) => (
                 <div key={h.label}>
                   <dt>{h.label}</dt>
-                  <dd>{h.time}</dd>
+                  <dd>
+                    {h.time.split(" / ").map((t) => (
+                      <span key={t} className={styles.timeLine}>
+                        {t}
+                      </span>
+                    ))}
+                  </dd>
                 </div>
               ))}
             </dl>

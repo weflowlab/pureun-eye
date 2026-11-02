@@ -110,7 +110,11 @@ export default function FaqPage({ path }: SubPageProps) {
           <h2 className={styles.title}>
             <strong>자주 묻는</strong> 질문
           </h2>
-          <p className={styles.sub}>진료와 수술에 대해 많이 물어보시는 내용을 분야별로 모았습니다.</p>
+          <p className={styles.sub}>
+            진료와 수술에 대해 많이 물어보시는 내용을{" "}
+            <br className="mo_block" />
+            분야별로 모았습니다.
+          </p>
         </div>
 
         <FaqBoard groups={FAQ_GROUPS} />
