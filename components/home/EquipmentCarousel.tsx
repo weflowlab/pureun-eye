@@ -31,7 +31,9 @@ export default function EquipmentCarousel() {
             <>
               정확한 진단이 좋은 치료의 시작입니다.{" "}
               <br />
-              검사부터 수술까지 단계별로 필요한 장비를 갖추고 꼼꼼하게 진료합니다.
+              <br className={home.moBr} />
+              검사부터 수술까지 단계별로 필요한 장비를 갖추고 <br className={home.moBr} />
+              꼼꼼하게 진료합니다.
             </>
           }
           action={

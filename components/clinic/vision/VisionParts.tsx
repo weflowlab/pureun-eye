@@ -93,14 +93,14 @@ export function PhilosophyBand() {
       badge="Technology for human life"
       lead={
         <>
-          푸른안과는 시력 향상을 넘어
+          푸른안과는 시력 향상을 넘어{" "}
           <br className="pc_block" />
           환자의 삶을 생각합니다.
         </>
       }
       desc={
         <>
-          환자와 의료진 모두 사람이며,
+          환자와 의료진 모두 사람이며,{" "}
           <br className="pc_block" />
           기술은 결국 사람의 삶을 위한 것이기 때문입니다.
         </>

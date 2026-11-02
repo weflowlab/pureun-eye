@@ -193,7 +193,9 @@
     left: auto;
     width: 78vw;
     max-width: 420px;
+    /* 사파리 주소창을 뺀 실제 보이는 높이 (미지원 브라우저는 100vh) */
     height: 100vh;
+    height: 100dvh;
     transition: right 0.4s ease-in, visibility 0s linear 0.4s;
   }
   .gnb.open {
@@ -212,12 +214,17 @@
     background-color: #0a163880;
     transform: translate(0);
   }
+  /* 모바일: 테두리 원 없이 X만, 위·오른쪽 여백 동일 */
   .xBtn {
-    top: 25px;
-    right: 7%;
-    width: 42px;
-    height: 42px;
+    top: 24px;
+    right: 24px; /* 메뉴 목록 좌우 여백(24px)과 같게 → 아래 +/−와 오른쪽 선 일치 */
+    width: 22px;
+    height: 22px;
+    border: 0;
+    transform: none;
   }
+  /* 터치 후 남는 hover 상태에서도 흰색 유지 (남색으로 바뀌어 안 보이던 문제) */
+  .xBtn:hover { color: #fff; background: transparent; transform: rotate(90deg); }
   .wrap {
     display: block;
     width: 100%;
@@ -227,13 +234,11 @@
   .lay {
     display: flex;
     flex-direction: column;
-    padding: 80px 24px 40px;
+    padding: 80px 24px 60px;
   }
   .intro {
     order: 2;
     margin: 36px 0 0;
-    padding-top: 28px;
-    border-top: 1px solid #ffffff26;
   }
   .eyebrow,
   .tit {
@@ -256,7 +261,7 @@
     border-bottom: 1px solid #ffffff1a;
   }
   .dep > li h3 {
-    font-size: 19px;
+    font-size: 17px;
   }
   .dep > li h3 button {
     flex-direction: row;

@@ -10,12 +10,12 @@ export const diabetic: Disease = {
     line2: "먼저 확인해야 하는 질환",
     paragraphs: [
       <>
-        당뇨망막병증은 초기에 증상이 거의 없어
+        당뇨망막병증은 초기에 증상이 거의 없어{" "}
         <br className="pc_block" />
         이미 진행된 뒤에 발견되는 경우가 많습니다.
       </>,
       <>
-        당뇨 진단을 받으셨다면 시력이 괜찮아도
+        당뇨 진단을 받으셨다면 시력이 괜찮아도{" "}
         <br className="pc_block" />
         1년에 한 번은 망막 검사를 받으시는 것이 좋습니다.
       </>,
@@ -36,7 +36,7 @@ export const diabetic: Disease = {
         title: "비증식성",
         desc: (
           <>
-            작은 출혈과 부종이 생기는 단계입니다.
+            작은 출혈과 부종이 생기는 단계입니다.{" "}
             <br className="pc_block" />
             대부분 이 단계에서 발견됩니다.
           </>
@@ -68,7 +68,7 @@ export const diabetic: Disease = {
         title: "신장 질환 · 임신",
         desc: (
           <>
-            신장 기능이 떨어지거나 임신 중에는
+            신장 기능이 떨어지거나 임신 중에는{" "}
             <br className="pc_block" />
             빠르게 나빠질 수 있습니다.
           </>

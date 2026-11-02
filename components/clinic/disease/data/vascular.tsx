@@ -10,7 +10,7 @@ export const vascular: Disease = {
     line2: "망막 혈관을 확인하세요",
     paragraphs: [
       <>
-        망막의 혈관이 막히면 혈액이 제대로 흐르지 못해
+        망막의 혈관이 막히면 혈액이 제대로 흐르지 못해{" "}
         <br className="pc_block" />
         출혈과 부종이 생기고 시력이 떨어집니다.
       </>,
@@ -22,7 +22,7 @@ export const vascular: Disease = {
     title: "*망막혈관폐쇄*는 무엇일까요?",
     body: (
       <>
-        망막에 혈액을 공급하는 동맥이나 혈액이 빠져나가는 정맥이 막히는 질환입니다.
+        망막에 혈액을 공급하는 동맥이나 혈액이 빠져나가는 정맥이 막히는 질환입니다.{" "}
         <br className="pc_block" />
         고혈압·당뇨·고지혈증이 있는 분에게 더 흔합니다.
       </>
@@ -38,7 +38,7 @@ export const vascular: Disease = {
         title: "망막정맥폐쇄",
         desc: (
           <>
-            정맥이 막혀 출혈과 황반부종이 생깁니다.
+            정맥이 막혀 출혈과 황반부종이 생깁니다.{" "}
             <br className="pc_block" />더 흔한 형태입니다.
           </>
         ),
@@ -48,7 +48,7 @@ export const vascular: Disease = {
         title: "망막동맥폐쇄",
         desc: (
           <>
-            동맥이 막혀 망막에 혈액이 공급되지 않습니다.
+            동맥이 막혀 망막에 혈액이 공급되지 않습니다.{" "}
             <br className="pc_block" />
             응급 질환입니다.
           </>

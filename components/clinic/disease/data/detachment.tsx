@@ -10,7 +10,7 @@ export const detachment: Disease = {
     line2: "시력인 응급 질환입니다",
     paragraphs: [
       <>
-        망막이 떨어진 채로 시간이 지나면 시세포가 손상되어
+        망막이 떨어진 채로 시간이 지나면 시세포가 손상되어{" "}
         <br className="pc_block" />
         수술 후에도 시력 회복이 어려울 수 있습니다.
       </>,
@@ -32,7 +32,7 @@ export const detachment: Disease = {
         title: "견인성",
         desc: (
           <>
-            당뇨망막병증 등으로 생긴 막이
+            당뇨망막병증 등으로 생긴 막이{" "}
             <br className="pc_block" />
             망막을 잡아당겨 떨어집니다.
           </>
@@ -43,7 +43,7 @@ export const detachment: Disease = {
         title: "삼출성",
         desc: (
           <>
-            열공 없이 염증·종양 등으로
+            열공 없이 염증·종양 등으로{" "}
             <br className="pc_block" />
             망막 아래에 액체가 고여 떨어집니다.
           </>
@@ -59,7 +59,7 @@ export const detachment: Disease = {
         title: "후유리체박리",
         desc: (
           <>
-            유리체가 떨어지며 망막을 잡아당겨
+            유리체가 떨어지며 망막을 잡아당겨{" "}
             <br className="pc_block" />
             열공이 생길 수 있습니다.
           </>
@@ -69,7 +69,7 @@ export const detachment: Disease = {
         title: "눈 외상 · 수술 이력",
         desc: (
           <>
-            눈을 다쳤거나 백내장 등
+            눈을 다쳤거나 백내장 등{" "}
             <br className="pc_block" />눈 수술을 받은 적이 있는 경우입니다.
           </>
         ),
@@ -78,7 +78,7 @@ export const detachment: Disease = {
         title: "당뇨망막병증",
         desc: (
           <>
-            진행하면 섬유막이 망막을 당기는
+            진행하면 섬유막이 망막을 당기는{" "}
             <br className="pc_block" />
             견인성 박리가 생길 수 있습니다.
           </>

@@ -51,11 +51,11 @@ export default function PostCarePage() {
       <ContentBlock>
         <SectionTitle />
         <InfoBox title="수술 후에도 평생 눈 동반자로" imageLabel="수술 후 정기 검진">
-          수술 부위를 잘 관리할수록 건조증, 빛번짐,
+          수술 부위를 잘 관리할수록 건조증, 빛번짐,{" "}
           <br className="pc_block" />
-          {" "}근시 퇴행 등 합병증의 가능성을 줄일 수 있습니다.
+          {" "}근시 퇴행 등 합병증의 가능성을 줄일 수 있습니다.{" "}
           <br className="pc_block" />
-          {" "}스마일 수술은 절개가 작아 상대적으로 내원 부담이 적지만,
+          {" "}스마일 수술은 절개가 작아 상대적으로 내원 부담이 적지만,{" "}
           <br className="pc_block" />
           {" "}어떤 수술이든 안내드린 정기 검진 일정에 맞춰 내원해 주세요.
         </InfoBox>
@@ -102,7 +102,7 @@ export default function PostCarePage() {
           title="더 좋은 시력을 위한 스마일 수술"
           sub={
             <>
-              좋은 결과는 수술 과정만으로 완성되지 않습니다.
+              좋은 결과는 수술 과정만으로 완성되지 않습니다.{" "}
               <br className="pc_block" />
               {" "}수술 전부터 눈 전반에 대한 철저한 검사가 필요합니다.
             </>

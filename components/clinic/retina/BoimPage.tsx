@@ -52,9 +52,9 @@ export default function BoimPage() {
           </span>
           <br />
           <br />
-          푸른안과는 2001년 개원 이래 전북 지역 망막 환자 진료에 힘써 왔습니다.
+          푸른안과는 2001년 개원 이래 전북 지역 망막 환자 진료에 힘써 왔습니다.{" "}
           <br className="pc_block" />
-          BOIM은 매년 400례 이상의 망막 수술을 시행하며, 치료 시기를 놓치면 시력을 잃을 수 있는
+          BOIM은 매년 400례 이상의 망막 수술을 시행하며, 치료 시기를 놓치면 시력을 잃을 수 있는{" "}
           <br className="pc_block" />
           중증 망막 질환을 가까운 곳에서 진료받으실 수 있도록 노력하고 있습니다.
         </VerticalInfoBox>
@@ -81,7 +81,7 @@ export default function BoimPage() {
         badge="망막클리닉 BOIM"
         lead={
           <>
-            실명으로 이어질 수 있는 망막 질환,
+            실명으로 이어질 수 있는 망막 질환,{" "}
             <br className="pc_block" />
             조기 진단과 적절한 치료가 시력을 지킵니다.
           </>

@@ -36,6 +36,11 @@ export default function GnbMenu({ open, onClose, anchorRef }: Props) {
   useLayoutEffect(() => {
     if (!open) return;
     const measure = () => {
+      // 모바일은 CSS 고정 위치(위·오른쪽 여백 동일) 사용
+      if (window.matchMedia("(max-width: 1210px)").matches) {
+        setXPos(undefined);
+        return;
+      }
       const r = anchorRef.current?.getBoundingClientRect();
       if (!r) return;
       setXPos({ top: r.top + r.height / 2, right: window.innerWidth - (r.left + r.width / 2) });
@@ -66,7 +71,8 @@ export default function GnbMenu({ open, onClose, anchorRef }: Props) {
             <path d="M6 6l12 12M18 6L6 18" />
           </svg>
         </button>
-        <div className={styles.wrap}>
+        {/* data-lenis-prevent: 부드러운 스크롤을 멈춘 동안에도 메뉴 안은 손가락 스크롤 허용 */}
+        <div className={styles.wrap} data-lenis-prevent>
           <div className={styles.lay}>
             {/* 좌측 영문 타이틀 + 대표전화·진료시간 (PC 전용) */}
             <div className={styles.intro}>

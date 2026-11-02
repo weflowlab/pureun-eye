@@ -48,10 +48,13 @@ export default function SpaceTour({ head, spaces }: Props) {
           <div className={styles.tourHead}>{head}</div>
           {spaces.map((s) => (
             <figure key={s.en} className={styles.space}>
-              <span className={styles.spaceEn} aria-hidden="true">
-                {s.en}
-              </span>
-              <div className={styles.spaceImg}>{s.image}</div>
+              {/* 영문 라벨: PC는 사진 위 모서리에 걸침, 폰은 사진 안 아래쪽 */}
+              <div className={styles.spaceImg}>
+                <div className={styles.spaceImgClip}>{s.image}</div>
+                <span className={styles.spaceEn} aria-hidden="true">
+                  {s.en}
+                </span>
+              </div>
               <figcaption>
                 <p className={styles.spaceName}>{s.name}</p>
                 <p className={styles.spaceDesc}>{s.desc}</p>

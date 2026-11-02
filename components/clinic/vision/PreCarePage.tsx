@@ -30,11 +30,11 @@ export default function PreCarePage() {
       <ContentBlock>
         <SectionTitle />
         <InfoBox title="수술 전 진료 시스템" imageLabel="수술 전 정밀 검사">
-          시력교정수술에서 가장 중요한 단계는 수술 전 검사입니다.
+          시력교정수술에서 가장 중요한 단계는 수술 전 검사입니다.{" "}
           <br className="pc_block" />
-          {" "}푸른안과는 굴절수술의 기준이 되는 특수검사를
+          {" "}푸른안과는 굴절수술의 기준이 되는 특수검사를{" "}
           <br className="pc_block" />
-          {" "}오랜 수술 경험을 바탕으로 정밀하게 진행하고,
+          {" "}오랜 수술 경험을 바탕으로 정밀하게 진행하고,{" "}
           <br className="pc_block" />
           {" "}검사 결과를 종합해 눈에 맞는 수술 방법을 함께 정합니다.
         </InfoBox>
@@ -64,7 +64,7 @@ export default function PreCarePage() {
           }
           sub={
             <>
-              시력·굴절부터 각막, 망막·시신경까지
+              시력·굴절부터 각막, 망막·시신경까지{" "}
               <br className="pc_block" />
               {" "}수술 적합 여부와 수술 방법을 결정하는 데 필요한 검사를 시행합니다.
             </>
@@ -94,9 +94,9 @@ export default function PreCarePage() {
       <ContentBlock>
         <SecHead first en="DID YOU KNOW?" title="시력교정수술 전, 망막검사는 필수입니다" />
         <InfoBox title="망막클리닉 보임과 함께하는 망막 검사" imageLabel="망막클리닉 보임" reverse>
-          시력은 각막이 아니라 눈 가장 안쪽의 망막에서 완성됩니다.
+          시력은 각막이 아니라 눈 가장 안쪽의 망막에서 완성됩니다.{" "}
           <br className="pc_block" />
-          {" "}푸른안과는 원내 망막클리닉 보임에서
+          {" "}푸른안과는 원내 망막클리닉 보임에서{" "}
           <br className="pc_block" />
           {" "}수술 전 망막 상태를 전문적으로 확인합니다.
           <br />

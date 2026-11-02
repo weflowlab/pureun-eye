@@ -43,7 +43,7 @@ export const floaters: Disease = {
         title: "노화에 따른 유리체 액화",
         desc: (
           <>
-            나이가 들수록 유리체의 젤 성분이
+            나이가 들수록 유리체의 젤 성분이{" "}
             <br className="pc_block" />
             물처럼 변하며 혼탁이 생깁니다.
           </>
@@ -57,7 +57,7 @@ export const floaters: Disease = {
         title: "고도근시",
         desc: (
           <>
-            안구 길이가 길어 유리체 변화가
+            안구 길이가 길어 유리체 변화가{" "}
             <br className="pc_block" />
             이른 나이에 시작될 수 있습니다.
           </>

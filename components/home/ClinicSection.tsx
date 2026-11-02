@@ -42,8 +42,32 @@ const SLIDES = [
     ),
     href: "/cataract/about",
   },
-  { tab: "망막클리닉 보임", short: "망막", label: "메인 비주얼 3", headline: "치료 시기가 중요한 망막 질환", desc: "망막클리닉 보임에서 망막 전문 의료진이 진료합니다.", href: "/retina/boim" },
-  { tab: "의료진", short: "의료진", label: "메인 비주얼 4", headline: "분야별 의료진이 함께합니다", desc: "외래클리닉과 망막클리닉 보임의 원장님을 소개합니다.", href: "/about/doctors" },
+  {
+    tab: "망막클리닉 보임",
+    short: "망막",
+    label: "메인 비주얼 3",
+    headline: "치료 시기가 중요한 망막 질환",
+    desc: (
+      <>
+        망막클리닉 보임에서 <br className={styles.moBr} />
+        망막 전문 의료진이 진료합니다.
+      </>
+    ),
+    href: "/retina/boim",
+  },
+  {
+    tab: "의료진",
+    short: "의료진",
+    label: "메인 비주얼 4",
+    headline: "분야별 의료진이 함께합니다",
+    desc: (
+      <>
+        외래클리닉과 망막클리닉 보임의 원장님을 <br className={styles.moBr} />
+        소개합니다.
+      </>
+    ),
+    href: "/about/doctors",
+  },
 ];
 
 /** 메인 비주얼: 둥근 카드 안 페이드 슬라이드 + 공통 카피 + 슬라이드별 문구·버튼 + 알약 탭(진행바) */

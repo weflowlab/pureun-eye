@@ -38,11 +38,11 @@ export default function SmilePage() {
       <ContentBlock>
         <SectionTitle />
         <VerticalInfoBox title="Smile4me" images={["스마일 수술 과정", "VisuMax 렌티큘 분리"]}>
-          2001년 개원 이후 쌓아 온 시력교정수술 경험에 스마일 수술을 더한
+          2001년 개원 이후 쌓아 온 시력교정수술 경험에 스마일 수술을 더한{" "}
           <br className="pc_block" />
-          {" "}푸른안과의 시력교정 프로그램입니다.
+          {" "}푸른안과의 시력교정 프로그램입니다.{" "}
           <br className="pc_block" />
-          {" "}엑시머 레이저 특유의 조사 소리나 타는 냄새가 없어,
+          {" "}엑시머 레이저 특유의 조사 소리나 타는 냄새가 없어,{" "}
           <br className="pc_block" />
           {" "}집도의와 대화하며 편안하게 수술받으실 수 있습니다.
         </VerticalInfoBox>
@@ -52,7 +52,7 @@ export default function SmilePage() {
           title="스마일 수술은 이렇게 진행됩니다"
           sub={
             <>
-              각막 절편을 만들지 않아 절편과 관련된 주름 등의 합병증 걱정이 없고,
+              각막 절편을 만들지 않아 절편과 관련된 주름 등의 합병증 걱정이 없고,{" "}
               <br className="pc_block" />
               {" "}건조증 부담을 줄이면서 빠른 회복을 돕는 수술입니다.
             </>
@@ -80,9 +80,9 @@ export default function SmilePage() {
               </>
             }
           >
-            VisuMax 레이저는 낮고 정확한 에너지로 각막 조직에 가해지는 충격을 줄이고,
+            VisuMax 레이저는 낮고 정확한 에너지로 각막 조직에 가해지는 충격을 줄이고,{" "}
             <br className="pc_block" />
-            {" "}균일한 에너지 조사로 매끄러운 각막면을 만듭니다.
+            {" "}균일한 에너지 조사로 매끄러운 각막면을 만듭니다.{" "}
             <br className="pc_block" />
             {" "}빛번짐·혼탁·눈부심 같은 부작용 위험을 줄이는 데 도움이 되며, 대부분 수술 다음 날부터 일상생활이 가능합니다.
           </BadgeItem>
@@ -94,7 +94,7 @@ export default function SmilePage() {
             }
             after={<CompareImages items={["라식 절개", "스마일 절개"]} />}
           >
-            절개가 작을수록 수술 후 통증과 회복 부담이 적고, 외부 충격과 건조증에도 유리합니다.
+            절개가 작을수록 수술 후 통증과 회복 부담이 적고, 외부 충격과 건조증에도 유리합니다.{" "}
             <br className="pc_block" />
             {" "}눈의 모양과 상태에 따라 장비가 허용하는 범위 안에서 적절한 크기로 절개합니다.
           </BadgeItem>
@@ -105,9 +105,9 @@ export default function SmilePage() {
               </>
             }
           >
-            라식은 각막 절편이 있어 외상에 주의가 필요하고, 라섹은 보우만막을 제거해 각막 혼탁이나
+            라식은 각막 절편이 있어 외상에 주의가 필요하고, 라섹은 보우만막을 제거해 각막 혼탁이나{" "}
             <br className="pc_block" />
-            {" "}스테로이드 안약 사용에 따른 안압 상승에 주의가 필요합니다.
+            {" "}스테로이드 안약 사용에 따른 안압 상승에 주의가 필요합니다.{" "}
             <br className="pc_block" />
             {" "}스마일 수술은 절편을 만들지 않고 보우만막을 보존하는 방식입니다.
           </BadgeItem>
@@ -118,7 +118,7 @@ export default function SmilePage() {
               </>
             }
           >
-            검사부터 수술, 회복까지 집도의가 처음부터 함께하며 스마일 전용 수술실에서 수술합니다.
+            검사부터 수술, 회복까지 집도의가 처음부터 함께하며 스마일 전용 수술실에서 수술합니다.{" "}
             <br className="pc_block" />
             {" "}“안전하지 않으면 수술하지 않는다”는 원칙을 지키며, 수술 후에도 눈 건강을 계속 살핍니다.
           </BadgeItem>
@@ -129,9 +129,9 @@ export default function SmilePage() {
       <ContentBlock>
         <SecHead first en="PRECISION" title="선명한 시력을 위한 정밀 교정" />
         <InfoBox title="ZEISS VisuMax 펨토초 레이저" image={<EquipImage model="VisuMax" />}>
-          스마일 수술에 사용하는 펨토초 레이저입니다.
+          스마일 수술에 사용하는 펨토초 레이저입니다.{" "}
           <br className="pc_block" />
-          {" "}각막 실질(렌티큘)을 정교하게 분리해
+          {" "}각막 실질(렌티큘)을 정교하게 분리해{" "}
           <br className="pc_block" />
           {" "}작은 절개만으로 시력을 교정합니다.
         </InfoBox>

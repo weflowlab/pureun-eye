@@ -79,18 +79,21 @@
 .tourStage { position: sticky; top: 0; display: flex; align-items: center; height: 100svh; padding-top: var(--header-height); overflow: hidden; }
 .tourTrack { display: flex; gap: 90px; align-items: flex-end; padding: 0 max(5vw, calc(50vw - 605px)); will-change: transform; }
 .tourHead { flex-shrink: 0; align-self: center; width: 400px; }
-.space { flex-shrink: 0; width: min(869px, 58vw); }
+.space { --en: clamp(64px, 8vw, 120px); flex-shrink: 0; width: min(869px, 58vw); }
+/* 사진 상자: 영문 라벨은 사진 안 왼쪽 아래 (아래에서 20px) */
+.spaceImg { position: relative; }
+.spaceImgClip { overflow: hidden; border-radius: 20px; }
 .spaceEn {
-  position: relative;
+  position: absolute;
+  bottom: 20px;
+  left: 24px;
   z-index: 1;
   display: block;
-  margin-bottom: -0.32em;
   color: #388ff3;
   font-family: var(--font-playfair);
-  font-size: clamp(64px, 8vw, 120px);
+  font-size: var(--en);
   line-height: 1;
 }
-.spaceImg { overflow: hidden; border-radius: 20px; }
 .space figcaption { display: flex; gap: 18px; align-items: baseline; margin-top: 20px; }
 .spaceName { color: var(--ink); font-size: 21px; font-weight: 700; }
 .spaceDesc { color: #666; font-size: 15px; }
@@ -209,10 +212,11 @@
   .fieldStage { position: static; height: auto; padding-top: 0; }
   .heroImg { clip-path: none; }
 
-  .tourStage { display: block; padding: 0 0 100px; }
+  .tourStage { display: block; padding: 100px 0; }
   .tourTrack { flex-direction: column; gap: 50px; align-items: stretch; padding: 0; width: var(--max-width); margin: 0 auto; transform: none !important; }
   .tourHead,
   .space { width: 100%; }
+  .spaceEn { left: 16px; }
 
   .fieldStage { padding: 100px 0; }
   .fieldBody { display: none; }
@@ -261,7 +265,7 @@
 @media screen and (max-width: 768px) {
   .fieldList { grid-template-columns: minmax(0, 1fr); gap: 36px; margin-top: 36px; }
   .fieldStage { padding: 70px 0; }
-  .tourStage { padding-bottom: 70px; }
+  .tourStage { padding: 70px 0; }
   .tourTrack { gap: 36px; }
   .space figcaption { flex-direction: column; gap: 4px; }
   .spaceEn { font-size: 44px; }

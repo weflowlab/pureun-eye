@@ -42,7 +42,7 @@ export default function IntroPage() {
         highlight="잘 보인다는 것은, 더 잘 산다는 것입니다"
         body={
           <>
-            {SITE.since}년 개원 이래 전주에서 시력교정·백내장·망막 진료를
+            {SITE.since}년 개원 이래 전주에서 시력교정·백내장·망막 진료를{" "}
             <br className="pc_block" />
             이어 오며, 안전함을 가장 먼저 생각해 왔습니다.
           </>
@@ -56,7 +56,7 @@ export default function IntroPage() {
           <div className={styles.philoHead} suppressHydrationWarning data-aos="fade-up">
             <h2 className={styles.highlight}>See more, Do more — {SITE.name}가 삶을 먼저 생각하는 이유</h2>
             <p className={styles.body}>
-              잘 보인다는 것은 책을 읽고, 가족의 얼굴을 알아보고, 하고 싶은 일을 계속할 수 있다는 뜻입니다.
+              잘 보인다는 것은 책을 읽고, 가족의 얼굴을 알아보고, 하고 싶은 일을 계속할 수 있다는 뜻입니다.{" "}
               <br className="pc_block" />
               그래서 {SITE.name}는 시력 수치만이 아니라 환자의 일상을 함께 생각합니다.
             </p>

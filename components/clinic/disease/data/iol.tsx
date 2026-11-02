@@ -10,7 +10,7 @@ export const iol: Disease = {
     line2: "렌즈 위치를 확인하세요",
     paragraphs: [
       <>
-        백내장 수술 후 시간이 지나 다시 흐리거나 겹쳐 보인다면
+        백내장 수술 후 시간이 지나 다시 흐리거나 겹쳐 보인다면{" "}
         <br className="pc_block" />
         인공수정체가 제자리에서 벗어났을 수 있습니다.
       </>,
@@ -41,7 +41,7 @@ export const iol: Disease = {
         title: "거짓비늘증후군",
         desc: (
           <>
-            수정체를 지탱하는 섬유가 약해지는 질환으로,
+            수정체를 지탱하는 섬유가 약해지는 질환으로,{" "}
             <br className="pc_block" />
             가장 흔한 원인 중 하나입니다.
           </>
@@ -55,7 +55,7 @@ export const iol: Disease = {
         title: "이전 눈 수술",
         desc: (
           <>
-            유리체절제술 등 다른 눈 수술을 받은 경우
+            유리체절제술 등 다른 눈 수술을 받은 경우{" "}
             <br className="pc_block" />
             위험이 높아집니다.
           </>
@@ -65,7 +65,7 @@ export const iol: Disease = {
         title: "눈 외상",
         desc: (
           <>
-            눈을 부딪히는 등 충격으로
+            눈을 부딪히는 등 충격으로{" "}
             <br className="pc_block" />
             지지 조직이 손상될 수 있습니다.
           </>
