@@ -99,8 +99,13 @@ export default function Footer() {
                   <span>대표</span>
                   {SITE.ceo}
                 </li>
+                {/* 주소: PC는 우편번호 포함 전체, 모바일은 한 줄에 들어가는 짧은 주소 */}
                 <li>
-                  <span>주소</span>({SITE.zip}) {SITE.address}
+                  <span>주소</span>
+                  <span className={styles.addrFull}>
+                    ({SITE.zip}) {SITE.address}
+                  </span>
+                  <span className={styles.addrShort}>{SITE.shortAddress}</span>
                 </li>
                 <li>
                   <span>대표전화</span>

@@ -37,7 +37,8 @@ export default function PreCareSection() {
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top top",
+          // 섹션이 화면 세로 가운데(위아래 여백 동일)에 왔을 때 고정하고 카드 이동 시작
+          start: "center center",
           end: () => `+=${distance()}`,
           pin: true,
           scrub: 0.6,

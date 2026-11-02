@@ -1,175 +1,77 @@
-/* 진료시간·오시는 길 섹션 */
-.section {
-  position: relative;
-  width: 100%;
-  background: #fff;
+/* 좌우 카드 2개 */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 48px;
 }
-.inner {
-  position: relative;
-  width: 1240px;
-  margin: 0 auto;
-  padding: 150px 0;
-}
-.title {
-  font-size: 35px;
-  font-weight: 700;
-  line-height: 38px;
-}
-.titleAccent { color: var(--color-primary); }
+.infoCard { padding: 40px; }
+.mapCard { display: flex; flex-direction: column; }
 
-/* 좌우 2단 */
-.ttmFbx {
+/* 블록: 전화 / 진료 안내 (사이 구분선) */
+.block + .block { margin-top: 32px; padding-top: 32px; border-top: 1px solid #dfe5f0; }
+.blockHead { display: flex; align-items: center; gap: 14px; }
+.blockIcon {
   display: flex;
-  justify-content: space-between;
-  margin-top: 80px;
-}
-
-/* 블록 타이틀 (아이콘 + 텍스트) */
-.phoneBlockTitle {
-  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
   align-items: center;
-}
-.phoneBlockTitleTxt {
-  display: flex;
-  align-items: flex-end;
-}
-.phoneBlockTitleMain {
-  margin-left: 20px;
+  width: 48px;
+  height: 48px;
   color: var(--color-primary);
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 25px;
+  background: #fff;
+  border-radius: 50%;
 }
-.phoneBlockTitleSub {
-  margin-left: 15px;
-  color: #393939;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 18px;
-}
+.blockTitle { color: var(--color-primary); font-size: 18px; font-weight: 700; line-height: 1.3; }
+.blockSub { margin-top: 2px; color: #777; font-size: 13px; }
 
 /* 전화번호: 호버 시 브랜드 컬러 */
-.phoneNumbers { margin-left: 55px; }
+.phones { margin-top: 18px; }
 .phone {
   display: block;
-  color: var(--color-light-grey);
-  font-size: 60px;
+  color: #272727;
+  font-size: 36px;
   font-weight: 700;
-  line-height: 80px;
-  cursor: pointer;
-  transition: all 0.3s;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  transition: color 0.3s;
 }
 .phone:hover { color: var(--color-primary); }
 
-/* 진료 안내 */
-.clinicGuideBlock { margin-top: 60px; }
-.noticeTexts {
-  margin-top: 30px;
-  color: #000;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 130%;
-}
-.noticeText:not(:last-child) { padding-bottom: 12px; }
-
 /* 시간표 */
-.timeGrid {
-  display: block;
-  padding-top: 50px;
-  color: #000;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 140%;
-  letter-spacing: 0.9px;
-}
-.timeItem {
-  display: flex;
-  align-items: start;
-  gap: 30px;
-  padding-bottom: 12px;
-}
-/* 균등 배분 정렬된 항목명 */
-.timeContItemTit {
-  flex-shrink: 0;
-  width: 68px;
-  height: 28px;
-  text-align: justify;
-}
-.timeContItemTit::after {
-  content: "";
-  display: inline-block;
-  width: 100%;
-}
+.hours { margin-top: 16px; }
+.hours div { display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px dashed #d8dfeb; }
+.hours dt { flex-shrink: 0; width: 56px; color: var(--color-primary); font-weight: 700; line-height: 1.6; }
+.hours dd span { display: block; color: #333; font-size: 15px; line-height: 1.6; }
+.notes { margin-top: 14px; color: #777; font-size: 13px; line-height: 1.7; }
+.notes li::before { content: "※ "; }
 
-/* 지도 */
-.mapBox {
-  width: 500px;
-  height: 400px;
-}
-.mapWrap {
-  position: relative;
-  width: 100%;
-}
-.map { border-radius: 8px; }
-/* 주소: 라벨을 위에 두고 주소는 한 줄 (PC) */
-.mapTxt {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 26px;
-  padding-bottom: 24px;
-  color: var(--color-primary);
-}
-.mapTxtLabel {
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 32px;
-  white-space: nowrap;
-}
-.mapTxtAddr {
-  color: var(--color-light-grey);
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 25px;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-}
-
-/* 지도 앱 버튼 (모양은 공통 MapButtons) */
-.mapBtns { max-width: 484px; }
-
-/* 오시는 길 페이지 바로가기 */
+/* 지도 카드 */
+.map { display: block; width: 100%; }
+.mapBody { padding: 26px 30px 30px; }
+.addrLabel { color: var(--color-primary); font-size: 16px; font-weight: 700; }
+.addr { margin-top: 6px; color: #333; font-size: 15px; line-height: 1.6; }
+.mapBtns { margin-top: 18px; }
 .locationLink {
   display: block;
   width: fit-content;
-  margin: 20px 0 0 auto;
-  color: #222;
-  font-size: 16px;
-  line-height: 1.5;
-  border-bottom: 1px solid #222;
+  margin: 28px auto 0;
+  color: #272727;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid #272727;
+  transition: color 0.3s, border-color 0.3s;
 }
+.locationLink:hover { color: var(--color-primary); border-color: var(--color-primary); }
 
-@media screen and (max-width: 1210px) {
-  .inner { width: 90%; padding: 50px 0; }
-  .title { font-size: 30px; line-height: 35px; }
-  .ttmFbx { flex-wrap: wrap; margin-top: 30px; }
-  .infoBox { width: 100%; }
-  .clinicGuideBlock { margin-top: 37px; }
-  .phoneBlockTitle { align-items: flex-start; }
-  .phoneBlockTitleTxt { flex-direction: column; align-items: flex-start; padding-left: 15px; }
-  .phoneBlockTitleMain { margin: 0; }
-  .phoneBlockTitleSub { margin: 10px 0 0; }
-  .phoneNumbers { margin-top: 20px; margin-left: 50px; }
-  .phone { font-size: 30px; line-height: 35px; }
-  .noticeTexts { margin-top: 10px; font-size: 15px; line-height: 1.5; }
-  .timeGrid { margin: 0; padding-bottom: 36px; font-size: 16px; letter-spacing: 0.8px; }
-  .timeItem { gap: 20px; }
-  .locationLink { margin: 16px auto 0; }
-  .timeContItemTit { width: 60px; height: 26px; }
-  .mapBox { width: 100%; height: auto; margin-top: 30px; }
-  .map { height: auto !important; aspect-ratio: 16 / 9; }
-  .mapTxt { margin-top: 10px; }
-  /* 모바일은 폭이 좁아 줄바꿈 허용 */
-  .mapTxtAddr { white-space: normal; }
-  .mapBtns { max-width: none; }
+@media screen and (max-width: 1024px) {
+  .grid { grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: 32px; }
+  .infoCard { padding: 24px; }
+  .block + .block { margin-top: 24px; padding-top: 24px; }
+  .blockIcon { width: 42px; height: 42px; }
+  .blockTitle { font-size: 16px; }
+  .phone { font-size: 26px; }
+  .hours dd span { font-size: 14px; }
+  .map { height: auto !important; aspect-ratio: 16 / 10; }
+  .mapBody { padding: 20px 20px 24px; }
 }

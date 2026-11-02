@@ -42,7 +42,17 @@ const DoctorIcon = () => (
   </Icon>
 );
 
-export const VALUES = [
+export type Value = {
+  icon: ReactNode;
+  title: string;
+  /** 메인 카드용 짧은 문구 (줄바꿈은 \n) */
+  short: string;
+  /** 폰에서 줄바꿈 위치가 다를 때만 지정 */
+  shortMo?: string;
+  desc: string;
+};
+
+export const VALUES: Value[] = [
   {
     icon: <SafetyIcon />,
     title: "환자 안전과 인본 진료",
@@ -59,6 +69,7 @@ export const VALUES = [
     icon: <CareIcon />,
     title: "수술 후 관리까지 생각하는 진료",
     short: "많은 수술보다, 수술 후 관리까지\n고려한 안전한 수술을 합니다.",
+    shortMo: "많은 수술보다,\n수술 후 관리까지 고려한 안전한 수술을 합니다.",
     desc: "많은 수술을 하기보다는 수술 후의 관리까지 고려하여 안전한 수술을 합니다.",
   },
   {

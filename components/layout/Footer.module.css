@@ -145,6 +145,10 @@
 .info a:hover { color: var(--color-primary); }
 /* 같은 줄 두 번째 항목 (팩스) */
 .info .subLabel { width: auto; margin: 0 8px 0 24px; }
+/* 주소 본문 (라벨 스타일 해제) */
+.info .addrFull,
+.info .addrShort { width: auto; color: inherit; font-weight: 400; white-space: nowrap; }
+.info .addrShort { display: none; }
 
 /* 하단 바 */
 .bottom {
@@ -189,5 +193,10 @@
   }
   .inner { width: 90%; }
   .top { grid-template-columns: minmax(0, 1fr); gap: 36px; padding: 50px 0 40px; }
+  /* 병원 정보는 글씨를 조금 줄여 한 줄에 하나씩 */
+  .info { font-size: 14px; }
+  .info span { width: 76px; }
+  .info .addrFull { display: none; }
+  .info .addrShort { display: inline; }
   .bottom { flex-direction: column-reverse; align-items: flex-start; gap: 10px; }
 }

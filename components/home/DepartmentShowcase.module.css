@@ -1,36 +1,9 @@
-/* 진료과목 쇼케이스 타이틀 */
-.titWrap { padding: 140px 0 70px; }
-.titWrap h3 {
-  color: #222;
-  text-align: center;
-  font-family: var(--font-sans);
-  font-size: 50px;
-  font-weight: 400;
-  line-height: 1.4;
-}
-.titWrap h3 b {
-  position: relative;
-  color: var(--color-primary);
-  font-weight: 700;
-}
-/* 강조 밑줄 형광펜 */
-.titWrap h3 b::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  height: 25px;
-  background: var(--color-primary);
-  opacity: 0.1;
-}
-
-/* 3분할 패널 리스트 */
+/* 3분할 패널 리스트 (머리 아래, 화면 전체 폭) */
 .eqList {
   position: relative;
   height: calc(100vh - 85px);
   max-height: 800px;
+  margin-top: 56px;
   overflow: hidden;
 }
 .eqItem {
@@ -93,80 +66,109 @@
   .eqItem:hover .over { background: #0000001a; }
   .eqItem:hover .cover > * { filter: grayscale(0); }
 }
+/* 터치: 스크롤로 화면 가운데 온 패널이 컬러 (호버 대체) */
+@media (hover: none) {
+  .eqItem.inView .over { background: #0000001a; }
+  .eqItem.inView .cover > * { filter: grayscale(0); }
+}
 
-/* 상세 텍스트 그룹 (기본 숨김) */
+/* 펼침 시 글자가 있는 왼쪽을 흰색으로 덮어 사진 위에서도 글이 읽히게 */
+.eqItem::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(90deg, #fffffff2 0%, #ffffffd9 45%, #ffffff00 64%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s 0.6s;
+}
+.eqItem.on::after { opacity: 1; }
+
+/* 커서 옆 원형 게이지 */
+.ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s;
+}
+.ring svg { display: block; transform: rotate(-90deg); }
+.ringTrack { fill: none; stroke: #ffffff59; stroke-width: 3; }
+.ringFill { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; }
+
+/* 상세 텍스트 그룹 (기본 숨김) — 모든 패널에서 왼쪽, 컨테이너 왼쪽 선에 맞춤 */
 .txtGroup {
   position: absolute;
   top: 0;
-  left: 50%;
+  left: 0;
   z-index: 3;
   display: flex;
   align-items: center;
-  width: 50%;
+  width: 55%;
   height: 100%;
+  padding-left: max(5%, calc((100% - var(--max-width)) / 2));
   opacity: 0;
   transform: translateY(50px);
   pointer-events: none;
 }
-.txtGroup > div { max-width: 90%; }
-.eqItem:nth-child(2) .txtGroup,
-.eqItem:nth-child(3) .txtGroup {
-  right: 50%;
-  left: auto;
-  justify-content: flex-end;
-}
+/* 글 묶음: 패널 높이를 넘지 않게 (작은 화면·100% 배율에서도 잘리지 않음), 넘치면 안에서 스크롤 */
+.txtGroup > div { max-width: 560px; max-height: 100%; padding: 32px 0; overflow-y: auto; }
 .txtGroup strong {
   display: block;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
   color: #222;
   font-family: "Poppins", var(--font-sans);
-  font-size: 50px;
+  font-size: clamp(36px, 5.5vh, 48px);
   font-weight: 600;
   line-height: 1;
 }
 .eqName {
   display: block;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
   color: #000;
-  font-size: 28px;
-  font-weight: 200;
+  font-size: clamp(22px, 3vh, 26px);
+  font-weight: 300;
   line-height: 1;
 }
-.desc { margin-bottom: 60px; }
+.desc { margin-bottom: 36px; }
 .desc p {
   color: #222;
-  font-size: 26px;
+  font-size: clamp(18px, 2.6vh, 22px);
   font-weight: 300;
-  line-height: 1.7;
-  letter-spacing: -0.52px;
+  line-height: 1.6;
+  letter-spacing: -0.02em;
 }
-.desc p:not(:last-child) { margin-bottom: 24px; }
+.desc p:not(:last-child) { margin-bottom: 14px; }
 .highlight {
   color: var(--color-primary);
   font-weight: 700;
-  box-shadow: inset 0 -16px #152c6b1a;
+  box-shadow: inset 0 -12px #152c6b1a;
 }
 /* 하위 페이지 바로가기 알약 버튼 */
+.txtGroup ul { max-width: 380px; }
 .txtGroup ul li a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: 18px 28px;
-  color: #234ab3;
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 1.2;
+  gap: 16px;
+  padding: 14px 24px;
+  color: var(--color-primary);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
   background: #fff;
-  border: 2px solid var(--color-primary);
-  border-radius: 1000px;
-  box-shadow: inset -1px -1px 10px #00000059, inset 2px 2px 10px #c3d3ff99;
+  border: 1px solid var(--color-primary);
+  border-radius: 40px;
   transition: var(--transition-base);
 }
 @media (hover: hover) {
   .txtGroup ul li a:hover { color: #fff; background: var(--color-primary); }
 }
-.txtGroup ul li:not(:last-child) { margin-bottom: 20px; }
+.txtGroup ul li:not(:last-child) { margin-bottom: 12px; }
 
 .closeBtn {
   position: absolute;
@@ -201,13 +203,20 @@
   transition: all 0.45s 0.8s;
 }
 
+/* 폰 전용 줄바꿈 (PC용 br은 1280px 이하에서 해제) */
+.moBr { display: none; }
 @media screen and (max-width: 1280px) {
   .desc p br { display: none; }
+}
+@media screen and (max-width: 768px) {
+  .desc p .moBr { display: inline; }
 }
 
 /* 태블릿 이하: 세로 3단 */
 @media screen and (max-width: 1024px) {
-  .eqList { height: 900px; max-height: unset; }
+  .eqList { height: 900px; max-height: unset; margin-top: 32px; transition: height 0.6s; }
+  /* 펼치면 사진이 불필요하게 길지 않게 전체 높이를 줄임 */
+  .eqList.hasOpen { height: 600px; }
   .eqItem { width: 100%; height: calc(100% / 3); }
   .eqItem:nth-child(1) { top: 0; }
   .eqItem:nth-child(2) { top: calc(100% / 3); left: 0; }
@@ -215,19 +224,16 @@
   .pcImg { display: none !important; }
   .tabImg { display: flex !important; }
   .eqItem.on { top: 0; height: 100%; }
-  .txtGroup { left: 0; justify-content: center; width: 100%; height: calc(100% - 300px); }
-  .eqItem:nth-child(2) .txtGroup,
-  .eqItem:nth-child(3) .txtGroup { right: 0; justify-content: center; }
-  .txtGroup strong { margin-bottom: 12px; font-size: 34px; }
-  .eqName { margin-bottom: 20px; font-size: 22px; }
-  .desc { margin-bottom: 30px; }
-  .desc p { font-size: 18px; line-height: 1.4; letter-spacing: -0.36px; }
-  .txtGroup ul li a { padding: 12px 18px; font-size: 15px; }
+  /* 세로 배치: 글이 위쪽에 있으므로 위에서부터 흰색 */
+  .eqItem::after { background: linear-gradient(180deg, #fffffff5 0%, #ffffffe6 60%, #ffffff80 100%); }
+  .ring { display: none; }
+  .txtGroup { align-items: flex-start; width: 100%; height: 100%; padding: 64px 5% 28px; }
+  .txtGroup > div { max-width: none; padding: 0; }
+  .txtGroup > div { padding: 24px 0; }
+  .txtGroup strong { margin-bottom: 10px; font-size: 30px; }
+  .eqName { margin-bottom: 16px; font-size: 19px; }
+  .desc { margin-bottom: 22px; }
+  .desc p { font-size: 15px; line-height: 1.5; }
+  .txtGroup ul li a { padding: 10px 16px; font-size: 14px; }
   .closeBtn { font-size: 30px; }
-  .titWrap h3 { font-size: 35px; }
-}
-
-@media screen and (max-width: 768px) {
-  .titWrap { padding: 48px 0; }
-  .titWrap h3 { font-size: 25px; }
 }

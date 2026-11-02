@@ -1,11 +1,11 @@
-/* 섹션 (PC는 스크롤 동안 화면에 고정) */
+/* 섹션 (PC는 스크롤 동안 화면에 고정) — 연회청 배경 */
 .section {
   display: flex;
   align-items: center;
   min-height: 100vh;
-  padding: 120px 0;
+  padding: 140px 0;
   overflow: hidden;
-  background: linear-gradient(180deg, #f3f6fb 0%, #fff 100%);
+  background: #f6f8fc;
 }
 .inner {
   display: grid;
@@ -15,40 +15,40 @@
   padding-left: max(5%, calc((100% - var(--max-width)) / 2));
 }
 
-/* 좌측 패널 */
+/* 좌측 패널 (공통 제목 스타일과 동일) */
 .panel { align-self: center; }
 .label { color: var(--color-accent); font-size: 14px; font-weight: 700; letter-spacing: 0.2em; }
 .title {
-  margin-top: 16px;
+  margin-top: 14px;
   color: var(--color-deep-grey);
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.35;
   letter-spacing: -0.02em;
 }
-.total { margin-top: 30px; color: var(--color-deep-grey); font-size: 20px; }
+.total { margin-top: 28px; color: var(--color-deep-grey); font-size: 20px; }
 .total b { margin-right: 6px; color: var(--color-primary); font-size: 64px; font-weight: 700; line-height: 1; letter-spacing: -0.03em; }
-.desc { margin-top: 18px; color: var(--color-light-grey); font-size: 16px; line-height: 1.7; }
+.desc { margin-top: 16px; color: var(--color-light-grey); font-size: 16px; line-height: 1.7; }
 .more {
   display: inline-flex;
-  gap: 10px;
-  margin-top: 34px;
+  gap: 8px;
+  margin-top: 32px;
   padding: 13px 26px;
   color: #fff;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   background: var(--color-primary);
   border-radius: 40px;
-  transition: opacity 0.3s;
+  transition: background 0.3s;
 }
-.more:hover { opacity: 0.85; }
+.more:hover { background: #0f2152; }
 
 /* 우측 카드 영역: 양 끝은 흐리게 사라짐 (카드가 잘린 듯 보이지 않게) */
 .viewport {
   overflow: hidden;
   mask-image: linear-gradient(90deg, transparent 0, #000 40px, #000 85%, transparent 100%);
 }
-.track { display: flex; gap: 28px; width: max-content; padding: 0 5vw 0 40px; }
+.track { display: flex; gap: 24px; width: max-content; padding: 0 5vw 0 40px; }
 
 /* 카드 */
 .card {
@@ -56,31 +56,38 @@
   width: 360px;
   overflow: hidden;
   background: #fff;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px #152c6b14;
+  border: 1px solid #e8edf5;
+  border-radius: var(--card-radius);
+  box-shadow: 0 6px 24px #152c6b0d;
 }
 .cover { aspect-ratio: 4 / 3; }
-.cardBody { padding: 26px 28px 30px; }
-.cardNum { color: var(--color-accent); font-size: 14px; font-weight: 700; }
+.cardBody { padding: 24px 26px 28px; }
+.cardNum { color: var(--color-accent); font-size: 13px; font-weight: 700; letter-spacing: 0.1em; }
 .cardTitle { margin-top: 8px; color: var(--color-primary); font-size: 22px; font-weight: 700; }
-.cardTitle span { margin-left: 4px; color: var(--color-light-grey); font-size: 16px; font-weight: 500; }
-.sample { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.cardTitle span { margin-left: 4px; color: var(--color-light-grey); font-size: 15px; font-weight: 500; }
+.sample { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
 .sample li {
   padding: 6px 12px;
-  color: var(--color-deep-grey);
-  font-size: 14px;
-  background: #f1f4f9;
+  color: var(--color-primary);
+  font-size: 13px;
+  background: var(--chip-bg);
   border-radius: 20px;
 }
 
 /* 태블릿·모바일: 세로로 쌓고 카드는 손가락 가로 스크롤 */
 @media screen and (max-width: 1024px) {
-  .section { display: block; min-height: 0; padding: 70px 0; }
-  .inner { grid-template-columns: minmax(0, 1fr); gap: 35px; padding-left: 5%; }
+  .section { display: block; min-height: 0; padding: 72px 0; }
+  .inner { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-left: 5%; }
   .panel { padding-right: 5%; }
   .title { font-size: 26px; }
-  .total b { font-size: 52px; }
+  .total { margin-top: 20px; font-size: 17px; }
+  .total b { font-size: 48px; }
+  .desc { font-size: 15px; }
+  .more { margin-top: 24px; padding: 12px 22px; font-size: 14px; }
   .viewport { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; mask-image: none; }
   .viewport::-webkit-scrollbar { display: none; }
-  .card { width: 78vw; max-width: 340px; scroll-snap-align: start; }
+  .track { gap: 14px; padding: 4px 5% 8px 0; }
+  .card { width: 76vw; max-width: 320px; scroll-snap-align: start; }
+  .cardBody { padding: 18px 20px 22px; }
+  .cardTitle { font-size: 19px; }
 }

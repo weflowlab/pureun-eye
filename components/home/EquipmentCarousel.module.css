@@ -1,187 +1,34 @@
-/* 장비 캐러셀 섹션 */
-.section {
-  position: relative;
-  z-index: 1;
-  min-height: 800px;
-  background-color: #fff;
-}
+/* 장비 캐러셀 섹션: 슬라이드가 오른쪽으로 넘치므로 섹션에서 잘라냄 */
+.section { overflow: hidden; }
 
-/* 좌측 텍스트 박스 */
-.textBx {
-  position: absolute;
+/* 트랙: 컨테이너 왼쪽 선에 맞춰 시작 */
+.track { margin-top: 48px; padding-left: max(5%, calc((100% - var(--max-width)) / 2)); }
+.swiper { overflow: visible !important; }
+.slide { width: 320px !important; height: auto !important; }
+
+/* 카드 */
+.card { display: block; height: 100%; }
+.img {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  width: 50%;
-  height: 100%;
-  background-color: #f2f4f5;
-}
-.textBx2 {
-  position: absolute;
-  left: 50%;
-  transform: translate(-44%);
-}
-.tit2 {
-  margin-top: 9px;
-  margin-bottom: 10px;
-  color: var(--color-primary);
-  font-size: 26px;
-}
-.bold { font-weight: 600; }
-.tit3 {
-  margin-bottom: 19px;
-  color: #272727;
-  font-size: 46px;
-  font-weight: 600;
-  line-height: 50px;
-  text-shadow: 0 3px 6px #00000029;
-}
-.tit4 {
-  font-size: 20px;
-  font-weight: 200;
-  line-height: 28px;
-  white-space: nowrap;
-}
-
-/* View more 버튼: 호버 시 오른쪽으로 이동 */
-.viewBtnWrapPc { display: block; }
-.viewBtnWrapMobile { display: none; }
-.viewBtn {
-  position: absolute;
-  right: -30px;
-  bottom: -70px;
-  color: #676767;
-  font-size: 20px;
-  cursor: pointer;
-  transition: all 0.4s;
-}
-.viewBtn:hover { transform: translate(15px); }
-.viewImg {
-  position: absolute;
-  right: -45px;
-  bottom: -10px;
-  width: 200px;
-  height: 15px;
-  border-right: 1px solid #000;
-  border-bottom: 1px solid #000;
-  transform: skew(45deg);
-  transition: all 0.4s;
-}
-.viewBtn:hover .viewImg { transform: translate(10px) skew(45deg); }
-
-/* 우측 캐러셀 */
-.swiAb {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  width: 60%;
-  height: 630px;
-  overflow: hidden;
-  transform: translateY(-45%) scale(0.85);
-}
-.sec4Swi {
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-.slideLink { display: block; }
-.swiImg {
-  width: 100%;
-  height: 550px;
-  overflow: hidden;
-  background: #fff;
-  border-radius: 82px 0 0;
-  box-shadow: 3px 3px 20px #00000029;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  aspect-ratio: 4 / 3;
+  padding: 24px;
+  background: #fff;
+  border-bottom: 1px solid #eef1f6;
 }
-/* 장비 제품 사진: 흰 배경 카드 중앙에 비율 유지 */
-.swiImg img { width: 90%; height: auto; object-fit: contain; }
-.swiTxt { font-size: 24px; }
-.txtSubtit {
-  color: var(--color-primary);
-  font-size: 20px;
-  line-height: 40px;
-  letter-spacing: -1.5px;
-}
-/* 장비 분류명은 한 줄 */
-.txtTit {
-  color: #303030;
-  font-weight: 600;
-  line-height: 40px;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-}
+.img img { width: 85%; height: auto; object-fit: contain; }
+.txt { padding: 18px 22px 22px; }
+.model { color: var(--color-primary); font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
+.cat { margin-top: 4px; color: #272727; font-size: 18px; font-weight: 600; white-space: nowrap; }
 
-@media screen and (max-width: 1800px) {
-  .viewBtn { right: 100px; }
+@media screen and (max-width: 1210px) {
+  .track { margin-top: 32px; padding-left: 5%; }
 }
-
-@media screen and (max-width: 1400px) {
-  .section {
-    z-index: 2;
-    min-height: 940px;
-    padding-top: 200px;
-    background-color: #f2f4f5;
-  }
-  .viewBtnWrapMobile {
-    position: absolute;
-    right: 15%;
-    bottom: 5%;
-    z-index: 2;
-    display: block;
-  }
-  .viewBtnWrapPc { display: none; }
-  .textBx { justify-content: normal; width: 100%; height: auto; }
-  .textBx2 {
-    position: relative;
-    left: 0;
-    width: 90%;
-    margin: 0 auto;
-    padding-top: 74px;
-    transform: translate(0);
-  }
-  .viewBtn { position: relative; right: auto; bottom: auto; font-size: 22px; }
-  .swiAb { top: auto; right: 0; bottom: 10%; width: 90%; height: 530px; transform: translateY(0); }
-  .tit2 { font-size: 22px; }
-  .tit3 { font-size: 28px; line-height: 28px; white-space: nowrap; }
-  .tit4 { font-size: 16px; line-height: 24px; }
-  .viewImg { bottom: -35px; width: 180px; }
-  .swiImg { height: 450px; }
-  .sec4Swi :global(.swiper-slide) { width: 80%; }
-}
-
-@media screen and (max-width: 1200px) {
-  .section { padding-top: 200px; }
-}
-
-@media screen and (max-width: 1025px) {
-  .section { padding-top: 0; }
-  .swiAb { bottom: 15%; }
-}
-
-/* 폰: 겹치기 대신 글 → 캐러셀 → View more 순서로, 사진은 원래 비율 */
 @media screen and (max-width: 768px) {
-  .section { min-height: 0; padding: 0 0 50px; }
-  .textBx { position: relative; }
-  .textBx2 { padding: 60px 0 0; }
-  .tit3 { white-space: normal; line-height: 1.3; }
-  .tit4 { white-space: normal; }
-  .tit4 br { display: none; }
-  .swiAb { position: relative; right: auto; bottom: auto; width: 90%; height: auto; margin: 28px auto 0; overflow: visible; }
-  .sec4Swi { height: auto; }
-  .sec4Swi :global(.swiper-slide) { width: 72%; height: auto; }
-  .swiImg { height: auto; aspect-ratio: 536 / 428; border-radius: 28px 0 0; }
-  .swiTxt { font-size: 20px; }
-  .txtSubtit { font-size: 15px; line-height: 24px; }
-  .txtTit { line-height: 30px; }
-  .viewBtnWrapMobile { position: relative; right: auto; bottom: auto; display: flex; justify-content: flex-end; width: 90%; margin: 24px auto 0; }
-  .viewBtn { padding: 8px 0; font-size: 18px; }
-  .viewImg { bottom: -14px; width: 140px; }
-}
-
-/* 작은 폰: 장비 분류명이 한 줄에 들어가도록 글씨 축소 */
-@media screen and (max-width: 400px) {
-  .swiTxt { font-size: 21px; }
+  .slide { width: 240px !important; }
+  .img { padding: 18px; }
+  .txt { padding: 14px 18px 18px; }
+  .model { font-size: 13px; }
+  .cat { font-size: 16px; }
 }

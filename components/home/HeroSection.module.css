@@ -4,7 +4,8 @@
   --gap-max: 24px;
   --radius-max: 28px;
   --gap: calc((1 - var(--hero-p)) * var(--gap-max));
-  --gap-top: calc((1 - var(--hero-p)) * 4px);
+  /* 위아래 여백 동일 (헤더 아래로 24px 내려옴) */
+  --gap-top: var(--gap);
   display: flex;
   flex-direction: column;
   min-height: 100svh;
