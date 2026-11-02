@@ -22,6 +22,11 @@ export default function DiseaseFaq({ items }: Props) {
     const ul = listRef.current;
     if (!ul) return;
     const measure = () => {
+      // 폰에서는 확보하지 않음 (아래 "찾으시는 질문이 없나요?"가 멀어지지 않게)
+      if (window.innerWidth <= 1210) {
+        ul.style.minHeight = "";
+        return;
+      }
       const lis = [...ul.children] as HTMLElement[];
       const rows = lis.reduce((sum, li) => sum + (li.firstElementChild as HTMLElement).offsetHeight + 1, 1);
       const maxAnswer = Math.max(0, ...lis.map((li) => (li.querySelector("[role=region] > div") as HTMLElement).scrollHeight));

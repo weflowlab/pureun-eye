@@ -32,25 +32,38 @@ const TRUST = {
   },
 };
 
-/** "*강조*" 표기를 태그로 (제목은 strong) */
+/** 문자열의 "\n"은 폰에서만 줄바꿈 */
+function lines(text: string, keyPrefix = "") {
+  return text.split("\n").map((line, i) => (
+    <Fragment key={`${keyPrefix}${i}`}>
+      {i > 0 && <br className="mo_block" />}
+      {line}
+    </Fragment>
+  ));
+}
+
+/** "*강조*" 표기를 태그로 (제목은 strong), "\n"은 폰 줄바꿈 */
 function rich(text: string, Tag: "strong" | "span" = "strong", className?: string) {
   return text.split(/\*([^*]+)\*/).map((part, i) =>
     i % 2 ? (
       <Tag key={i} className={className}>
-        {part}
+        {lines(part, "s")}
       </Tag>
     ) : (
-      <Fragment key={i}>{part}</Fragment>
+      <Fragment key={i}>{lines(part)}</Fragment>
     ),
   );
 }
+
+/** 보조 문구·안내: 문자열이면 "\n" 폰 줄바꿈 적용 */
+const text = (v: ReactNode) => (typeof v === "string" ? lines(v) : v);
 
 /** 섹션 머리: 두 톤 제목 + 보조 문구 (가운데) */
 function Head({ title, sub, light }: { title: string; sub?: ReactNode; light?: boolean }) {
   return (
     <div className={`${styles.head} ${light ? styles.light : ""}`} suppressHydrationWarning data-aos="fade-up">
       <h3 className={styles.title}>{rich(title)}</h3>
-      {sub && <p className={styles.sub}>{sub}</p>}
+      {sub && <p className={styles.sub}>{text(sub)}</p>}
     </div>
   );
 }
@@ -98,7 +111,7 @@ export default function DiseaseTemplate({ d }: { d: Disease }) {
                       <Placeholder label={f.label} aspectRatio="16 / 10" stock={false} />
                       <span className={styles.pill}>{f.title}</span>
                     </div>
-                    {f.desc && <figcaption>{f.desc}</figcaption>}
+                    {f.desc && <figcaption>{text(f.desc)}</figcaption>}
                   </figure>
                 ))}
               </div>
@@ -207,7 +220,7 @@ export default function DiseaseTemplate({ d }: { d: Disease }) {
                 </div>
               ))}
             </div>
-            {d.treatment.note && <p className={styles.note}>{d.treatment.note}</p>}
+            {d.treatment.note && <p className={styles.note}>{text(d.treatment.note)}</p>}
           </div>
         </section>
       )}

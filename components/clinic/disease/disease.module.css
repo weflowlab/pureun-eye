@@ -198,7 +198,7 @@
 /* ───── 비교표: 둥근 블록 격자 ───── */
 .tableWrap { overflow-x: auto; }
 /* 폰: 표를 옆으로 넘겨 보라는 안내 */
-.swipeHint { display: none; margin-bottom: 10px; color: #8a96ad; font-size: 13px; text-align: right; }
+.swipeHint { display: none; margin-bottom: 10px; color: #8a96ad; font-size: 13px; text-align: center; }
 .grid {
   display: grid;
   grid-template-columns: 140px repeat(var(--cols), minmax(0, 1fr));
@@ -465,8 +465,22 @@
   .stack .itemDesc { margin-top: 6px; font-size: 14px; }
   .stepNo { font-size: 13px; }
   /* 수술 과정 사진도 조금 작게 */
-  .processImgMo { max-width: 300px; }
-  .grid { min-width: 680px; }
+  /* 정의 그림: 사진은 둥근 사각, 라벨은 사진 아래 가운데 둥근 사각 태그, 설명은 작게 */
+  .figures figure { text-align: center; }
+  .figImg { border-radius: 16px; }
+  .figImg > div { border-radius: inherit; }
+  .pill { position: static; display: inline-block; margin-top: 12px; padding: 6px 12px; font-size: 14px; border-radius: 8px; transform: none; }
+  .figures figcaption { margin-top: 8px; font-size: 14px; }
+  /* 수술 과정 사진은 가운데 */
+  /* 가운데 정렬 — 세로 flex 안이라 폭을 명시해야 사진 자리가 줄어들지 않음 */
+  .processImgMo { width: 100%; max-width: 300px; margin-inline: auto; }
+  /* 표 폭: 열 수에 따라 (3열 800px, 2열 580px) — 칸 안 문장이 한 줄로 */
+  .grid { min-width: calc(140px + var(--cols) * 220px); font-size: 14px; }
+  .colHead { font-size: 16px; }
+  /* 신뢰 포인트 제목은 한 줄 */
+  .trustList li { padding: 0 12px; }
+  .trustItemTitle { font-size: 15px; letter-spacing: -0.03em; white-space: nowrap; }
+  .trustDesc { font-size: 13px; }
   .swipeHint { display: block; }
 }
 
