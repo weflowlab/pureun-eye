@@ -34,7 +34,8 @@
 /* 태블릿·모바일 */
 @media screen and (max-width: 1210px) {
   .box { margin-bottom: 30px; padding: 50px 5%; border-radius: 20px; }
-  .content { text-align: justify; word-break: normal; }
+  /* 양쪽 정렬이면 짧은 첫 줄의 띄어쓰기가 늘어나므로 왼쪽 정렬 */
+  .content { text-align: left; word-break: normal; }
   .imageSide { flex-flow: column; justify-content: space-evenly; margin-top: 20px; }
   .imageItem { width: 100%; margin: 30px 0 0; }
   .img { width: 100%; }

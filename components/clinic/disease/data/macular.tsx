@@ -18,10 +18,13 @@ export const macular: Disease = {
   clinic: "retina",
   description: "중심 시력을 담당하는 황반의 질환",
   intro: {
-    line1: "가운데가 흐리고 선이 휘어 보인다면",
+    line1: "가운데가 흐리고\n선이 휘어 보인다면",
     line2: "황반을 확인하세요",
     paragraphs: [
-      "황반은 글자를 읽고 얼굴을 알아보는 중심 시력을 담당합니다.",
+      <>
+        황반은 글자를 읽고 얼굴을 알아보는 <br className="mo_block" />
+        중심 시력을 담당합니다.
+      </>,
       <>
         황반변성은 나이가 들며 생기는 대표적인 실명 원인 질환으로,{" "}
         <br className="pc_block" />
@@ -34,8 +37,10 @@ export const macular: Disease = {
     title: "*황반변성*은 무엇일까요?",
     body: (
       <>
-        망막 중심부인 황반에 노폐물이 쌓이거나 비정상 혈관이 자라 시세포가 손상되는 질환입니다.{" "}
+        망막 중심부인 황반에 노폐물이 쌓이거나 <br className="mo_block" />
+        비정상 혈관이 자라 시세포가 손상되는 질환입니다.{" "}
         <br className="pc_block" />
+        <br className="mo_block" />
         크게 건성과 습성으로 나눕니다.
       </>
     ),
@@ -59,7 +64,7 @@ export const macular: Disease = {
   },
   symptoms: {
     title: "*이런 증상*이 나타납니다",
-    sub: "한쪽 눈에만 생기면 다른 눈이 가려 주어 늦게 알아차리기 쉽습니다.",
+    sub: "한쪽 눈에만 생기면 다른 눈이 가려 주어\n늦게 알아차리기 쉽습니다.",
     items: [
       { title: "변형시", desc: "곧은 선이 물결처럼 휘어 보여요." },
       { title: "중심 시야 흐림", desc: "보려는 곳 가운데가 뿌옇게 보여요." },

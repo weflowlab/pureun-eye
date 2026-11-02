@@ -90,7 +90,7 @@ export const diabetic: Disease = {
     ],
   },
   diagnosis: {
-    title: "당뇨망막병증은 *어떻게 진단하나요?*",
+    title: "당뇨망막병증은\n*어떻게 진단하나요?*",
     steps: [
       { title: "산동 안저검사", desc: "출혈·삼출물·신생혈관을 확인합니다." },
       {
@@ -105,7 +105,7 @@ export const diabetic: Disease = {
     ],
   },
   treatment: {
-    title: "당뇨망막병증은 *어떻게 치료하나요?*",
+    title: "당뇨망막병증은\n*어떻게 치료하나요?*",
     sub: "진행 단계와 황반부종 여부에 따라 치료를 조합합니다.",
     items: [
       {
@@ -124,7 +124,7 @@ export const diabetic: Disease = {
         image: "유리체절제술",
       },
     ],
-    note: "어떤 치료든 혈당·혈압 관리가 함께 이루어져야 효과를 유지할 수 있습니다.",
+    note: "어떤 치료든 혈당·혈압 관리가 함께 이루어져야\n효과를 유지할 수 있습니다.",
   },
   faq: [
     {

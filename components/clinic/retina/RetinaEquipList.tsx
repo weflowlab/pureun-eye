@@ -117,7 +117,8 @@ export default function RetinaEquipList() {
             <p className={styles.equipGroupTitle} suppressHydrationWarning data-aos="fade-up" data-aos-duration="1500">
               {g.title}
             </p>
-            <div>
+            {/* 폰에서는 카드로 가로 스크롤 */}
+            <div className={styles.equipList}>
               {g.items.map((eq) => {
                 const src = photoOf(eq.photoModel);
                 return (

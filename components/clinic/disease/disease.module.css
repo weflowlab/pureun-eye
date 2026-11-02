@@ -447,16 +447,31 @@
   .faqAIn p { font-size: 15px; }
 }
 @media screen and (max-width: 768px) {
-  .n2,
-  .n3,
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  /* 정의 그림 · 원인 · 치료 카드: 폰에서는 가로 스크롤 (화면 끝까지 넘겨 보이게, 한 장씩 멈춤) */
+  .figures,
   .cards,
   .cards.two,
-  .tiles,
-  .causes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .causes li { padding: 24px 14px 22px; border-radius: 16px; }
+  .causes {
+    display: flex;
+    gap: 12px;
+    margin: 0 -5.556%;
+    padding: 0 5.556% 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 5.556%;
+    scrollbar-width: none;
+  }
+  .figures::-webkit-scrollbar,
+  .cards::-webkit-scrollbar,
+  .causes::-webkit-scrollbar { display: none; }
+  .figures > * { flex: 0 0 min(78%, 300px); scroll-snap-align: start; }
+  .cards > .card { flex: 0 0 min(82%, 320px); scroll-snap-align: start; }
+  .causes > li { flex: 0 0 min(66%, 250px); scroll-snap-align: start; }
+  .causes li { padding: 24px 16px 22px; border-radius: 16px; }
   .causeNo { width: 44px; height: 44px; margin-bottom: 14px; font-size: 14px; }
-  .causes .itemTitle { font-size: 16px; }
-  .causes .itemDesc { font-size: 13px; }
+  .causes .itemTitle { font-size: 15px; }
+  .causes .itemDesc { font-size: 13px; overflow-wrap: anywhere; }
   /* 폰에서는 카드 쌓기 대신 차례로 나열, 왼쪽 작은 사진 + 오른쪽 글 */
   .stack li { position: static; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; margin-bottom: 14px; padding: 16px; border-radius: 18px; }
   .stackImg { border-radius: 12px; }

@@ -241,14 +241,53 @@ a.card:hover .cardMore { color: #f2f2f2; }
 @media screen and (max-width: 768px) {
   .cardGrid,
   .cardGrid.four { grid-template-columns: minmax(0, 1fr); }
-  .doctorGrid { grid-template-columns: minmax(0, 1fr); }
-  .doctorPhoto { max-width: 300px; }
-  /* 장비 목록: 왼쪽 작은 사진 + 오른쪽 글 (세로로 길어지지 않게) */
+  /* 의료진: 가로 스크롤 (화면 끝까지 넘겨 보이게, 한 명씩 멈춤) */
+  .doctorGrid {
+    display: flex;
+    gap: 14px;
+    margin: 35px -5.556% 0;
+    padding: 0 5.556% 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 5.556%;
+    scrollbar-width: none;
+  }
+  .doctorGrid::-webkit-scrollbar { display: none; }
+  .doctor { flex: 0 0 min(70%, 260px); scroll-snap-align: start; }
+  .doctorPhoto { max-width: none; }
+
+  /* 장비: 그룹마다 카드 가로 스크롤 (사진 · 분류 · 모델 · 제조사 · 특징) */
+  .equipList {
+    display: flex;
+    gap: 12px;
+    margin: 0 -5.556%;
+    padding: 0 5.556% 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 5.556%;
+    scrollbar-width: none;
+  }
+  .equipList::-webkit-scrollbar { display: none; }
   .equipItem,
-  .equipItem:nth-child(even) { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; }
-  .equipImg { width: 110px; max-width: none; }
-  .equipImg img { border-radius: 12px; }
-  .equipModel { font-size: 18px; line-height: 26px; }
-  .equipDesc { margin-top: 12px; font-size: 14px; line-height: 22px; }
+  .equipItem:nth-child(even) {
+    display: flex;
+    flex: 0 0 min(78%, 300px);
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e6ebf3;
+    border-top: 1px solid #e6ebf3;
+    border-radius: 20px;
+    scroll-snap-align: start;
+  }
+  .equipImg { width: 100%; max-width: none; padding: 16px; background: #fff; border-bottom: 1px solid #eef1f6; }
+  .equipImg img { border-radius: 0; }
+  .equipItem > div:last-child { padding: 16px 16px 20px; }
+  .equipMaker { font-size: 13px; }
+  .equipModel { margin-top: 2px; font-size: 17px; line-height: 24px; }
+  .equipCat { margin-top: 8px; padding: 3px 10px; font-size: 12px; }
+  .equipDesc { margin-top: 12px; padding-left: 16px; font-size: 13px; line-height: 20px; }
   .equipGroupTitle { padding: 9px 22px; font-size: 16px; }
 }

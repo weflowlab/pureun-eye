@@ -57,7 +57,7 @@ export const vascular: Disease = {
     ],
   },
   causes: {
-    title: "망막혈관질환, *누구에게 잘 생길까요?*",
+    title: "망막혈관질환,\n*누구에게 잘 생길까요?*",
     items: [
       {
         title: "고혈압",
@@ -90,7 +90,7 @@ export const vascular: Disease = {
     ],
   },
   diagnosis: {
-    title: "망막혈관질환은 *어떻게 진단하나요?*",
+    title: "망막혈관질환은\n*어떻게 진단하나요?*",
     sub: "막힌 혈관의 위치와 망막 손상 정도를 확인합니다.",
     steps: [
       { title: "산동 안저검사", desc: "출혈 범위와 혈관 상태를 확인합니다." },
@@ -109,7 +109,7 @@ export const vascular: Disease = {
     ],
   },
   treatment: {
-    title: "망막혈관질환은 *어떻게 치료하나요?*",
+    title: "망막혈관질환은\n*어떻게 치료하나요?*",
     sub: "막힌 혈관을 되돌리기보다, 그로 인해 생긴 부종과 신생혈관을 치료해 시력을 지킵니다.",
     items: [
       {

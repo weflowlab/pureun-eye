@@ -38,7 +38,7 @@ export default function BoimPage() {
       path="/retina/boim"
       description={
         <>
-          잘 보이는 것은 더 좋은 삶의 질을 의미합니다. <br className="pc_block" />
+          잘 보이는 것은 더 좋은 삶의 질을 의미합니다. <br />
           망막 질환, BOIM이 함께합니다.
         </>
       }
@@ -83,7 +83,8 @@ export default function BoimPage() {
           <>
             실명으로 이어질 수 있는 망막 질환,{" "}
             <br className="pc_block" />
-            조기 진단과 적절한 치료가 시력을 지킵니다.
+            조기 진단과 적절한 치료가 <br className="mo_block" />
+            시력을 지킵니다.
           </>
         }
       />

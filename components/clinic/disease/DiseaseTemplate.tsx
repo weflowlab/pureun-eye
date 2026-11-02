@@ -80,8 +80,8 @@ export default function DiseaseTemplate({ d }: { d: Disease }) {
           <div suppressHydrationWarning data-aos="fade-up">
             <p className={styles.brand}>Pureun Eye Clinic</p>
             <h2 className={styles.introTitle}>
-              <span>{d.intro.line1}</span>
-              <strong>{d.intro.line2}</strong>
+              <span>{text(d.intro.line1)}</span>
+              <strong>{text(d.intro.line2)}</strong>
             </h2>
           </div>
           <div className={styles.introBody} suppressHydrationWarning data-aos="fade-up" data-aos-delay="100">
