@@ -35,3 +35,21 @@
   .btnWrap { display: flex; justify-content: center; margin-top: 0; }
   .posts { gap: 10px; }
 }
+
+/* 실제 글 카드: 16:10 썸네일 + 카테고리 칩·제목 */
+.thumb { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #dfe4ee; }
+.thumbPh { position: absolute; inset: 0; }
+.meta { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px 16px; }
+.postTitle {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.45;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+@media screen and (max-width: 768px) {
+  .meta { gap: 6px; padding: 10px 12px 12px; }
+  .postTitle { font-size: 13px; }
+}

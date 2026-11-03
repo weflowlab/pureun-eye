@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type ChangeEvent } from "react";
+import { useState, useTransition, type ChangeEvent } from "react";
+import { submitInquiry } from "@/lib/inquiry";
 import { CONSULT_SUBJECTS } from "@/lib/consult";
 import { SITE } from "@/lib/site";
 import styles from "./ReservationModal.module.css";
@@ -37,13 +38,14 @@ type Props = {
   onClose: () => void;
 };
 
-/** 상담 신청 모달 (실제 전송 없음) */
+/** 상담 신청 모달. 제출하면 서버 액션(lib/inquiry.ts)이 관리자 '상담 문의' 에 저장한다 */
 export default function ReservationModal({ isOpen, onClose }: Props) {
   const [subjects, setSubjects] = useState<string[]>([]);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [agree, setAgree] = useState(false);
   const [done, setDone] = useState(false);
+  const [pending, startTransition] = useTransition();
 
   if (!isOpen) return null;
 
@@ -51,13 +53,17 @@ export default function ReservationModal({ isOpen, onClose }: Props) {
   const toggleSubject = (value: string) =>
     setSubjects((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
 
-  // 유효성 검사 후 완료 화면 표시 (서버 전송 없음)
+  // 유효성 검사 후 서버에 저장하고 완료 화면 표시
   const handleSubmit = () => {
+    if (pending) return;
     if (!agree) return alert("개인정보 취급방침을 체크해주세요.");
     if (!name.trim()) return alert("이름을 입력해주세요.");
     if (!phone.trim()) return alert("연락처를 입력해주세요.");
-    console.log("[상담신청]", { name, phone, subjects });
-    setDone(true);
+    startTransition(async () => {
+      const r = await submitInquiry({ name, phone, subjects, page: window.location.pathname });
+      if (r.ok) setDone(true);
+      else alert(r.error);
+    });
   };
 
   // 닫을 때 상태 초기화
@@ -142,8 +148,8 @@ export default function ReservationModal({ isOpen, onClose }: Props) {
 
             {/* 버튼 */}
             <div className={styles.btnCenter}>
-              <button type="button" onClick={handleSubmit}>
-                예약하기
+              <button type="button" onClick={handleSubmit} disabled={pending}>
+                {pending ? "접수 중…" : "예약하기"}
               </button>
               <button type="button" className={styles.btnClose} onClick={handleClose}>
                 닫 기

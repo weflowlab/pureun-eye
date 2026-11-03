@@ -42,3 +42,11 @@ next-env.d.ts
 
 # claude code local settings
 .claude/settings.local.json
+
+# payload
+*.db
+*.db-journal
+payload.db-*
+public/media/
+.payload-media-tmp
+!.env.example

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { MENU, groupHref, pageHref } from "@/lib/site";
+import { MENU, groupHref, isExternalHref, pageHref } from "@/lib/site";
 import styles from "./Banner.module.css";
 
 type Props = { groupSlug: string; pageSlug: string };
@@ -66,7 +66,7 @@ export default function BannerNav({ groupSlug, pageSlug }: Props) {
               <li key={p.slug}>
                 <Link
                   href={pageHref(group, p)}
-                  target={p.external ? "_blank" : undefined}
+                  target={p.external && isExternalHref(p.external) ? "_blank" : undefined}
                   className={p.slug === pageSlug ? styles.on : ""}
                   aria-current={p.slug === pageSlug ? "page" : undefined}
                   onClick={() => setOpen(null)}

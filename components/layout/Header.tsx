@@ -4,7 +4,7 @@ import { Suspense, useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MENU, SITE, groupHref, pageHref } from "@/lib/site";
+import { MENU, SITE, groupHref, isExternalHref, pageHref } from "@/lib/site";
 import GnbMenu from "./GnbMenu";
 import styles from "./Header.module.css";
 
@@ -27,6 +27,8 @@ function HeaderView({ pathname }: { pathname: string | null }) {
   // 메인이 아닌 페이지는 항상 흰 배경
   const isHome = pathname === "/";
   const solid = scrolled || !isHome;
+  // 블로그(/blog)는 전용 헤더(components/blog/layout/BlogHeader)를 쓰므로 홈페이지 헤더는 그리지 않는다
+  if (pathname?.startsWith("/blog")) return null;
 
   return (
     <>
@@ -58,7 +60,7 @@ function HeaderView({ pathname }: { pathname: string | null }) {
                       <li key={p.slug}>
                         <Link
                           href={pageHref(g, p)}
-                          target={p.external ? "_blank" : undefined}
+                          target={p.external && isExternalHref(p.external) ? "_blank" : undefined}
                           className={pathname === pageHref(g, p) ? styles.subActive : ""}
                           onClick={() => setDropOpen(false)}
                         >

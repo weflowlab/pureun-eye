@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useState, type CSSProperties, type RefObject } from "react";
 import Link from "next/link";
-import { HOURS, MENU, SITE, pageHref } from "@/lib/site";
+import { HOURS, MENU, SITE, isExternalHref, pageHref } from "@/lib/site";
 import { getLenis } from "./Providers";
 import styles from "./GnbMenu.module.css";
 
@@ -114,7 +114,7 @@ export default function GnbMenu({ open, onClose, anchorRef }: Props) {
                       <li key={p.slug}>
                         <Link
                           href={pageHref(g, p)}
-                          target={p.external ? "_blank" : undefined}
+                          target={p.external && isExternalHref(p.external) ? "_blank" : undefined}
                           onClick={onClose}
                           tabIndex={open ? 0 : -1}
                         >

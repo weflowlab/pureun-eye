@@ -18,7 +18,8 @@ export const SITE = {
   since: 2001,
   kakaoUrl: "#",
   instagramUrl: "#",
-  blogUrl: "#",
+  /** 웹블로그 (같은 사이트의 /blog — Payload CMS 로 관리) */
+  blogUrl: "/blog",
   // 지도 앱 링크: 현재는 검색 링크 — 병원에서 정확한 장소 링크를 받으면 교체
   naverMapUrl: "https://map.naver.com/p/search/%EC%A0%84%EC%A3%BC%20%ED%91%B8%EB%A5%B8%EC%95%88%EA%B3%BC%EC%9D%98%EC%9B%90",
   kakaoMapUrl: "https://map.kakao.com/link/search/%EC%A0%84%EC%A3%BC%20%ED%91%B8%EB%A5%B8%EC%95%88%EA%B3%BC%EC%9D%98%EC%9B%90",
@@ -98,10 +99,20 @@ export const MENU: MenuGroup[] = [
     labelEn: "CONTACT",
     pages: [{ slug: "online", label: "상담 신청하기" }],
   },
+  {
+    slug: "blog",
+    label: "웹블로그",
+    labelEn: "BLOG",
+    // 블로그는 /{group}/{page} 구조가 아니라 /blog 자체가 페이지 (app/(site)/blog)
+    pages: [{ slug: "home", label: "눈 건강 이야기", external: "/blog" }],
+  },
 ];
 
 /** 페이지 링크 (외부 링크 우선) */
 export const pageHref = (group: MenuGroup, page: MenuPage) => page.external ?? `/${group.slug}/${page.slug}`;
+
+/** 다른 사이트로 나가는 링크인지 (새 창으로 열 대상). 같은 사이트의 /blog 같은 경로는 아님 */
+export const isExternalHref = (href: string) => /^https?:\/\//.test(href);
 
 /** 대메뉴 링크 = 첫 하위 페이지 */
 export const groupHref = (group: MenuGroup) => pageHref(group, group.pages[0]);

@@ -22,7 +22,7 @@
   animation: popIn 0.3s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-/* 이미지 영역: 탭마다 한 장, 활성 탭만 보임 */
+/* 이미지 영역: 탭마다 한 장(관리자 업로드 이미지), 활성 탭만 보임 */
 .imageWrap {
   position: relative;
   width: 100%;
@@ -35,26 +35,13 @@
 .slide {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   opacity: 0;
-  background: repeating-linear-gradient(45deg, #e9edf5 0 12px, #dfe4ee 12px 24px);
-  border: 1px dashed #9aa6c0;
-  color: #4a5675;
+  background: #dfe4ee;
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
+.img { object-fit: cover; }
 .slideActive { opacity: 1; pointer-events: auto; }
-.phLabel {
-  padding: 4px 10px;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.4;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 4px;
-}
 
 /* 탭: 팝업 제목을 가로로 균등 배치 */
 .tabs {

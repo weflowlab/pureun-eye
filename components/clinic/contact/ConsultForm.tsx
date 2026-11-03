@@ -2,12 +2,14 @@
 
 import { CircleCheck } from "lucide-react";
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
+import { useState, useTransition, type FormEvent } from "react";
+import { usePathname } from "next/navigation";
+import { submitInquiry } from "@/lib/inquiry";
 import { CONSULT_SUBJECTS } from "@/lib/consult";
 import { SITE } from "@/lib/site";
 import styles from "./contact.module.css";
 
-/** 상담 신청 폼 (페이지에 바로 놓는 형태, 실제 전송 없음 — 관리자 페이지 연동 시 교체) */
+/** 상담 신청 폼 (페이지에 바로 놓는 형태). 제출하면 서버 액션(lib/inquiry.ts)이 관리자 '상담 문의' 에 저장한다 */
 export default function ConsultForm() {
   const [subjects, setSubjects] = useState<string[]>([]);
   const [name, setName] = useState("");
@@ -16,6 +18,9 @@ export default function ConsultForm() {
   const [agree, setAgree] = useState(false);
   const [done, setDone] = useState(false);
   const [tried, setTried] = useState(false); // 제출을 한 번 눌렀으면 빈 필수 항목 아래 안내 표시
+  const [serverError, setServerError] = useState("");
+  const [pending, startTransition] = useTransition();
+  const pathname = usePathname();
 
   const toggle = (v: string) => setSubjects((prev) => (prev.includes(v) ? prev.filter((s) => s !== v) : [...prev, v]));
 
@@ -26,13 +31,17 @@ export default function ConsultForm() {
     agree: !agree && "개인정보 수집·이용에 동의해 주세요",
   };
 
-  // 필수 항목을 다 채웠으면 완료 화면 (서버 전송 없음)
+  // 필수 항목을 다 채웠으면 서버에 저장하고 완료 화면
   const submit = (e: FormEvent) => {
     e.preventDefault();
     setTried(true);
-    if (errors.name || errors.phone || errors.agree) return;
-    console.log("[상담신청]", { subjects, name, phone, message });
-    setDone(true);
+    if (errors.name || errors.phone || errors.agree || pending) return;
+    setServerError("");
+    startTransition(async () => {
+      const r = await submitInquiry({ subjects, name, phone, message, page: pathname });
+      if (r.ok) setDone(true);
+      else setServerError(r.error);
+    });
   };
 
   /** 필수 항목 아래 빨간 안내 */
@@ -45,6 +54,7 @@ export default function ConsultForm() {
     setMessage("");
     setAgree(false);
     setTried(false);
+    setServerError("");
     setDone(false);
   };
 
@@ -124,8 +134,9 @@ export default function ConsultForm() {
           {err(errors.agree)}
         </div>
 
-        <button type="submit" className={styles.submit}>
-          상담 신청하기
+        {serverError && <p className={styles.err}>* {serverError}</p>}
+        <button type="submit" className={styles.submit} disabled={pending}>
+          {pending ? "접수 중…" : "상담 신청하기"}
         </button>
       </form>
 

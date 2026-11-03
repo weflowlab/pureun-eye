@@ -4,6 +4,8 @@
 @import "https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap";
 @import "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap";
 @import "tailwindcss";
+/* 블로그(/blog) 전용 토큰·유틸리티·본문 스타일 */
+@import "./blog.css";
 
 /* 디자인 토큰 */
 :root {
@@ -39,33 +41,36 @@
   --chip-bg: #e3eaf6;
 }
 
-/* 리셋 */
-*, *::before, *::after { box-sizing: border-box; }
-html, body, div, span, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, a, em, img, strong, b, i,
-dl, dt, dd, ol, ul, li, form, label, table, tbody, thead, tr, th, td,
-article, aside, figure, figcaption, footer, header, nav, section {
-  margin: 0; padding: 0; border: 0; font: inherit; vertical-align: baseline;
-}
-body { line-height: 1; }
-ol, ul { list-style: none; }
-table { border-collapse: collapse; border-spacing: 0; }
-a { color: inherit; text-decoration: none; }
-input, textarea, button, select { appearance: none; border-radius: 0; outline: 0; }
-button { background: none; cursor: pointer; }
-img { vertical-align: top; max-width: 100%; height: auto; }
+/* 리셋·기본 타이포.
+   Tailwind 의 base 레이어에 넣는다: 레이어 밖(CSS Modules)의 홈페이지 스타일은 전과 같이 이 리셋을 이기고,
+   블로그가 쓰는 Tailwind 유틸리티(rounded-full, text-2xl 등)도 이 리셋에 덮이지 않는다 (레이어 밖 규칙은 모든 레이어를 이기므로). */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body, div, span, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, a, em, img, strong, b, i,
+  dl, dt, dd, ol, ul, li, form, label, table, tbody, thead, tr, th, td,
+  article, aside, figure, figcaption, footer, header, nav, section {
+    margin: 0; padding: 0; border: 0; font: inherit; vertical-align: baseline;
+  }
+  body { line-height: 1; }
+  ol, ul { list-style: none; }
+  table { border-collapse: collapse; border-spacing: 0; }
+  a { color: inherit; text-decoration: none; }
+  input, textarea, button, select { appearance: none; border-radius: 0; outline: 0; }
+  button { background: none; cursor: pointer; }
+  img { vertical-align: top; max-width: 100%; height: auto; }
 
-/* 기본 타이포 */
-/* 스크롤바 자리 항상 확보: 전체메뉴·모달로 스크롤 잠글 때 페이지가 옆으로 밀리지 않게 */
-html { overflow-x: hidden; scrollbar-gutter: stable; }
-/* 폰(iOS)에서도 화면 밖 요소 때문에 옆으로 밀리지 않게 */
-body { overflow-x: clip; }
-html * { word-break: keep-all; }
-html, body { font-family: var(--font-sans); }
-body {
-  color: var(--color-deep-grey);
-  background: var(--color-white);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* 스크롤바 자리 항상 확보: 전체메뉴·모달로 스크롤 잠글 때 페이지가 옆으로 밀리지 않게 */
+  html { overflow-x: hidden; scrollbar-gutter: stable; }
+  /* 폰(iOS)에서도 화면 밖 요소 때문에 옆으로 밀리지 않게 */
+  body { overflow-x: clip; }
+  html * { word-break: keep-all; }
+  html, body { font-family: var(--font-sans); }
+  body {
+    color: var(--color-deep-grey);
+    background: var(--color-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 /* 스크롤바 */
