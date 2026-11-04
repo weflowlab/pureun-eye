@@ -33,7 +33,7 @@ export const HOURS = {
 };
 
 export type MenuPage = { slug: string; label: string; /** 외부 링크면 지정 */ external?: string };
-export type MenuGroup = { slug: string; label: string; labelEn: string; pages: MenuPage[] };
+export type MenuGroup = { slug: string; label: string; labelEn: string; pages: MenuPage[]; /** PC 헤더 메뉴바에는 표시하지 않음 */ hideInHeader?: boolean };
 
 /** 전체 메뉴 — 기존 홈페이지 구조 기준, 커뮤니티는 구글폼 요청(공지·FAQ·후기). URL: /{group}/{page} */
 export const MENU: MenuGroup[] = [
@@ -103,6 +103,7 @@ export const MENU: MenuGroup[] = [
     slug: "blog",
     label: "웹블로그",
     labelEn: "BLOG",
+    hideInHeader: true, // 헤더 메뉴바에는 안 보이고 전체메뉴·퀵메뉴·메인 블로그 섹션으로 들어간다
     // 블로그는 /{group}/{page} 구조가 아니라 /blog 자체가 페이지 (app/(site)/blog)
     pages: [{ slug: "home", label: "눈 건강 이야기", external: "/blog" }],
   },

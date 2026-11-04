@@ -5,7 +5,6 @@ import { ClipboardList, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { SITE } from "@/lib/site";
 import { getLenis } from "./Providers";
-import ReservationModal from "./ReservationModal";
 import styles from "./QuickMenu.module.css";
 
 // 펼침 상태를 localStorage에 저장 (새로고침 후에도 유지)
@@ -85,7 +84,6 @@ const BRAND = new Set(["call", "kakao", "instagram", "blog"]);
 /** 우측 고정 퀵메뉴(흰 카드) + 맨 위로 버튼 */
 export default function QuickMenu() {
   const open = useSyncExternalStore(subscribe, readOpen, () => false);
-  const [modalOpen, setModalOpen] = useState(false);
   // 맨 위로 버튼: 조금 내려왔을 때만 표시
   const [showTop, setShowTop] = useState(false);
   const router = useRouter();
@@ -101,7 +99,7 @@ export default function QuickMenu() {
 
   // 메뉴 항목: 고객 요청 문의 채널(전화·카카오채널·인스타그램·블로그) + 상담신청·오시는 길
   const items = [
-    { key: "consult", label: "상담신청", onClick: () => setModalOpen(true) },
+    { key: "consult", label: "상담신청", onClick: () => router.push("/contact/online") },
     { key: "call", label: "상담전화", onClick: () => window.location.assign(`tel:${SITE.tel}`) },
     { key: "kakao", label: "카카오채널", onClick: () => window.open(SITE.kakaoUrl) },
     { key: "instagram", label: "인스타그램", onClick: () => window.open(SITE.instagramUrl) },
@@ -155,7 +153,6 @@ export default function QuickMenu() {
         </Icon>
       </button>
 
-      <ReservationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }

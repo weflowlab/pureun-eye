@@ -133,6 +133,7 @@
   box-shadow: 0 8px 20px #152c6b33;
   transition: width 0.3s, background 0.3s, opacity 0.3s;
 }
+.toggleBtn svg { transform: translateY(2px); } /* 화살표가 가운데보다 살짝 위로 보여 보정 */
 .toggleBtn:hover {
   width: 40px;
   background: #0f2152;
