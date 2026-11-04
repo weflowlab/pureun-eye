@@ -7,7 +7,9 @@ import { Nanum_Myeongjo, Noto_Sans_KR, Playfair_Display } from "next/font/google
  * 적용: app/(site)/layout.tsx, app/global-not-found.tsx 의 <html className={fontVariables}>
  */
 
-/** 본문 (가변 굵기 100~900, 한글 포함) */
+/** 본문 (가변 굵기 100~900, 한글 포함).
+ *  한글은 유니코드 범위별 조각 124개로 나뉘어 페이지에 나온 글자가 든 조각만 받는다 (조각당 ~16KB, 글자가 많은 페이지는 1MB 넘게).
+ *  굵기별 고정 글꼴로 요청해도 구글이 같은 가변 파일을 주므로(확인함) 줄어들지 않는다. 한 번 받으면 브라우저가 캐시한다. */
 export const notoSansKr = Noto_Sans_KR({ subsets: ["latin"], variable: "--font-noto", display: "swap" });
 
 /** 명조 (대제목 일부) */
