@@ -72,7 +72,7 @@ export function Sheet({ open, onClose, side = "bottom", modal = true, title, cla
       {modal && (
         <div
           aria-hidden
-          className={`fixed inset-0 z-50 bg-black/10 backdrop-blur-xs transition-all duration-200 ${
+          className={`fixed inset-0 z-[10000] bg-black/10 backdrop-blur-xs transition-all duration-200 ${
             open ? "visible opacity-100" : "invisible opacity-0"
           }`}
         />
@@ -85,7 +85,7 @@ export function Sheet({ open, onClose, side = "bottom", modal = true, title, cla
         aria-hidden={!open}
         data-side={side}
         data-state={open ? "open" : "closed"}
-        className={`fixed z-50 flex flex-col gap-4 bg-background text-sm text-foreground shadow-lg transition-all duration-300 ease-out ${
+        className={`fixed z-[10000] flex flex-col gap-4 bg-background text-sm text-foreground shadow-lg transition-all duration-300 ease-out ${
           open ? "visible opacity-100" : "invisible opacity-0"
         } ${sideCls} ${className}`}
       >
