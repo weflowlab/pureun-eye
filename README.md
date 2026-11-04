@@ -50,6 +50,11 @@ components/blog/       블로그 UI (Tailwind). components/blog/admin 은 관리
 ## 개발 메모
 
 - **스키마를 바꾸면** dev 서버를 띄운 채 `npm run payload:generate` 로 `payload-types.ts` 와 `app/(payload)/admin/importMap.js` 를 다시 만든다 (Payload CLI 는 이 환경에서 깨진다).
+- **운영 DB(Postgres)는 마이그레이션으로 테이블을 만든다.** 개발(SQLite)은 스키마가 자동 반영되지만 운영에서는 `migrations/` 의 파일을 Payload 가 기동 때 실행한다(`payload.config.ts` prodMigrations). 스키마를 바꾸면 운영용 마이그레이션도 새로 만들어 함께 커밋해야 한다:
+  1. `.env` 의 `DATABASE_URI` 를 잠시 Neon 주소로 바꾼다 (기존 dev 서버는 끈다)
+  2. `PAYLOAD_MIGRATING=true npx next dev --port 3001` 로 띄운다 (개발용 자동 반영을 막는 플래그)
+  3. `npm run payload:migrate-create --name=변경내용` → `migrations/{날짜}_{이름}.ts`·`.json` 생성
+  4. `.env` 를 다시 `file:./payload.db` 로 되돌리고, 생성된 파일을 커밋한다. 배포 빌드에서 자동 적용된다.
 - `cacheComponents` 는 꺼 두었다(Payload 관리자·미리보기와 충돌). 홈페이지는 그대로 정적 생성된다.
 - 홈페이지 리셋 CSS 는 `@layer base` 안에 있다. 그래야 블로그의 Tailwind 유틸리티가 리셋에 덮이지 않는다. 블로그 토큰(`--brand-*`, `--primary`)은 홈페이지 토큰(`--color-primary`)과 이름이 다르다.
 - 이미지 최적화(`/_next/image`)는 꺼져 있다. 블로그 업로드는 Payload 가 업로드 시점에 WebP·용도별 크기를 만든다.

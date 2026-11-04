@@ -21,6 +21,7 @@ import { Inquiries } from "./collections/Inquiries";
 import { Popups } from "./collections/Popups";
 import { Clinic } from "./globals/Clinic";
 import { HomePage } from "./globals/HomePage";
+import { migrations } from "./migrations";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -103,7 +104,13 @@ export default buildConfig({
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
   // DB: DATABASE_URI 가 Postgres 주소(Neon)면 Postgres, 없으면 로컬 SQLite 파일(payload.db).
   db: process.env.DATABASE_URI?.startsWith("postgres")
-    ? postgresAdapter({ pool: { connectionString: process.env.DATABASE_URI } })
+    ? postgresAdapter({
+        pool: { connectionString: process.env.DATABASE_URI },
+        // 운영(production)에서는 개발처럼 스키마를 자동으로 밀어 넣지 않는다. migrations/ 의 마이그레이션을 기동 때 실행해 테이블을 만든다.
+        // 스키마(collections/globals)를 바꾸면: 개발 서버를 Postgres 로 띄운 뒤 `npm run payload:migrate-create` 로 새 마이그레이션을 만들어 함께 커밋한다 (README 참고).
+        migrationDir: path.resolve(dirname, "migrations"),
+        prodMigrations: migrations,
+      })
     : sqliteAdapter({
         client: { url: process.env.DATABASE_URI || "file:./payload.db", authToken: process.env.DATABASE_AUTH_TOKEN },
         // SQLite 는 쓰기 잠금이 하나뿐이라, 요청 하나가 트랜잭션 안에서 실패하면 잠금이 풀리지 않고 서버 전체가 멈추는 일이 있었다.

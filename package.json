@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "payload:generate": "curl -s http://localhost:3000/api/dev-generate",
-    "seed": "curl -s http://localhost:3000/api/dev-seed"
+    "seed": "curl -s http://localhost:3000/api/dev-seed",
+    "payload:migrate-create": "curl -s \"http://localhost:3001/api/dev-migrate-create?name=${npm_config_name:-migration}\""
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.91.0",

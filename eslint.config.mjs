@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Payload 가 생성하는 운영 DB 마이그레이션 (직접 편집하지 않음)
+    "migrations/**",
   ]),
 ]);
 
