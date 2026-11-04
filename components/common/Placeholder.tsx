@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import Image from "next/image";
 import { stockFor } from "@/lib/stock";
 import styles from "./Placeholder.module.css";
 
@@ -33,7 +32,18 @@ export default function Placeholder({ label, width, height, aspectRatio, dark, s
         data-stock={label}
         {...reveal}
       >
-        <Image src={src} alt="" fill sizes="(max-width: 768px) 100vw, 60vw" />
+        {/* 800px 변형(name-800.webp)과 원본(1600px)을 srcset 으로 주면 브라우저가 칸 폭에 맞는 쪽을 받는다.
+            next/image 는 최적화를 꺼 둔 상태라 srcset 을 만들지 않으므로 img 를 직접 쓴다. 첫 화면(메인 비주얼·인트로)만 즉시, 나머지는 지연 로드 */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- srcset 을 직접 주려고 next/image 대신 img 사용 (이미지 최적화 꺼짐) */}
+        <img
+          src={src}
+          srcSet={`${src.replace(/\.webp$/, "-800.webp")} 800w, ${src} 1600w`}
+          sizes="(max-width: 768px) 100vw, 60vw"
+          alt=""
+          loading={/^메인 (비주얼|인트로)/.test(label) ? "eager" : "lazy"}
+          decoding="async"
+          className={styles.stockImg}
+        />
       </div>
     );
   }

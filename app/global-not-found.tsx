@@ -6,6 +6,7 @@ import QuickMenu from "@/components/layout/QuickMenu";
 import Providers from "@/components/layout/Providers";
 import NotFoundView from "@/components/common/NotFoundView";
 import { SITE } from "@/lib/site";
+import { fontVariables } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: `페이지를 찾을 수 없습니다 | ${SITE.name}`,
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
  *  루트 레이아웃이 홈페이지(app/(site))와 관리자(app/(payload)) 둘이라 Next 가 공통 404 를 만들지 못해, 여기서 홈페이지 레이아웃을 그대로 꾸민다 */
 export default function GlobalNotFound() {
   return (
-    <html lang="ko">
+    <html lang="ko" className={fontVariables}>
       <body>
         <Providers>
           <Header />

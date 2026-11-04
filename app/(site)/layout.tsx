@@ -7,6 +7,7 @@ import QuickMenu from "@/components/layout/QuickMenu";
 import Providers from "@/components/layout/Providers";
 import { PageTracker } from "@/components/blog/PageTracker";
 import { SITE } from "@/lib/site";
+import { fontVariables } from "@/lib/fonts";
 
 const DESCRIPTION = `${SITE.name} — 전주 시력교정·백내장·망막 전문 안과`;
 
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
 /** 홈페이지·블로그 공통 루트 레이아웃: 헤더(+모바일 GNB) / 본문 / 푸터 / 우측 퀵메뉴. (관리자 /admin 은 app/(payload) 의 별도 레이아웃) */
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={fontVariables}>
       <body>
         {/* AOS·Lenis 등 클라이언트 전역 초기화 */}
         <Providers>

@@ -1,8 +1,4 @@
-/* 웹폰트 (참고 사이트와 동일 구성) */
-@import "https://webfontworld.github.io/gmarket/GmarketSans.css";
-@import "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap";
-@import "https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap";
-@import "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap";
+/* 웹폰트는 next/font 로 자체 호스팅 (lib/fonts.ts). <html> 의 --font-noto / --font-myeongjo / --font-playfair-display 변수를 아래에서 쓴다 */
 @import "tailwindcss";
 /* 블로그(/blog) 전용 토큰·유틸리티·본문 스타일 */
 @import "./blog.css";
@@ -20,10 +16,10 @@
   --color-bg-dark: #404040;
   --color-danger: #9c0f0f;
   --color-secondary-btn: #7c2421;
-  --font-sans: "Noto Sans KR", sans-serif;
-  --font-serif: "Nanum Myeongjo", serif;
-  --font-gmarket: "GmarketSans", sans-serif;
-  --font-playfair: "Playfair Display", serif;
+  --font-sans: var(--font-noto), "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-serif: var(--font-myeongjo), serif;
+  --font-gmarket: var(--font-sans); /* GmarketSans(외부 webfontworld) 는 전화번호 한 곳에만 쓰여 본문 글꼴로 대체 */
+  --font-playfair: var(--font-playfair-display), serif;
   --max-width: 1210px;
   --section-padding: 150px 0;
   --section-padding-mobile: 50px 0;

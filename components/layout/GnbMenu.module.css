@@ -83,9 +83,9 @@
 .tel {
   display: inline-block;
   margin-top: 36px;
-  font-family: var(--font-gmarket);
+  font-family: var(--font-sans);
   font-size: 26px;
-  font-weight: 500;
+  font-weight: 600;
   transition: color 0.3s;
 }
 .tel:hover {
