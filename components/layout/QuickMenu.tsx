@@ -105,7 +105,7 @@ export default function QuickMenu() {
     { key: "call", label: "상담전화", onClick: () => window.location.assign(`tel:${SITE.tel}`) },
     { key: "kakao", label: "카카오채널", onClick: () => window.open(SITE.kakaoUrl) },
     { key: "instagram", label: "인스타그램", onClick: () => window.open(SITE.instagramUrl) },
-    { key: "blog", label: "블로그", onClick: () => router.push(SITE.blogUrl) },
+    { key: "blog", label: "웹블로그", onClick: () => router.push(SITE.blogUrl) },
     { key: "map", label: "오시는 길", onClick: () => router.push("/about/location") },
   ] as const;
 

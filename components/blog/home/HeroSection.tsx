@@ -47,6 +47,7 @@ const ORBITS = [
   },
 ];
 import { useSite } from "@/components/blog/SiteProvider";
+import { MobileBreaks } from "@/components/blog/ui/MobileBreaks";
 import * as defaults from "@/lib/homeDefaults"; // 기본 문구 (Payload 'home' 글로벌이 비어 있을 때)
 
 // 궤도 원 하나: 가운데 기준으로 놓고(translate -50%) 원이 돌며, 원 위의 아이콘 카드는 반대로 돌아 똑바로 선다. motion-reduce 면 정지
@@ -134,7 +135,7 @@ export function HeroSection({ title, text, placeholder }: Props) {
           </div>
           <div className="mt-5 overflow-hidden">
             <p className="animate-reveal-up text-base leading-relaxed text-neutral-600 md:text-lg" style={{ animationDelay: "0.2s", animationDuration: "0.6s" }}>
-              {heroText}
+              <MobileBreaks text={heroText} />
             </p>
           </div>
 
@@ -171,7 +172,7 @@ export function HeroSection({ title, text, placeholder }: Props) {
                   type="button"
                   onClick={() => goSearch(kw)}
                   // 모바일은 한 줄에 맞게 3개까지만, md 이상은 전부
-                  className={`rounded-full border border-neutral-300 bg-white px-4 py-1.5 text-sm font-semibold text-neutral-900 transition-colors hover:border-primary hover:bg-primary hover:text-white md:text-base ${i >= 3 ? "hidden md:inline-flex" : ""}`}
+                  className={`rounded-full border border-neutral-300 bg-white px-4 py-1.5 text-sm font-semibold text-neutral-900 transition-colors hover:border-primary hover:bg-primary hover:text-white md:text-base ${i >= 2 ? "hidden md:inline-flex" : ""}`}
                 >
                   #{kw}
                 </button>

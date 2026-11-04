@@ -170,6 +170,12 @@
   font-size: 16px;
   line-height: 1.5;
   background: var(--background);
+  /* 홈페이지 리셋의 word-break: keep-all 때문에 "망막질환(비문증·망막박리·…)" 처럼 띄어쓰기 없는 긴 덩어리가 칸을 넘치므로, 넘칠 때만 끊는다 */
+  overflow-wrap: anywhere;
+}
+/* 모바일 하단 고정 바(components/blog/layout/BlogMobileBar, 56px)에 푸터가 가려지지 않게 */
+@media screen and (max-width: 767px) {
+  body:has(.blog-root) { padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
 }
 
 /* 글 본문(리치텍스트) 스타일. 글 상세의 본문 래퍼에 class="prose-content" */

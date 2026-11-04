@@ -3,6 +3,7 @@ import { draftMode } from "next/headers";
 import { SiteProvider } from "@/components/blog/SiteProvider";
 import { LivePreviewListener } from "@/components/blog/LivePreviewListener";
 import { BlogHeader } from "@/components/blog/layout/BlogHeader";
+import { BlogMobileBar } from "@/components/blog/layout/BlogMobileBar";
 import { getSiteData } from "@/lib/payload";
 import { SITE } from "@/lib/site";
 
@@ -28,6 +29,8 @@ export default async function BlogLayout({ children }: LayoutProps<"/blog">) {
         {isPreview && <LivePreviewListener />}
         <BlogHeader />
         {children}
+        {/* 모바일 하단 고정 바: 바로 전화 / 상담 신청하기 */}
+        <BlogMobileBar />
       </div>
     </SiteProvider>
   );

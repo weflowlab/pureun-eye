@@ -50,7 +50,7 @@ export const categories: Category[] = [
   { slug: "eye-health", name: "눈 건강", description: "안구건조증, 녹내장, 소아안과 등 일상에서 챙기는 눈 건강 정보" },
 ];
 
-export const popularKeywords = ["스마일라식", "백내장", "비문증", "황반변성"];
+export const popularKeywords = ["백내장", "비문증", "스마일라식", "황반변성"]; // 모바일은 앞 2개만 보인다
 
 // 의료진: 홈페이지 의료진 데이터(lib/doctors.ts)를 작성자 카드용으로 변환. 약력은 "현/전" 라벨을 앞에 붙여 한 줄씩
 export const doctors: Doctor[] = DOCTORS.map((d) => ({
