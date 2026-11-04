@@ -34,3 +34,6 @@ export async function GET(req: Request): Promise<Response> {
   // 한글 URL 경로는 Location 헤더에 그대로 넣을 수 없어(ByteString 오류 → 500) 구간별로 다시 인코딩한다
   redirect(path.split("/").map(encodeURIComponent).join("/"));
 }
+
+// Vercel 서버리스 함수 최대 실행 시간. 한동안 요청이 없다가 처음 들어오면 Payload 초기화 + DB(Neon) 깨어남으로 기본 제한을 넘겨 504 가 날 수 있다
+export const maxDuration = 60;

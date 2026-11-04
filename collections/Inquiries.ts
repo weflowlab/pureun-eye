@@ -15,7 +15,7 @@ export const Inquiries: CollectionConfig = {
     useAsTitle: "name",
     defaultColumns: ["name", "phone", "subjects", "status", "createdAt"],
     group: "홈페이지",
-    description: "홈페이지 '상담 신청하기' 로 들어온 문의입니다. 연락 후 상태를 바꿔 두면 목록에서 구분됩니다.",
+    description: "홈페이지 '상담 신청하기' 로 들어온 문의입니다.\n연락 후 상태를 바꿔 두면 목록에서 구분됩니다.",
     listSearchableFields: ["name", "phone", "message"],
     pagination: { defaultLimit: 20 },
   },

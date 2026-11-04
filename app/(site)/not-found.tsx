@@ -1,16 +1,6 @@
-import Link from "next/link";
-import styles from "@/components/news/status.module.css";
+import NotFoundView from "@/components/common/NotFoundView";
 
-/** 404 페이지 */
+/** 홈페이지 안 404 (없는 메뉴·게시글 등): 공통 헤더·푸터 안에서 표시 */
 export default function NotFound() {
-  return (
-    <div className={styles.wrap}>
-      <p className={styles.code}>404</p>
-      <h1 className={styles.message}>페이지를 찾을 수 없습니다</h1>
-      <p className={styles.desc}>요청하신 페이지가 존재하지 않거나 이동되었습니다.</p>
-      <Link href="/" className={styles.btn}>
-        홈으로 돌아가기
-      </Link>
-    </div>
-  );
+  return <NotFoundView />;
 }

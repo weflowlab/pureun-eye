@@ -20,8 +20,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: post ? `${post.title} | ${SITE.name}` : SITE.name };
 }
 
-/** 공지사항 상세 페이지 — params 읽기는 Suspense 안에서 (즉시 내비게이션) */
-export default function NewsDetailPage({ params }: Props) {
+/** 공지사항 상세 페이지. 없는 글은 Suspense 밖에서 notFound() 해 진짜 404 상태 코드를 돌려준다 */
+export default async function NewsDetailPage({ params }: Props) {
+  if (!getNewsPost(Number((await params).id))) notFound();
   return (
     <SubLayout path="/community/notice">
       <ContentBlock>

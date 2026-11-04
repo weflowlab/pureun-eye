@@ -11,7 +11,7 @@ export const Popups: CollectionConfig = {
     useAsTitle: "title",
     defaultColumns: ["title", "active", "startAt", "endAt", "order"],
     group: "홈페이지",
-    description: "홈페이지 첫 화면에 뜨는 안내 팝업입니다. 여러 개를 켜 두면 팝업 아래 탭으로 넘겨 볼 수 있습니다.",
+    description: "홈페이지 첫 화면에 뜨는 안내 팝업입니다.\n여러 개를 켜 두면 팝업 아래 탭으로 넘겨 볼 수 있습니다.",
   },
   defaultSort: "order",
   fields: [

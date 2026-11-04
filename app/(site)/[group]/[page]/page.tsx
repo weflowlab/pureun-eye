@@ -26,8 +26,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-/** 서브페이지 (/{대메뉴}/{하위}) — params 읽기는 Suspense 안에서 (즉시 내비게이션) */
-export default function SubPage({ params, searchParams }: Props) {
+/** 서브페이지 (/{대메뉴}/{하위}). 없는 메뉴는 Suspense 밖에서 notFound() 해 진짜 404 상태 코드를 돌려준다 (SEO) */
+export default async function SubPage({ params, searchParams }: Props) {
+  const { group, page } = await params;
+  if (!findPage(group, page)) notFound();
   return (
     <Suspense fallback={<Loading />}>
       <SubPageContent params={params} searchParams={searchParams} />

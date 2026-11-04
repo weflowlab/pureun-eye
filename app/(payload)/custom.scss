@@ -765,3 +765,6 @@ button {
     height: 32px;
   }
 }
+
+/* 컬렉션 설명문(admin.description)의 줄바꿈(\n)을 그대로 표시 */
+.custom-view-description { white-space: pre-line; }

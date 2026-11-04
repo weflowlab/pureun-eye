@@ -23,6 +23,8 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     agentFeedback: true,
+    // 루트 레이아웃이 둘(홈페이지·관리자)이라 어느 레이아웃에도 안 잡히는 주소의 404 는 app/global-not-found.tsx 가 맡는다
+    globalNotFound: true,
   },
   // Payload 관리자·미리보기(draftMode)와 충돌해서 Cache Components 는 끈다.
   // 홈페이지 페이지들은 generateStaticParams 로 정적 생성되고, 블로그 글은 Payload 저장 훅의 revalidatePath 로 갱신된다.

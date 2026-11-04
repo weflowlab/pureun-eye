@@ -244,7 +244,11 @@ export async function TrafficView({ initPageResult, params, searchParams }: Admi
       </div>
       <Gutter className="traffic">
         {rows.length === 0 && (
-          <div className="traffic__card traffic__empty-card">아직 수집된 방문 데이터가 없습니다. 방문이 기록되면 여기에 유입·이탈 통계가 표시됩니다.</div>
+          <div className="traffic__card traffic__empty-card">
+            아직 수집된 방문 데이터가 없습니다.
+            <br />
+            방문이 기록되면 여기에 유입·이탈 통계가 표시됩니다.
+          </div>
         )}
 
         {/* 요약 */}
