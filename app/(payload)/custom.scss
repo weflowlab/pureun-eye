@@ -1,9 +1,8 @@
 /* Payload 관리자 UI 브랜드 스타일. 글꼴, 강조색(남색), 버튼, 로고 영역만 손대고 골격은 유지한다. */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap");
 
 :root {
-  /* 글꼴: 홈페이지와 동일한 Noto Sans KR */
-  --font-body: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  /* 글꼴: 기기 시스템 글꼴 (Mac Apple SD Gothic Neo, Windows 맑은 고딕). 관리자 화면은 한글 라벨이 많아 웹폰트를 쓰면 조각 97개·1.6MB 를 받게 되어 뺐다 */
+  --font-body: system-ui, -apple-system, "Apple SD Gothic Neo", "Segoe UI", "Malgun Gothic", Roboto, sans-serif;
 
   /* 강조색(선택·활성·링크·포커스)을 Payload 기본 하늘색에서 푸른안과 남색 계열로 교체 */
   --color-success-50: #eef3fa;
