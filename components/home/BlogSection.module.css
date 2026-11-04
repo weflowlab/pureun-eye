@@ -39,7 +39,7 @@
 /* 실제 글 카드: 16:10 썸네일 + 카테고리 칩·제목 */
 .thumb { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #dfe4ee; }
 .thumbPh { position: absolute; inset: 0; }
-.meta { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px 16px; }
+.meta { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px 16px 16px; } /* 칩은 글자 폭만큼만 */
 .postTitle {
   display: -webkit-box;
   overflow: hidden;

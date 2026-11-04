@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
-import { ClipboardList, MapPin } from "lucide-react";
+import { BookOpenText, ClipboardList, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { SITE } from "@/lib/site";
 import { getLenis } from "./Providers";
@@ -44,7 +44,7 @@ const Icon = ({ children, size = 22 }: { children: ReactNode; size?: number }) =
     {children}
   </svg>
 );
-// 항목 아이콘: 전화·카카오·인스타·블로그는 실제 앱 모양(채움), 상담신청·오시는 길은 lucide 선 아이콘
+// 항목 아이콘: 전화·카카오·인스타는 실제 앱 모양(채움), 상담신청·웹블로그·오시는 길은 lucide 선 아이콘 (웹블로그는 로고색 배경)
 const Fill = ({ children, size = 22 }: { children: ReactNode; size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     {children}
@@ -69,13 +69,7 @@ const ICONS = {
       <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
     </svg>
   ),
-  blog: (
-    <Fill>
-      <text x="12" y="18" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="17" fontWeight="900">
-        B
-      </text>
-    </Fill>
-  ),
+  blog: <BookOpenText size={22} strokeWidth={2} aria-hidden />,
   map: <MapPin size={22} strokeWidth={2} aria-hidden />,
 };
 // 실제 앱 색을 쓰는 항목 (마우스를 올려도 남색으로 바뀌지 않음)

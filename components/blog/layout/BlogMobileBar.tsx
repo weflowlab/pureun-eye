@@ -14,7 +14,7 @@ export function BlogMobileBar() {
       </a>
       <Link href="/contact/online" className="flex h-14 items-center justify-center gap-2 bg-primary text-base font-bold text-white active:bg-brand-secondary">
         <IconClipboardText className="size-5 -translate-y-px animate-wiggle motion-reduce:animate-none" style={{ animationDelay: "1s" }} />
-        상담 신청하기
+        <span className="relative -top-[2px]">상담 신청하기</span>
       </Link>
     </div>
   );
