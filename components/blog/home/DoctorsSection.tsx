@@ -114,7 +114,7 @@ export function DoctorsSection({ doctors, content }: Props) {
                 autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }} // 4초마다 한 장씩, 마우스 올리면 멈춤
                 spaceBetween={16}
                 breakpoints={{ 0: { slidesPerView: 1.3 }, 640: { slidesPerView: 2 }, 1024: { slidesPerView: PER_VIEW } }}
-                className="!pb-9"
+                className="!pb-14" // 아래 여백 = 카드와 슬라이드 점 사이 간격 (점은 컨테이너 맨 아래)
                 style={{ "--swiper-pagination-color": "var(--brand-primary)", "--swiper-pagination-bullet-inactive-color": "#9ca3af" } as CSSProperties}
               >
                 {doctors.map((d) => (

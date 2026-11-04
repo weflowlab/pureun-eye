@@ -11,16 +11,21 @@ type Props = {
   categorySlug: string;
   categoryName: string;
   className?: string;
+  // 같은 주제 글이 없어 "최신 글"로 채울 때 바꿔 쓰는 문구·링크 (기본: RELATED / 관련 글 / 이 주제 전체 보기)
+  eyebrow?: string;
+  title?: string;
+  allHref?: string;
+  allLabel?: string;
 };
 
-export function RelatedSidebar({ posts, categorySlug, categoryName, className = "" }: Props) {
-  // 관련 글이 없어도(글이 아직 적을 때) 빈 칸은 남겨 둔다. 없애면 데스크톱 2열 그리드에서 본문이 사이드바 칸(좁은 왼쪽)으로 밀려 들어간다
-  if (posts.length === 0) return <aside className={`hidden lg:block ${className}`} aria-hidden />;
+export function RelatedSidebar({ posts, categorySlug, categoryName, className = "", eyebrow = "RELATED", title = "관련 글", allHref, allLabel }: Props) {
+  // 보여 줄 글이 없으면 그리지 않는다 (글 상세 page 가 본문을 전체 폭으로 넓힌다)
+  if (posts.length === 0) return null;
   return (
     <aside className={`hidden lg:block ${className}`} aria-label="관련 글">
       <div className="sticky top-24 rounded-[11px] border border-neutral-200 bg-neutral-50 p-5">
-        <p className="text-xs font-semibold text-primary">RELATED</p>
-        <p className="mt-0.5 text-lg font-bold text-foreground">관련 글</p>
+        <p className="text-xs font-semibold text-primary">{eyebrow}</p>
+        <p className="mt-0.5 text-lg font-bold text-foreground">{title}</p>
 
         <ul className="mt-4 space-y-4">
           {posts.map((p) => (
@@ -46,10 +51,10 @@ export function RelatedSidebar({ posts, categorySlug, categoryName, className = 
         </ul>
 
         <Link
-          href={`/blog/${categorySlug}`}
+          href={allHref ?? `/blog/${categorySlug}`}
           className="mt-5 flex items-center justify-between rounded-lg border border-neutral-200 bg-white px-3.5 py-2.5 text-sm font-semibold text-neutral-700 transition-colors hover:border-primary hover:text-primary"
         >
-          {categoryName} 글 전체 보기
+          {allLabel ?? `${categoryName} 글 전체 보기`}
           <IconArrowRight className="size-4" />
         </Link>
       </div>

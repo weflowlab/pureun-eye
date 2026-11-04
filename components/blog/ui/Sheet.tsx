@@ -5,6 +5,7 @@
 // ESC/바깥 클릭 닫기, body 스크롤 잠금 포함.
 import { useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
 import { createPortal } from "react-dom";
+import { lockScroll } from "@/lib/scrollLock";
 
 type Props = {
   open: boolean;
@@ -54,11 +55,7 @@ export function Sheet({ open, onClose, side = "bottom", modal = true, title, cla
   // modal 일 때 body 스크롤 잠금
   useEffect(() => {
     if (!open || !modal) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
+    return lockScroll();
   }, [open, modal]);
 
   if (!isClient) return null;

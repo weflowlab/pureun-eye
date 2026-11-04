@@ -9,6 +9,29 @@ import { clinic, categories, doctors, popularKeywords } from "@/lib/mock";
 import * as homeDefaults from "@/lib/homeDefaults";
 import * as clinicDefaults from "@/lib/clinicDefaults";
 import { samplePost, SAMPLE_POST_SLUG } from "@/lib/samplePost";
+import path from "path";
+import fs from "fs/promises";
+
+// 블로그 메인 배너 스톡 사진 (public/images/stock, Pexels 무료). 배너 순서대로. 병원 사진을 받으면 관리자에서 교체
+const BANNER_STOCK = [
+  { file: "consult.webp", alt: "진료실에서 상담하는 의료진" },
+  { file: "exam-slitlamp.webp", alt: "세극등 현미경으로 눈을 검사하는 모습" },
+];
+
+// 파일명으로 이미지를 찾고, 없으면 public/images/stock 의 파일을 올린다 → media id
+async function stockMediaId(payload: Payload, context: Record<string, unknown>, file: string, alt: string): Promise<number | null> {
+  const found = await payload.find({ collection: "media", where: { filename: { equals: file } }, limit: 1, depth: 0 });
+  if (found.docs[0]) return found.docs[0].id;
+  try {
+    const data = await fs.readFile(path.resolve(process.cwd(), "public/images/stock", file));
+    // context 는 호출마다 새 객체로 (Blob 플러그인이 req.context 에 업로드 건너뛰기 표시를 남기는 일이 있다)
+    const doc = await payload.create({ collection: "media", context: { ...context }, file: { data, name: file, mimetype: "image/webp", size: data.byteLength }, data: { alt } });
+    return doc.id;
+  } catch (e) {
+    payload.logger.warn(`스톡 사진 올리기 실패: ${file} — ${(e as Error).message}`);
+    return null;
+  }
+}
 
 const ADMIN_EMAIL = process.env.SEED_ADMIN_EMAIL || "admin@pureun-eye.kr";
 const ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD || "pureun1234!";
@@ -45,8 +68,10 @@ async function upsertSamplePost(payload: Payload, context: Record<string, unknow
   return `본보기 글 생성: /blog/${samplePost.categorySlug}/${SAMPLE_POST_SLUG}`;
 }
 
-export async function GET(): Promise<Response> {
+// GET /api/dev-seed?reset=home → 블로그 메인 문구(히어로·소개·장점·FAQ)를 lib/homeDefaults.ts 기본값으로 되돌린다 (배너 이미지·관리자 수정값 무시)
+export async function GET(req: Request): Promise<Response> {
   if (process.env.NODE_ENV === "production") return new Response("Not available", { status: 404 });
+  const resetHome = new URL(req.url).searchParams.get("reset") === "home";
   const payload = await getPayload({ config });
   const context = { disableRevalidate: true, seed: true }; // 페이지 재생성 폭주 방지
   const log: string[] = [];
@@ -91,11 +116,17 @@ export async function GET(): Promise<Response> {
   log.push("병원 정보 저장");
 
   // 3) 블로그 메인 글로벌: 비어 있는 문구만 기본 문구(lib/homeDefaults.ts)로 채운다. 관리자가 이미 고친 값과 배너 이미지는 그대로 둔다.
-  const home = await payload.findGlobal({ slug: "home", depth: 0 });
-  const banners = (home.banners?.length ? home.banners : homeDefaults.BANNERS.map((b) => ({ ...b, image: null, mobileImage: null }))).map((b, i) => {
+  const saved = await payload.findGlobal({ slug: "home", depth: 0 });
+  const home = resetHome ? { ...saved, heroTitle: "", heroText: "", searchPlaceholder: "", popularKeywords: [], doctorsTitle: "", doctorsText: "", doctorsButton: "", doctorsLink: "", summaryTitle: "", summaryText: "", keyPoints: [], faq: [] } : saved;
+  const bannerRows = home.banners?.length ? home.banners : homeDefaults.BANNERS.map((b) => ({ ...b, image: null, mobileImage: null }));
+  const banners = [];
+  for (const [i, b] of bannerRows.entries()) {
     const d = homeDefaults.BANNERS[i % homeDefaults.BANNERS.length];
-    return { ...b, label: b.label || d.label, text: b.text || d.text };
-  });
+    // 이미지가 비어 있으면 스톡 사진으로 채운다 (관리자가 올린 사진은 그대로)
+    const stock = BANNER_STOCK[i % BANNER_STOCK.length];
+    const image = b.image ?? (await stockMediaId(payload, context, stock.file, stock.alt));
+    banners.push({ ...b, label: b.label || d.label, text: b.text || d.text, image });
+  }
   await payload.updateGlobal({
     slug: "home",
     context,
@@ -117,7 +148,7 @@ export async function GET(): Promise<Response> {
       faq: home.faq?.length ? home.faq : homeDefaults.faq(clinic),
     },
   });
-  log.push("블로그 메인 저장 (비어 있던 문구를 기본 문구로 채움)");
+  log.push(resetHome ? "블로그 메인 문구를 기본값으로 되돌림" : "블로그 메인 저장 (비어 있던 문구를 기본 문구로 채움)");
 
   // 4) 카테고리 / 의료진: slug 로 찾아 없을 때만 만든다 (관리자가 고친 내용과 사진은 보존)
   let newCategories = 0;

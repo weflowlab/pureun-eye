@@ -20,7 +20,8 @@ export async function FaqSection({ items }: Props) {
             <h2 id="home-faq-title" className="mt-1 text-2xl font-bold leading-tight md:text-3xl lg:text-4xl">
               자주 묻는 질문
             </h2>
-            <p className="mt-3 whitespace-pre-line text-base text-neutral-600 md:text-lg">
+            {/* Noto Sans KR 은 모두의안과 블로그의 Pretendard 보다 글자가 넓어, 같은 문구가 왼쪽 칸(4/12)에서 두 줄에 들어가려면 16px + 자간 살짝 좁힘 */}
+            <p className="mt-3 whitespace-pre-line text-base leading-relaxed tracking-[-0.01em] text-neutral-600">
               {"진료·예약·주차 등 자주 문의하시는 내용을 모았습니다.\n더 궁금한 점은 오른쪽 아래 퀵메뉴로 문의해 주세요."}
             </p>
           </div>

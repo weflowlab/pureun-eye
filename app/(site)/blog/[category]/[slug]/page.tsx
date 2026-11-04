@@ -4,7 +4,7 @@
 import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
-import { getAllPosts, getCategory, getClinic, getDoctor, getPopularPosts, getPost, getPostsByCategory, getPostsBySlugs } from "@/lib/payload";
+import { getAllPosts, getCategory, getClinic, getDoctor, getLatestPosts, getPopularPosts, getPost, getPostsByCategory, getPostsBySlugs } from "@/lib/payload";
 import { extractHeadings } from "@/lib/lexical";
 import { Breadcrumb } from "@/components/blog/ui/Breadcrumb";
 import { ShareButtons } from "@/components/blog/post/ShareButtons";
@@ -54,18 +54,22 @@ export default async function PostPage({ params }: PageProps<"/blog/[category]/[
   const post = await getPost(decodeURIComponent(rawCategory), decodeURIComponent(rawSlug));
   if (!post) notFound();
 
-  const [cat, doctor, popular, pickedRelated, sameCategory, clinic, { isEnabled: isPreview }] = await Promise.all([
+  const [cat, doctor, popular, pickedRelated, sameCategory, latest, clinic, { isEnabled: isPreview }] = await Promise.all([
     getCategory(post.category),
     getDoctor(post.author),
     getPopularPosts(6),
     getPostsBySlugs(post.related),
     getPostsByCategory(post.category),
+    getLatestPosts(5),
     getClinic(),
     draftMode(),
   ]);
 
   // 관련 글: 관리자가 고른 글 먼저, 부족하면 같은 주제의 최신 글로 채움 (현재 글 제외, 최대 4개)
   const related = [...pickedRelated, ...sameCategory.filter((p) => p.slug !== post.slug && !pickedRelated.some((r) => r.slug === p.slug))].slice(0, 4);
+  // 같은 주제 글이 하나도 없으면 사이드바를 최신 글로 채운다 (현재 글 제외, 최대 4개)
+  const sidebarIsLatest = related.length === 0;
+  const sidebarPosts = sidebarIsLatest ? latest.filter((p) => p.slug !== post.slug).slice(0, 4) : related;
 
   // 목차: 본문 h2 (리치텍스트면 추출, 목 데이터면 sections) + FAQ
   const bodyHeadings = post.content
@@ -129,9 +133,15 @@ export default async function PostPage({ params }: PageProps<"/blog/[category]/[
 
       {/* 레퍼런스: lg 이상 2열 그리드 (사이드바 clamp(220px,20vw,300px) | 본문), 간격 6.25vw. 모바일은 사이드바 숨김 */}
       <div className="lg:grid lg:grid-cols-[clamp(220px,20vw,300px)_minmax(0,1fr)] lg:gap-[6.25vw]">
-        <RelatedSidebar posts={related} categorySlug={post.category} categoryName={cat?.name ?? post.categoryName ?? post.category} />
+        <RelatedSidebar
+          posts={sidebarPosts}
+          categorySlug={post.category}
+          categoryName={cat?.name ?? post.categoryName ?? post.category}
+          {...(sidebarIsLatest ? { eyebrow: "LATEST", title: "최신 글", allHref: "/blog/posts", allLabel: "전체 글 보기" } : {})}
+        />
 
-        <article>
+        {/* 사이드바가 없으면(보여 줄 글이 0개) 본문이 좁은 첫 칸으로 밀리지 않도록 두 칸을 차지하고 가운데 정렬 */}
+        <article className={sidebarPosts.length === 0 ? "lg:col-span-2 lg:mx-auto lg:w-full lg:max-w-3xl" : undefined}>
           {/* 2. 제목 + 작성자·날짜 + 공유/링크 복사 */}
           <div className="mb-10 border-b border-neutral-200 pb-10">
             <h1 className="text-2xl font-bold leading-tight md:text-4xl">{post.title}</h1>

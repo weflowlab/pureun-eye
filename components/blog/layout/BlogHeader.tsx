@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
+import { lockScroll } from "@/lib/scrollLock";
 import { IconArrowRight, IconMenu2, IconSearch, IconX } from "@tabler/icons-react";
 import { useSite } from "@/components/blog/SiteProvider";
 import { Container } from "@/components/blog/ui/Container";
@@ -38,19 +39,10 @@ export function BlogHeader() {
     setMenuOpen(false);
   }
 
-  // 전체 메뉴가 열리면 body 를 고정(스크롤 잠금), 닫히면 원래 위치로 복귀
+  // 전체 메뉴가 열리면 페이지 스크롤 잠금 (드로어 Sheet 도 같은 잠금을 걸지만 겹쳐도 안전하다)
   useEffect(() => {
     if (!menuOpen) return;
-    const y = window.scrollY;
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${y}px`;
-    document.body.style.width = "100%";
-    return () => {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      window.scrollTo(0, y);
-    };
+    return lockScroll();
   }, [menuOpen]);
 
   const closeSearch = useCallback(() => setSearchOpen(false), []);

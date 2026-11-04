@@ -8,7 +8,7 @@ export const clinic: ClinicInfo = {
   name: SITE.name,
   nameEn: SITE.nameEn,
   homepageUrl: "/", // 같은 사이트의 홈페이지 첫 화면
-  address: SITE.address,
+  address: SITE.roadAddress, // 글 하단·소개 문단에 쓰는 주소 (끝의 병원명 없이)
   phone: SITE.tel,
   fax: SITE.fax,
   businessNumber: SITE.bizNo,
@@ -29,7 +29,13 @@ export const clinic: ClinicInfo = {
   homepageMenu: [],
   consultUrl: "/contact/online", // 상담·예약 버튼 → 홈페이지 상담 신청
   kakaoChannelUrl: "",
-  stats: [],
+  // 소개 문단 아래 수치 4개 (홈페이지 병원소개 페이지의 공개 수치 + 개원·의료진)
+  stats: [
+    { label: "연간 방문", value: "100,000명 이상" },
+    { label: "연간 수술", value: "7,000명 이상" },
+    { label: "전주에서 개원", value: `${SITE.since}년` },
+    { label: "분야별 전문의", value: `${DOCTORS.length}명` },
+  ],
   statsNote: "",
   disclaimerText: "",
   ctaTitle: "",

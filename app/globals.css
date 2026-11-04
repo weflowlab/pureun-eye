@@ -59,8 +59,9 @@
   button { background: none; cursor: pointer; }
   img { vertical-align: top; max-width: 100%; height: auto; }
 
-  /* 스크롤바 자리 항상 확보: 전체메뉴·모달로 스크롤 잠글 때 페이지가 옆으로 밀리지 않게 */
-  html { overflow-x: hidden; scrollbar-gutter: stable; }
+  html { overflow-x: hidden; }
+  /* 전체메뉴·모달로 스크롤을 잠글 때(lib/scrollLock.ts) 사라지는 스크롤바 폭만큼 오른쪽 여백을 줘 페이지가 옆으로 튀지 않게 */
+  body { padding-right: var(--scrollbar-comp, 0px); }
   /* 폰(iOS)에서도 화면 밖 요소 때문에 옆으로 밀리지 않게 */
   body { overflow-x: clip; }
   html * { word-break: keep-all; }
@@ -72,11 +73,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
-
-/* 스크롤바 */
-html::-webkit-scrollbar { width: 8px; }
-html::-webkit-scrollbar-track { background: transparent; }
-html::-webkit-scrollbar-thumb { background-color: #2f3542; border-radius: 10px; }
 
 /* 유틸리티 */
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }

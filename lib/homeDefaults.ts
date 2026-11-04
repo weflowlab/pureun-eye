@@ -30,9 +30,9 @@ export const DOCTORS_BUTTON = "의료진 소개";
 export const DOCTORS_LINK = "/about/doctors"; // 홈페이지 의료진 소개
 
 // 핵심 요약 (ABOUT)
-export const SUMMARY_TITLE = "전주 덕진구|시력교정·백내장·망막 전문 안과";
+export const SUMMARY_TITLE = "전주 덕진구 |시력교정·백내장·망막 전문 안과"; // "|" 앞 공백: 데스크톱 한 줄일 때 띄어쓰기
 export const summaryText = (clinic: Pick<ClinicInfo, "name" | "address">) =>
-  `${clinic.name}는 ${clinic.address}에 있는 안과로,\n시력교정·백내장·망막 분야별 전문의가|검사부터 수술 후 관리까지 한곳에서 진료합니다.`;
+  `${clinic.name}는 ${clinic.address}에 있는 안과로,\n시력교정·백내장·망막 분야별 전문의가 |검사부터 수술 후 관리까지 한곳에서 진료합니다.`;
 
 // 장점 카드 4개 (WHY). 아이콘은 components/blog/home/StrengthsSection 에서 순서대로 붙는다.
 export const KEY_POINTS: { title: string; text: string }[] = [

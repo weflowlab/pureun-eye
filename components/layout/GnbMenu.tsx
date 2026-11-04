@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useState, type CSSProperties, type RefObjec
 import Link from "next/link";
 import { HOURS, MENU, SITE, isExternalHref, pageHref } from "@/lib/site";
 import { getLenis } from "./Providers";
+import { lockScroll } from "@/lib/scrollLock";
 import styles from "./GnbMenu.module.css";
 
 type Props = {
@@ -23,11 +24,10 @@ export default function GnbMenu({ open, onClose, anchorRef }: Props) {
   // 열림 동안 페이지 스크롤 잠금
   useEffect(() => {
     if (!open) return;
-    const html = document.documentElement;
-    html.style.overflow = "hidden";
+    const unlock = lockScroll();
     getLenis()?.stop();
     return () => {
-      html.style.overflow = "";
+      unlock();
       getLenis()?.start();
     };
   }, [open]);
