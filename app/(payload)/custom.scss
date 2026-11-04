@@ -181,6 +181,17 @@ button {
   font-size: 24px;
   line-height: 1.2;
 }
+.traffic__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+}
+/* 구분 칩(전체·홈페이지·웹블로그)은 기간 칩과 세로줄로 나눈다 */
+.traffic__scopes {
+  padding-right: 18px;
+  border-right: 1px solid var(--theme-elevation-200);
+}
 .traffic__periods {
   display: flex;
   flex-wrap: wrap;

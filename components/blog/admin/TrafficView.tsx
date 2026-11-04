@@ -7,6 +7,7 @@ import { Gutter } from "@payloadcms/ui";
 import { redirect } from "next/navigation";
 import { computeTrafficStats, PERIODS, type PageViewRow, type PeriodKey } from "@/lib/trafficStats";
 import { CLICK_LABEL, DEVICE_LABEL, SOURCE_LABEL } from "@/lib/tracking";
+import { MENU, pageHref } from "@/lib/site";
 import { TrafficStepNav } from "./TrafficStepNav";
 import {
   IconUsers,
@@ -26,6 +27,15 @@ import {
 } from "@tabler/icons-react";
 
 const DAYS = 90;
+
+// 홈페이지 / 블로그 탭: 방문 기록을 경로(/blog 로 시작하는지)로 나눠 본다
+type ScopeKey = "all" | "site" | "blog";
+const SCOPES: { key: ScopeKey; label: string }[] = [
+  { key: "all", label: "전체" },
+  { key: "site", label: "홈페이지" },
+  { key: "blog", label: "웹블로그" },
+];
+const isBlogPath = (path: string) => path === "/blog" || path.startsWith("/blog/");
 
 function sourceLabel(key: string): string {
   if (key.endsWith("-ad")) return `${SOURCE_LABEL[key.slice(0, -3)] ?? key.slice(0, -3)} 광고`;
@@ -131,6 +141,9 @@ export async function TrafficView({ initPageResult, params, searchParams }: Admi
 
   const periodParam = String(searchParams?.period ?? "today");
   const period: PeriodKey = (PERIODS.find((p) => p.key === periodParam)?.key ?? "today") as PeriodKey;
+  const scopeParam = String(searchParams?.scope ?? "all");
+  const scope: ScopeKey = (SCOPES.find((s) => s.key === scopeParam)?.key ?? "all") as ScopeKey;
+  const href = (p: PeriodKey, s: ScopeKey) => `/admin/traffic?period=${p}&scope=${s}`;
 
   // 서버 컴포넌트라 요청마다 새로 실행된다. 렌더 중 현재 시각을 읽는 것이 의도 (react-hooks/purity 는 클라이언트 기준 규칙)
   // eslint-disable-next-line react-hooks/purity
@@ -152,19 +165,29 @@ export async function TrafficView({ initPageResult, params, searchParams }: Admi
 
   // 경로 → 사람이 읽는 이름 (글 제목, 카테고리 이름)
   const pathName = new Map<string, string>([
-    ["/", "메인 페이지"],
-    ["/posts", "전체 글 목록"],
-    ["/search", "검색 페이지"],
+    ["/", "홈페이지 메인"],
+    ["/privacy", "개인정보처리방침"],
+    ["/blog", "블로그 메인"],
+    ["/blog/posts", "블로그 전체 글 목록"],
+    ["/blog/search", "블로그 검색 페이지"],
   ]);
+  // 홈페이지 메뉴 페이지 이름 (예: "망막클리닉 보임 · 비문증")
+  for (const g of MENU) for (const p of g.pages) if (!p.external) pathName.set(pageHref(g, p), `${g.label} · ${p.label}`);
   const postPaths = new Set<string>();
-  for (const c of categories.docs) pathName.set(`/${c.slug}`, `${c.name} 목록`);
+  for (const c of categories.docs) pathName.set(`/blog/${c.slug}`, `${c.name} 글 목록`);
   for (const p of posts.docs) {
     const cat = typeof p.category === "object" && p.category ? p.category.slug : null;
     if (cat && p.slug) {
-      pathName.set(`/${cat}/${p.slug}`, p.title);
-      postPaths.add(`/${cat}/${p.slug}`);
+      pathName.set(`/blog/${cat}/${p.slug}`, p.title);
+      postPaths.add(`/blog/${cat}/${p.slug}`);
     }
   }
+  // 공지사항·후기 상세 등 메뉴에 없는 홈페이지 경로는 앞부분 메뉴 이름으로
+  const siteFallbackName = (path: string) => {
+    const [, g, p] = path.split("/");
+    const base = g && p ? pathName.get(`/${g}/${p}`) : undefined;
+    return base ? `${base} 상세` : path;
+  };
   const decode = (path: string) => {
     try {
       return decodeURIComponent(path);
@@ -172,10 +195,15 @@ export async function TrafficView({ initPageResult, params, searchParams }: Admi
       return path;
     }
   };
-  const nameOf = (path: string) => pathName.get(path) ?? path;
+  const nameOf = (path: string) => pathName.get(path) ?? (isBlogPath(path) ? path : siteFallbackName(path));
   // 한글 URL 은 기록에 인코딩된 채(%EB…) 들어오므로 집계 전에 전부 풀어서 글 목록 경로와 같은 모양으로 맞춘다
-  const rows = (views.docs as PageViewRow[]).map((r) => ({ ...r, path: decode(r.path) }));
-  const stats = computeTrafficStats(rows, period, now, (path) => postPaths.has(path));
+  const allRows = (views.docs as PageViewRow[]).map((r) => ({ ...r, path: decode(r.path) }));
+  // 탭에 따라 홈페이지 / 블로그 기록만 남긴다
+  const rows = scope === "all" ? allRows : allRows.filter((r) => (scope === "blog" ? isBlogPath(r.path) : !isBlogPath(r.path)));
+  // "많이 본 페이지" 대상: 블로그 탭은 글만, 홈페이지 탭은 모든 페이지, 전체는 글 + 홈페이지 페이지
+  const isCountedPage = (path: string) => (scope === "blog" ? postPaths.has(path) : scope === "site" ? true : postPaths.has(path) || !isBlogPath(path));
+  const stats = computeTrafficStats(rows, period, now, isCountedPage);
+  const pageWord = scope === "blog" ? "글" : "페이지";
   const maxDaily = Math.max(1, ...stats.daily.map((d) => d.sessions));
   const topSource = stats.sources[0];
 
@@ -196,17 +224,27 @@ export async function TrafficView({ initPageResult, params, searchParams }: Admi
       <div className="traffic__sticky">
         <Gutter className="traffic__head">
           <h1>유입 관리</h1>
-          <nav className="traffic__periods" aria-label="기간">
-            {PERIODS.map((p) => (
-              <a key={p.key} href={`/admin/traffic?period=${p.key}`} className={p.key === period ? "is-on" : ""}>
-                {p.label}
-              </a>
-            ))}
-          </nav>
+          <div className="traffic__tabs">
+            {/* 홈페이지 / 웹블로그 구분 */}
+            <nav className="traffic__periods traffic__scopes" aria-label="구분">
+              {SCOPES.map((s) => (
+                <a key={s.key} href={href(period, s.key)} className={s.key === scope ? "is-on" : ""}>
+                  {s.label}
+                </a>
+              ))}
+            </nav>
+            <nav className="traffic__periods" aria-label="기간">
+              {PERIODS.map((p) => (
+                <a key={p.key} href={href(p.key, scope)} className={p.key === period ? "is-on" : ""}>
+                  {p.label}
+                </a>
+              ))}
+            </nav>
+          </div>
         </Gutter>
       </div>
       <Gutter className="traffic">
-        {views.docs.length === 0 && (
+        {rows.length === 0 && (
           <div className="traffic__card traffic__empty-card">아직 수집된 방문 데이터가 없습니다. 방문이 기록되면 여기에 유입·이탈 통계가 표시됩니다.</div>
         )}
 
@@ -256,7 +294,7 @@ export async function TrafficView({ initPageResult, params, searchParams }: Admi
         )}
 
         <div className="traffic__grid">
-          <Card icon={IconMapPin} title="어디서 들어왔나요?" desc="고객들이 우리 블로그를 찾은 경로">
+          <Card icon={IconMapPin} title="어디서 들어왔나요?" desc="고객들이 우리 사이트를 찾은 경로">
             <Bars rows={stats.sources} labelOf={sourceLabel} unit="명" />
           </Card>
           <Card icon={IconDeviceMobile} title="무엇으로 봤나요?" desc="휴대폰·컴퓨터 등 접속 기기">
@@ -280,9 +318,10 @@ export async function TrafficView({ initPageResult, params, searchParams }: Admi
         </Card>
 
         <div className="traffic__grid">
-          <Card icon={IconArticle} title="많이 본 글" desc="고객들이 가장 많이 읽은 글 (상위 10편)">
+          <Card icon={IconArticle} title={`많이 본 ${pageWord}`} desc={`고객들이 가장 많이 본 ${pageWord} (상위 10개)`}>
             <Bars rows={stats.topPaths} labelOf={nameOf} />
-            {/* 전체 글: 0회인 글까지 조회수 순으로 */}
+            {/* 전체 글: 0회인 글까지 조회수 순으로 (홈페이지 탭에서는 글 목록이 의미 없어 숨김) */}
+            {scope !== "site" && (
             <details className="traffic__all">
               <summary>전체 글 보기 ({postPaths.size}편)</summary>
               <ol>
@@ -297,8 +336,9 @@ export async function TrafficView({ initPageResult, params, searchParams }: Admi
                   ))}
               </ol>
             </details>
+            )}
           </Card>
-          <Card icon={IconFileSearch} title="방문자가 첫 번째로 연 글" desc="네이버·구글 검색으로 들어온 고객이 처음 연 글">
+          <Card icon={IconFileSearch} title={`방문자가 첫 번째로 연 ${pageWord}`} desc={`네이버·구글 검색으로 들어온 고객이 처음 연 ${pageWord}`}>
             {stats.landingBySearch.length === 0 && <p className="traffic__empty">데이터 없음</p>}
             {stats.landingBySearch.map(({ source, rows }) => (
               <div key={source} className="traffic__sub">
@@ -310,7 +350,7 @@ export async function TrafficView({ initPageResult, params, searchParams }: Admi
           <Card icon={IconSearch} title="무엇을 검색했나요?" desc="방문자가 웹블로그 검색창에 친 단어입니다">
             <Bars rows={stats.queries} limit={10} />
           </Card>
-          <Card icon={IconPhoneCall} title="상담으로 이어졌나요?" desc="전화·네이버 톡톡·카카오채널·홈페이지 버튼을 누른 횟수">
+          <Card icon={IconPhoneCall} title="상담으로 이어졌나요?" desc="전화·카카오채널·상담 신청 버튼을 누른 횟수">
             <Bars rows={stats.clicks} labelOf={(k) => CLICK_LABEL[k] ?? k} />
           </Card>
           <Card icon={IconLogout} title="어느 페이지에서 나갔나요?" desc="고객이 마지막으로 보고 떠난 페이지">
