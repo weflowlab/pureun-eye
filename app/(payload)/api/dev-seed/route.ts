@@ -1,6 +1,6 @@
-// 개발 전용 시드: 첫 관리자 계정, 병원 정보·블로그 메인 기본 문구, 카테고리·의료진(lib/mock.ts ← lib/site.ts·lib/doctors.ts), 본보기 글 1편(lib/samplePost.ts).
+// 개발 전용 시드: 첫 관리자 계정, 병원 정보·블로그 메인 기본 문구, 카테고리·의료진(lib/mock.ts ← lib/site.ts·lib/doctors.ts), 주제별 글 4편(lib/articles.ts) + 본보기 글(lib/samplePost.ts).
 // 사용: 개발 서버 실행 중 `npm run seed` (GET /api/dev-seed). 여러 번 실행해도 안전하다:
-//   - 카테고리·의료진은 없을 때만 만들고, 본보기 글은 slug 로 찾아 내용만 덮어쓴다 (사진·조회수·발행일 유지).
+//   - 카테고리·의료진은 없을 때만 만들고, 글은 slug 로 찾아 내용만 덮어쓴다 (사진·조회수·발행일 유지). 사진은 비어 있을 때만 스톡 사진으로 채운다.
 //   - 병원 정보는 매번 lib/site.ts 기준으로 맞추고(글 하단 문구는 비어 있을 때만), 블로그 메인은 비어 있는 문구만 채운다.
 // 운영 DB 에는 절대 실행하지 않는다 (NODE_ENV=production 이면 404).
 import { getPayload, type Payload } from "payload";
@@ -8,7 +8,8 @@ import config from "@payload-config";
 import { clinic, categories, doctors, popularKeywords } from "@/lib/mock";
 import * as homeDefaults from "@/lib/homeDefaults";
 import * as clinicDefaults from "@/lib/clinicDefaults";
-import { samplePost, SAMPLE_POST_SLUG } from "@/lib/samplePost";
+import { samplePost } from "@/lib/samplePost";
+import { articles, type Article } from "@/lib/articles";
 import path from "path";
 import fs from "fs/promises";
 
@@ -36,37 +37,55 @@ async function stockMediaId(payload: Payload, context: Record<string, unknown>, 
 const ADMIN_EMAIL = process.env.SEED_ADMIN_EMAIL || "admin@pureun-eye.kr";
 const ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD || "pureun1234!";
 
-// 본보기 글(lib/samplePost.ts)을 넣거나 갱신한다. 카테고리·의료진이 있어야 하므로 콘텐츠 시드 뒤에 부른다.
-async function upsertSamplePost(payload: Payload, context: Record<string, unknown>): Promise<string> {
+// 글 한 편을 넣거나 갱신한다 (lib/articles.ts 4편 + 본보기 글). slug 로 찾아 있으면 내용만 덮어쓰고(사진·조회수·발행일 유지), 없으면 새로 만든다.
+// 사진(썸네일·상단 슬라이드)은 비어 있을 때만 public/images/stock 의 스톡 사진으로 채운다. 관련 글은 모든 글의 id 가 정해진 뒤 2차로 넣는다.
+async function upsertPost(payload: Payload, context: Record<string, unknown>, a: Article, order: number): Promise<{ id: number; log: string }> {
   const [cat, doc] = await Promise.all([
-    payload.find({ collection: "categories", where: { slug: { equals: samplePost.categorySlug } }, limit: 1, depth: 0 }),
-    payload.find({ collection: "doctors", where: { slug: { equals: samplePost.authorSlug } }, limit: 1, depth: 0 }),
+    payload.find({ collection: "categories", where: { slug: { equals: a.categorySlug } }, limit: 1, depth: 0 }),
+    payload.find({ collection: "doctors", where: { slug: { equals: a.authorSlug } }, limit: 1, depth: 0 }),
   ]);
   const category = cat.docs[0]?.id;
   const author = doc.docs[0]?.id;
-  if (!category || !author) return "본보기 글 건너뜀 (카테고리/의료진 없음)";
+  if (!category || !author) throw new Error(`${a.slug}: 카테고리(${a.categorySlug}) 또는 의료진(${a.authorSlug}) 없음`);
 
   const data = {
     _status: "published" as const,
-    title: samplePost.title,
-    slug: samplePost.slug,
+    title: a.title,
+    slug: a.slug,
     category,
     author,
-    summary: samplePost.summary,
-    keyPoints: samplePost.keyPoints.map((text) => ({ text })),
-    content: samplePost.content as never,
-    faq: samplePost.faq,
-    sources: samplePost.sources,
-    tags: samplePost.tags.map((tag) => ({ tag })),
+    summary: a.summary,
+    keyPoints: a.keyPoints.map((text) => ({ text })),
+    content: a.content as never,
+    faq: a.faq,
+    sources: a.sources,
+    tags: a.tags.map((tag) => ({ tag })),
   };
-  const existing = (await payload.find({ collection: "posts", where: { slug: { equals: SAMPLE_POST_SLUG } }, limit: 1, depth: 0 })).docs[0];
+  const existing = (await payload.find({ collection: "posts", where: { slug: { equals: a.slug } }, limit: 1, depth: 0 })).docs[0];
+
+  // 스톡 사진: 비어 있을 때만 (이미지 문서가 지워져 image 가 빈 슬라이드 행은 없는 것으로 친다)
+  const thumbnail = existing?.thumbnail ? undefined : await stockMediaId(payload, context, a.thumbnail, a.title);
+  const hasImages = (existing?.images ?? []).some((i) => i.image);
+  const imageIds = hasImages ? [] : (await Promise.all(a.images.map((file) => stockMediaId(payload, context, file, a.title)))).filter((id): id is number => id !== null);
+  const photos = { ...(thumbnail ? { thumbnail } : {}), ...(imageIds.length ? { images: imageIds.map((image) => ({ image })) } : {}) };
+
   if (existing) {
-    await payload.update({ collection: "posts", id: existing.id, context, draft: false, data });
-    return `본보기 글 갱신: /blog/${samplePost.categorySlug}/${SAMPLE_POST_SLUG}`;
+    await payload.update({ collection: "posts", id: existing.id, context, draft: false, data: { ...data, ...photos } });
+    return { id: existing.id, log: `갱신 /blog/${a.categorySlug}/${a.slug}` };
   }
-  await payload.create({ collection: "posts", context, draft: false, data: { ...data, publishedAt: new Date().toISOString(), views: 0 } });
-  return `본보기 글 생성: /blog/${samplePost.categorySlug}/${SAMPLE_POST_SLUG}`;
+  const publishedAt = new Date(Date.now() - order * 86400000).toISOString(); // 하루씩 간격을 둔 발행일
+  const created = await payload.create({ collection: "posts", context, draft: false, data: { ...data, ...photos, publishedAt, views: a.views } });
+  return { id: created.id, log: `생성 /blog/${a.categorySlug}/${a.slug}` };
 }
+
+// 본보기 글(lib/samplePost.ts)도 같은 모양으로. 사진은 스톡, 관련 글은 망막·백내장 글
+const sampleArticle: Article = {
+  ...samplePost,
+  related: ["floaters-when-to-worry-retinal-detachment", "cataract-surgery-timing-and-iol"],
+  thumbnail: "senior-couple-2.webp",
+  images: ["exam-slitlamp.webp", "eye-warm.webp"],
+  views: 120,
+};
 
 // GET /api/dev-seed?reset=home → 블로그 메인 문구(히어로·소개·장점·FAQ)를 lib/homeDefaults.ts 기본값으로 되돌린다 (배너 이미지·관리자 수정값 무시)
 export async function GET(req: Request): Promise<Response> {
@@ -181,8 +200,19 @@ export async function GET(req: Request): Promise<Response> {
   }
   log.push(`카테고리 ${categories.length}개 (새로 만든 것 ${newCategories}), 의료진 ${doctors.length}명 (새로 만든 것 ${newDoctors})`);
 
-  // 5) 본보기 글 (모든 본문 블록을 한 번씩 쓴 글. 관리자가 "이렇게 쓰면 된다"는 예시로 본다)
-  log.push(await upsertSamplePost(payload, context));
+  // 5) 글: 주제별 4편 + 본보기 글 (스톡 사진 연결 포함). 관련 글은 id 가 모두 정해진 뒤 2차로 연결
+  const all = [...articles, sampleArticle];
+  const postIds = new Map<string, number>();
+  for (const [i, a] of all.entries()) {
+    const r = await upsertPost(payload, context, a, i + 1);
+    postIds.set(a.slug, r.id);
+    log.push(`글 ${r.log}`);
+  }
+  for (const a of all) {
+    const related = a.related.map((slug) => postIds.get(slug)).filter((id): id is number => id !== undefined);
+    await payload.update({ collection: "posts", id: postIds.get(a.slug)!, context, draft: false, data: { related } });
+  }
+  log.push("관련 글 연결");
 
   return new Response(log.join("\n"));
 }
