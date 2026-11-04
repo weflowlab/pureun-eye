@@ -65,6 +65,7 @@ export type TrafficStats = {
   adKeywords: [string, number][]; // 광고 키워드별 방문
   clicks: [string, number][]; // 상담 버튼 클릭
   daily: { day: string; label: string; sessions: number }[]; // 최근 14일 방문 추이 (기간과 무관)
+  hourly: number[]; // 선택 기간 안에서 방문이 시작된 시각(0~23시, 한국시간)별 방문 수
   devices: [string, number][];
 };
 
@@ -93,8 +94,10 @@ export function computeTrafficStats(all: PageViewRow[], period: PeriodKey, now =
   let durN = 0;
   let mobile = 0;
   let bounced = 0;
+  const hourly = Array<number>(24).fill(0);
   for (const s of sessions) {
     const entry = s[0];
+    hourly[new Date(new Date(entry.createdAt).getTime() + KST).getUTCHours()]++;
     inc(exits, s[s.length - 1].path);
     if (s.length === 1) bounced++;
     const paid = s.filter((v) => v.medium === "cpc" || v.medium === "paid");
@@ -165,6 +168,7 @@ export function computeTrafficStats(all: PageViewRow[], period: PeriodKey, now =
     adKeywords: sorted(adKeywords),
     clicks: sorted(clicks),
     daily,
+    hourly,
     devices: sorted(devices),
   };
 }

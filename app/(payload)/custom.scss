@@ -86,6 +86,8 @@ button {
 /* "통계" 글자 위 간격 = 글자와 카드 사이 간격(var(--base)). 앞 위젯 아래 여백 6px 이 이미 있으므로 그만큼 뺀다 */
 .dashboard-stats-widget {
   padding-top: calc(var(--base) - 6px) !important;
+  /* 대시보드 맨 아래 묶음이라 화면 끝에 붙지 않게 아래 여백 */
+  padding-bottom: calc(var(--base) * 2) !important;
 }
 @media (max-width: 768px) {
   /* 모바일 대시보드: 위아래 숨 쉴 여백 */
@@ -453,6 +455,38 @@ button {
   font-size: 11px;
   color: var(--theme-elevation-500);
 }
+/* 시간대별 차트: 24칸 막대, 6시간마다 라벨 */
+.traffic__hourly {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  gap: 3px;
+  height: 120px;
+  align-items: end;
+}
+.traffic__hour {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+.traffic__hour-bar {
+  width: 100%;
+  border-radius: 3px 3px 1px 1px;
+  background: #152c6b;
+  opacity: 0.85;
+}
+.traffic__hour-label {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--theme-elevation-500);
+  white-space: nowrap;
+}
+.traffic__hourly { margin-bottom: 20px; }
+
 /* 날짜별 차트 가로 스크롤 래퍼. direction: rtl 로 처음부터 오른쪽(최근) 끝이 보이게 하고, 안쪽은 다시 ltr */
 .traffic__daily-scroll {
   max-width: 100%;

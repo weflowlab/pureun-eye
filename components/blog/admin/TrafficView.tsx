@@ -6,7 +6,7 @@ import { DefaultTemplate } from "@payloadcms/next/templates";
 import { Gutter } from "@payloadcms/ui";
 import { redirect } from "next/navigation";
 import { computeTrafficStats, PERIODS, type PageViewRow, type PeriodKey } from "@/lib/trafficStats";
-import { CLICK_LABEL, DEVICE_LABEL, SOURCE_LABEL } from "@/lib/tracking";
+import { DEVICE_LABEL, SOURCE_LABEL } from "@/lib/tracking";
 import { MENU, pageHref } from "@/lib/site";
 import { TrafficStepNav } from "./TrafficStepNav";
 import {
@@ -19,7 +19,6 @@ import {
   IconDeviceMobile,
   IconArticle,
   IconSearch,
-  IconPhoneCall,
   IconLogout,
   IconFileSearch,
   IconTrendingUp,
@@ -203,7 +202,7 @@ export async function TrafficView({ initPageResult, params, searchParams }: Admi
   // "많이 본 페이지" 대상: 블로그 탭은 글만, 홈페이지 탭은 모든 페이지, 전체는 글 + 홈페이지 페이지
   const isCountedPage = (path: string) => (scope === "blog" ? postPaths.has(path) : scope === "site" ? true : postPaths.has(path) || !isBlogPath(path));
   const stats = computeTrafficStats(rows, period, now, isCountedPage);
-  const pageWord = scope === "blog" ? "글" : "페이지";
+  const maxHourly = Math.max(1, ...stats.hourly);
   const maxDaily = Math.max(1, ...stats.daily.map((d) => d.sessions));
   const topSource = stats.sources[0];
 
@@ -318,10 +317,10 @@ export async function TrafficView({ initPageResult, params, searchParams }: Admi
         </Card>
 
         <div className="traffic__grid">
-          <Card icon={IconArticle} title={`많이 본 ${pageWord}`} desc={`고객들이 가장 많이 본 ${pageWord} (상위 10개)`}>
+          {scope !== "site" && (
+          <Card icon={IconArticle} title="많이 본 글" desc="고객들이 가장 많이 읽은 글 (상위 10편)">
             <Bars rows={stats.topPaths} labelOf={nameOf} />
-            {/* 전체 글: 0회인 글까지 조회수 순으로 (홈페이지 탭에서는 글 목록이 의미 없어 숨김) */}
-            {scope !== "site" && (
+            {/* 전체 글: 0회인 글까지 조회수 순으로 */}
             <details className="traffic__all">
               <summary>전체 글 보기 ({postPaths.size}편)</summary>
               <ol>
@@ -336,23 +335,36 @@ export async function TrafficView({ initPageResult, params, searchParams }: Admi
                   ))}
               </ol>
             </details>
-            )}
           </Card>
-          <Card icon={IconFileSearch} title={`방문자가 첫 번째로 연 ${pageWord}`} desc={`네이버·구글 검색으로 들어온 고객이 처음 연 ${pageWord}`}>
-            {stats.landingBySearch.length === 0 && <p className="traffic__empty">데이터 없음</p>}
-            {stats.landingBySearch.map(({ source, rows }) => (
-              <div key={source} className="traffic__sub">
-                <h3>{SOURCE_LABEL[source] ?? source}</h3>
-                <Bars rows={rows} labelOf={nameOf} unit="명" limit={10} />
+          )}
+          {scope !== "blog" && (
+            <Card icon={IconClock} title="언제 많이 오나요?" desc="하루 중 방문이 몰리는 시간대 (0~23시)">
+              <div className="traffic__hourly">
+                {stats.hourly.map((n, h) => (
+                  <div key={h} className="traffic__hour" title={`${h}시 · ${n}명`}>
+                    <span className="traffic__hour-bar" style={{ height: `${Math.max(2, (n / maxHourly) * 100)}%` }} />
+                    {h % 6 === 0 && <span className="traffic__hour-label">{h}시</span>}
+                  </div>
+                ))}
               </div>
-            ))}
-          </Card>
-          <Card icon={IconSearch} title="무엇을 검색했나요?" desc="방문자가 웹블로그 검색창에 친 단어입니다">
-            <Bars rows={stats.queries} limit={10} />
-          </Card>
-          <Card icon={IconPhoneCall} title="상담으로 이어졌나요?" desc="전화·카카오채널·상담 신청 버튼을 누른 횟수">
-            <Bars rows={stats.clicks} labelOf={(k) => CLICK_LABEL[k] ?? k} />
-          </Card>
+            </Card>
+          )}
+          {scope !== "site" && (
+            <Card icon={IconFileSearch} title="방문자가 첫 번째로 연 글" desc="네이버·구글 검색으로 들어온 고객이 처음 연 글">
+              {stats.landingBySearch.length === 0 && <p className="traffic__empty">데이터 없음</p>}
+              {stats.landingBySearch.map(({ source, rows }) => (
+                <div key={source} className="traffic__sub">
+                  <h3>{SOURCE_LABEL[source] ?? source}</h3>
+                  <Bars rows={rows} labelOf={nameOf} unit="명" limit={10} />
+                </div>
+              ))}
+            </Card>
+          )}
+          {scope !== "site" && (
+            <Card icon={IconSearch} title="무엇을 검색했나요?" desc="방문자가 웹블로그 검색창에 친 단어입니다">
+              <Bars rows={stats.queries} limit={10} />
+            </Card>
+          )}
           <Card icon={IconLogout} title="어느 페이지에서 나갔나요?" desc="고객이 마지막으로 보고 떠난 페이지">
             <Bars rows={stats.exitPages} labelOf={nameOf} unit="명" limit={10} />
           </Card>
