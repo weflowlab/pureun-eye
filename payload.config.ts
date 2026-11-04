@@ -106,10 +106,10 @@ export default buildConfig({
   db: process.env.DATABASE_URI?.startsWith("postgres")
     ? postgresAdapter({
         pool: { connectionString: process.env.DATABASE_URI },
-        // 운영(production)에서는 개발처럼 스키마를 자동으로 밀어 넣지 않는다. migrations/ 의 마이그레이션을 기동 때 실행해 테이블을 만든다.
+        // 운영(production)에서는 개발처럼 스키마를 자동으로 밀어 넣지 않는다. migrations/ 의 마이그레이션을 기동 때(onInit, 아래) 실행해 테이블을 만든다.
         // 스키마(collections/globals)를 바꾸면: 개발 서버를 Postgres 로 띄운 뒤 `npm run payload:migrate-create` 로 새 마이그레이션을 만들어 함께 커밋한다 (README 참고).
+        // (prodMigrations 옵션 대신 onInit 에서 직접 돌린다: Next 빌드가 워커 여러 개로 Payload 를 동시에 띄우면 같은 마이그레이션이 동시에 실행돼 한쪽이 실패하므로 Postgres 잠금으로 줄 세운다)
         migrationDir: path.resolve(dirname, "migrations"),
-        prodMigrations: migrations,
       })
     : sqliteAdapter({
         client: { url: process.env.DATABASE_URI || "file:./payload.db", authToken: process.env.DATABASE_AUTH_TOKEN },
@@ -127,6 +127,19 @@ export default buildConfig({
       ]
     : [],
   sharp,
+  // 운영 마이그레이션: Postgres 조언 잠금(advisory lock)으로 한 번에 한 프로세스만 실행. 이미 적용된 것은 Payload 가 건너뛴다.
+  onInit: async (payload) => {
+    if (process.env.NODE_ENV !== "production" || !process.env.DATABASE_URI?.startsWith("postgres")) return;
+    const db = payload.db as unknown as { pool: { connect: () => Promise<{ query: (q: string) => Promise<unknown>; release: () => void }> } };
+    const client = await db.pool.connect();
+    try {
+      await client.query("select pg_advisory_lock(727001)"); // 다른 워커가 돌리는 중이면 끝날 때까지 기다린다
+      await payload.db.migrate({ migrations: migrations as never });
+    } finally {
+      await client.query("select pg_advisory_unlock(727001)");
+      client.release();
+    }
+  },
   // 프론트/미리보기에서 쓰는 공개 URL
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
 });
