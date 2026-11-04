@@ -85,6 +85,9 @@ export default buildConfig({
           aboutToDeleteCount_many: "{{label}} {{count}}개를 삭제하려고 합니다.",
           aboutToDeleteCount_other: "{{label}} {{count}}개를 삭제하려고 합니다.",
           deletedCountSuccessfully: "{{label}} {{count}}개를 삭제했습니다.",
+          // 체크박스 값 표시 (목록 칸·필터). 기본 번역 "참/거짓" 은 어색하다
+          true: "켜짐",
+          false: "꺼짐",
         },
       },
     },
