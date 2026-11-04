@@ -1,17 +1,11 @@
-"use client";
+import Link from "next/link";
+import type { ReactNode } from "react";
 
-import { useState, type ReactNode } from "react";
-import ReservationModal from "@/components/layout/ReservationModal";
-
-/** 상담 신청 모달 열기 버튼 (퀵메뉴와 같은 모달 사용) */
+/** 상담 신청 버튼: 상담 신청 페이지(/contact/online)로 이동 (푸터 상담 띠·자주묻는질문 하단. 퀵메뉴와 같은 동작) */
 export default function ConsultButton({ className, children }: { className?: string; children: ReactNode }) {
-  const [open, setOpen] = useState(false);
   return (
-    <>
-      <button type="button" className={className} onClick={() => setOpen(true)}>
-        {children}
-      </button>
-      <ReservationModal isOpen={open} onClose={() => setOpen(false)} />
-    </>
+    <Link href="/contact/online" className={className}>
+      {children}
+    </Link>
   );
 }
