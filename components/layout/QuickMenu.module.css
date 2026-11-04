@@ -201,6 +201,10 @@
   .side {
     top: 50svh;
   }
+  /* 블로그(/blog)는 모바일 하단 고정 바(56px)가 있어 그 위로 올린다 */
+  :global(body:has(.blog-root)) .topBtn {
+    bottom: calc(56px + 16px + env(safe-area-inset-bottom));
+  }
   .topBtn {
     right: 12px;
     bottom: 16px;
