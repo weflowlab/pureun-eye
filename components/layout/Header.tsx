@@ -44,7 +44,7 @@ function HeaderView({ pathname }: { pathname: string | null }) {
 
           {/* PC 메뉴 (1210px 이하 숨김): 대메뉴 아래 하위메뉴 드롭다운 */}
           <nav className={styles.headerList} onMouseEnter={() => setDropOpen(true)}>
-            {MENU.filter((g) => !g.hideInHeader).map((g) => {
+            {MENU.filter((g) => !g.hideInMenus).map((g) => {
               const active = !!pathname && pathname.startsWith(`/${g.slug}/`);
               return (
                 <div key={g.slug} className={styles.gnbItem}>

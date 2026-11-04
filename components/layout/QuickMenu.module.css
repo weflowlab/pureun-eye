@@ -197,6 +197,10 @@
   .item {
     padding: 6px 0;
   }
+  /* 세로 위치를 작은 화면 높이(svh) 기준으로 고정: iOS 사파리 주소창이 접히며 화면 높이가 바뀌어도 탭이 움직이지 않는다 */
+  .side {
+    top: 50svh;
+  }
   .topBtn {
     right: 12px;
     bottom: 16px;

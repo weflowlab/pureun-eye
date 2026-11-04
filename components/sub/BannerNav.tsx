@@ -43,7 +43,7 @@ export default function BannerNav({ groupSlug, pageSlug }: Props) {
         </button>
         {open === "group" && (
           <ul className={styles.dropList}>
-            {MENU.map((g) => (
+            {MENU.filter((g) => !g.hideInMenus).map((g) => (
               <li key={g.slug}>
                 <Link href={groupHref(g)} className={g.slug === groupSlug ? styles.on : ""} onClick={() => setOpen(null)}>
                   {g.label}

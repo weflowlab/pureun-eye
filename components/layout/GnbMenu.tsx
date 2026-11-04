@@ -96,7 +96,7 @@ export default function GnbMenu({ open, onClose, anchorRef }: Props) {
             </div>
             {/* 메뉴 목록: 대메뉴 + 하위메뉴 (모바일은 대메뉴 눌러 펼침) */}
             <ul className={styles.dep}>
-              {MENU.map((g) => (
+              {MENU.filter((g) => !g.hideInMenus).map((g) => (
                 <li key={g.slug} className={expanded === g.slug ? styles.expanded : ""}>
                   <h3>
                     <button

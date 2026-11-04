@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -24,7 +24,10 @@ export default function PreCareSection() {
   const trackRef = useRef<HTMLUListElement>(null);
 
   // PC: 섹션을 고정한 채 세로 스크롤만큼 카드 트랙을 가로로 이동
-  useEffect(() => {
+  // useLayoutEffect 인 이유: pin 은 섹션을 pin-spacer 래퍼 안으로 옮긴다. 페이지를 벗어날 때 React 는 passive(useEffect) 정리보다
+  // 먼저 DOM 을 떼어내므로 useEffect 로 되돌리면 "removeChild: 자식이 아닌 노드" 오류가 나고 Next 가 강제 새로고침을 건다.
+  // layout 정리는 DOM 제거 전에 돌아 래퍼가 먼저 풀린다.
+  useLayoutEffect(() => {
     const mm = gsap.matchMedia();
     mm.add("(min-width: 1025px)", () => {
       const track = trackRef.current;
